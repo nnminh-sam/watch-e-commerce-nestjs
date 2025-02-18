@@ -1,7 +1,11 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateBrandDto {
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   name: string;
+
+  @IsString()
+  @IsOptional()
+  slug: string;
 }

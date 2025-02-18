@@ -8,6 +8,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateBrandDto } from '@root/brand/dto/create-brand.dto';
 import { UpdateBrandDto } from '@root/brand/dto/update-brand.dto';
 import { Brand, BrandDocument } from '@root/brand/entities/brand.model';
+import { generateSlug } from '@root/utils';
 import { Model } from 'mongoose';
 
 @Injectable()
@@ -21,9 +22,15 @@ export class BrandService {
 
   async create(createBrandDto: CreateBrandDto) {
     try {
-      const brandModel = new this.brandModel(createBrandDto);
+      const brandSlug: string = createBrandDto.slug
+        ? createBrandDto.slug
+        : generateSlug(createBrandDto.name);
+      const brandModel = new this.brandModel({
+        ...createBrandDto,
+        slug: brandSlug,
+      });
       const brandDocument = await brandModel.save();
-      return (await brandDocument).toJSON();
+      return brandDocument.toJSON();
     } catch (error: any) {
       this.logger.error(error.message);
       throw new BadRequestException('Cannot create new brand');

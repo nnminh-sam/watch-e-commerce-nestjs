@@ -8,6 +8,9 @@ export class Brand {
   @Prop({ required: true, unique: true })
   name: string;
 
+  @Prop({ required: true, unique: false })
+  slug: string;
+
   @Prop({ default: null })
   deletedAt: Date;
 }
