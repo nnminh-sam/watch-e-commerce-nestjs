@@ -27,7 +27,7 @@
     "strictNullChecks": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
+    "strictPropertyInitialization": false,
     "moduleResolution": "node",
     "resolveJsonModule": true
   }
