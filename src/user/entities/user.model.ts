@@ -41,7 +41,10 @@ export class User {
   @Prop({ required: true, default: Role.CUSTOMER })
   role: Role;
 
-  @Prop()
+  @Prop({
+    type: DeliveryInformationSchema,
+    default: [],
+  })
   deliveryAddress: DeliveryInformation[];
 
   @Prop({ default: true })
@@ -64,10 +67,6 @@ export const UserModelRegistration = MongooseModule.forFeature([
   {
     name: User.name,
     schema: UserSchema,
-  },
-  {
-    name: DeliveryInformation.name,
-    schema: DeliveryInformationSchema,
   },
 ]);
 
