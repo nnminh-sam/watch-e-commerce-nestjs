@@ -1,7 +1,20 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 
-@Schema()
+export type DeliveryInformationDocument = DeliveryInformation & Document;
+
+@Schema({
+  timestamps: true,
+  collection: 'delivery-information',
+  id: true,
+})
 export class DeliveryInformation {
+  @Prop({
+    type: MongooseSchema.Types.ObjectId,
+    auto: true,
+  })
+  id: string;
+
   @Prop({ required: true })
   fullName: string;
 
@@ -23,3 +36,16 @@ export class DeliveryInformation {
   @Prop({ default: false })
   isDefault: boolean;
 }
+
+const DeliveryInformationSchema =
+  SchemaFactory.createForClass(DeliveryInformation);
+
+DeliveryInformationSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (_, ret) {
+    delete ret._id;
+  },
+});
+
+export { DeliveryInformationSchema };

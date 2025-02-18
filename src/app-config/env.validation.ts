@@ -4,7 +4,6 @@ import {
   IsNumber,
   IsOptional,
   IsString,
-  // IsUrl,
   validateSync,
 } from 'class-validator';
 
@@ -22,7 +21,6 @@ class EnvironmentVariable {
   PORT: number = 3000;
 
   @IsString()
-  // @IsUrl()
   @IsOptional()
   DATABASE_URL?: string;
 
