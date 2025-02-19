@@ -2,7 +2,7 @@ import {
   DeliveryInformation,
   DeliveryInformationSchema,
 } from './delivery-information.model';
-import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Gender } from '@root/user/entities/gender.enum';
 import { Role } from '@root/user/entities/role.enum';
@@ -62,12 +62,5 @@ UserSchema.set('toJSON', {
     return ret;
   },
 });
-
-export const UserModelRegistration = MongooseModule.forFeature([
-  {
-    name: User.name,
-    schema: UserSchema,
-  },
-]);
 
 export { UserSchema };

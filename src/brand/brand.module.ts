@@ -1,10 +1,18 @@
 import { Module } from '@nestjs/common';
 import { BrandService } from './brand.service';
 import { BrandController } from './brand.controller';
-import { BrandModuleRegistration } from '@root/brand/entities/brand.model';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Brand, BrandSchema } from '@root/brand/entities/brand.model';
 
 @Module({
-  imports: [BrandModuleRegistration],
+  imports: [
+    MongooseModule.forFeature([
+      {
+        name: Brand.name,
+        schema: BrandSchema,
+      },
+    ]),
+  ],
   controllers: [BrandController],
   providers: [BrandService],
 })

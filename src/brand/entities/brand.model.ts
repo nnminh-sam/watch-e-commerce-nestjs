@@ -1,4 +1,4 @@
-import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export type BrandDocument = Brand & Document;
@@ -25,12 +25,5 @@ BrandSchema.set('toJSON', {
     return ret;
   },
 });
-
-export const BrandModuleRegistration = MongooseModule.forFeature([
-  {
-    name: Brand.name,
-    schema: BrandSchema,
-  },
-]);
 
 export { BrandSchema };
