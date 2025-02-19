@@ -17,4 +17,13 @@ export class UserComment {
 
 const UserCommentSchema = SchemaFactory.createForClass(UserComment);
 
+UserCommentSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: (_, ret) => {
+    delete ret._id;
+    return ret;
+  },
+});
+
 export { UserCommentSchema };
