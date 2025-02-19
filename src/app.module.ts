@@ -8,6 +8,7 @@ import { AppConfigService } from '@root/app-config/app-config.service';
 import { ProductModule } from './product/product.module';
 import { BrandModule } from './brand/brand.module';
 import { CategoryModule } from './category/category.module';
+import { RoleGuardProviderConfig } from '@root/guards/role.guard';
 
 @Module({
   imports: [
@@ -25,6 +26,6 @@ import { CategoryModule } from './category/category.module';
     CategoryModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RoleGuardProviderConfig],
 })
 export class AppModule {}
