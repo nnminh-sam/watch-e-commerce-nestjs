@@ -21,6 +21,7 @@ export class ProductService {
         customerVisible: true,
       });
       const savedProductDocument = await productModel.save();
+      await savedProductDocument.populate('category brand');
       return savedProductDocument.toJSON();
     } catch (error: any) {
       this.logger.error(error.message);
@@ -29,9 +30,11 @@ export class ProductService {
   }
 
   async findOne(id: string) {
-    const product = await this.productModel.findOne({
-      _id: id,
-    });
+    const product = await this.productModel
+      .findOne({
+        _id: id,
+      })
+      .populate('category brand');
 
     if (!product) {
       throw new BadRequestException('Product not found');
@@ -42,11 +45,9 @@ export class ProductService {
 
   async update(id: string, updateProductDto: UpdateProductDto) {
     try {
-      const updatedProduct = await this.productModel.findOneAndUpdate(
-        { _id: id },
-        updateProductDto,
-        { new: true },
-      );
+      const updatedProduct = await this.productModel
+        .findOneAndUpdate({ _id: id }, updateProductDto, { new: true })
+        .populate('category brand');
 
       if (!updatedProduct) {
         throw new BadRequestException('Product not found');
