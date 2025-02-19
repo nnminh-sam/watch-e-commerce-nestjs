@@ -2,6 +2,7 @@ import {
   IsArray,
   IsBoolean,
   IsEnum,
+  IsMongoId,
   IsNumber,
   IsOptional,
   IsString,
@@ -23,6 +24,18 @@ export class CreateProductDto {
   @IsNumber()
   @Min(0)
   price: number;
+
+  @IsMongoId()
+  @IsString()
+  brand: string;
+
+  @IsMongoId()
+  @IsString()
+  category: string;
+
+  @IsNumber()
+  @Min(0)
+  stock: number;
 
   @IsNumber()
   @Min(0)

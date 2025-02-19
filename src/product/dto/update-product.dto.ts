@@ -2,6 +2,7 @@ import {
   IsArray,
   IsBoolean,
   IsEnum,
+  IsMongoId,
   IsNumber,
   IsOptional,
   IsString,
@@ -22,6 +23,18 @@ export class UpdateProductDto {
   @IsString()
   @IsOptional()
   description?: string;
+
+  @IsMongoId()
+  @IsString()
+  brand: string;
+
+  @IsMongoId()
+  @IsString()
+  category: string;
+
+  @IsNumber()
+  @Min(0)
+  stock: number;
 
   @IsNumber()
   @Min(0)

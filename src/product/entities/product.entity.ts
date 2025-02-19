@@ -37,6 +37,9 @@ export class Product {
   category: string;
 
   @Prop({ default: 0 })
+  stock: number;
+
+  @Prop({ default: 0 })
   sold: number;
 
   @Prop({ default: [] })
