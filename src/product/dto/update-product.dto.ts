@@ -1,4 +1,46 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateProductDto } from './create-product.dto';
+import {
+  IsArray,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Min,
+} from 'class-validator';
+import { ProductStatus } from '@root/product/entities/product-status.enum';
+import { Spec } from '@root/product/entities/spec.model';
 
-export class UpdateProductDto extends PartialType(CreateProductDto) {}
+export class UpdateProductDto {
+  @IsString()
+  @IsOptional()
+  name?: string;
+
+  @IsString()
+  @IsOptional()
+  code?: string;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsNumber()
+  @Min(0)
+  @IsOptional()
+  price?: number;
+
+  @IsNumber()
+  @Min(0)
+  @IsOptional()
+  sold?: number;
+
+  @IsArray()
+  @IsOptional()
+  assets?: string[];
+
+  @IsArray()
+  @IsOptional()
+  spec?: Spec[];
+
+  @IsEnum(ProductStatus)
+  @IsOptional()
+  status?: ProductStatus;
+}

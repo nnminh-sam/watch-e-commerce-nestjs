@@ -28,14 +28,17 @@ export class Product {
   @Prop({ type: SpecSchema, default: [] })
   spec: Spec[];
 
+  @Prop({ type: String, enum: ProductStatus, default: ProductStatus.AVAILABLE })
+  status: ProductStatus;
+
+  @Prop({ default: true })
+  customerVisible: boolean;
+
   @Prop({ type: CommentSchema, default: [] })
   comments: Comment[];
 
   @Prop({ default: 0 })
   totalComments: number;
-
-  @Prop({ type: String, enum: ProductStatus, default: ProductStatus.AVAILABLE })
-  status: ProductStatus;
 }
 
 const ProductSchema = SchemaFactory.createForClass(Product);
