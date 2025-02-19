@@ -11,6 +11,12 @@ export class Brand {
   @Prop({ required: true, unique: false })
   slug: string;
 
+  @Prop()
+  description: string;
+
+  @Prop({ default: [] })
+  assets: string[];
+
   @Prop({ default: null })
   deletedAt: Date;
 }

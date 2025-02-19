@@ -8,4 +8,12 @@ export class UpdateBrandDto {
   @IsString()
   @IsOptional()
   slug: string;
+
+  @IsString()
+  @IsOptional()
+  description: string;
+
+  @IsString({ each: true })
+  @IsOptional()
+  assets: string[];
 }

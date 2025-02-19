@@ -13,6 +13,7 @@ export class UpdateCategoryDto {
   @IsOptional()
   slug: string;
 
+  @IsString({ each: true })
   @IsOptional()
   assets: string[];
 

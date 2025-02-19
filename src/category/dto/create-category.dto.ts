@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateCategoryDto {
   @IsString()
@@ -13,9 +13,11 @@ export class CreateCategoryDto {
   @IsOptional()
   slug: string;
 
+  @IsString({ each: true })
   @IsOptional()
   assets: string[];
 
+  @IsBoolean()
   @IsOptional()
   isFeatured: boolean;
 }
