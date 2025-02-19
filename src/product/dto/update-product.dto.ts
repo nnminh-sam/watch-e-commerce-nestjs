@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsEnum,
   IsNumber,
   IsOptional,
@@ -43,4 +44,8 @@ export class UpdateProductDto {
   @IsEnum(ProductStatus)
   @IsOptional()
   status?: ProductStatus;
+
+  @IsBoolean()
+  @IsOptional()
+  customerVisible?: boolean;
 }

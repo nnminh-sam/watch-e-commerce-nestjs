@@ -58,23 +58,4 @@ export class ProductService {
       throw new BadRequestException('Cannot update product');
     }
   }
-
-  async changeCustomerVisibility(id: string) {
-    try {
-      const product = await this.productModel.findOneAndUpdate(
-        { _id: id },
-        { $set: { customerVisible: false } },
-        { new: true },
-      );
-
-      if (!product) {
-        throw new BadRequestException('Product not found');
-      }
-
-      return product.toJSON();
-    } catch (error: any) {
-      this.logger.error(error.message);
-      throw new BadRequestException('Cannot delete product');
-    }
-  }
 }
