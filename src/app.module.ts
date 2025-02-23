@@ -9,6 +9,7 @@ import { ProductModule } from './product/product.module';
 import { BrandModule } from './brand/brand.module';
 import { CategoryModule } from './category/category.module';
 import { RoleGuardProviderConfig } from '@root/guards/role.guard';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { RoleGuardProviderConfig } from '@root/guards/role.guard';
     ProductModule,
     BrandModule,
     CategoryModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, RoleGuardProviderConfig],

@@ -42,7 +42,7 @@ export class User {
   role: Role;
 
   @Prop({
-    type: DeliveryInformationSchema,
+    type: [DeliveryInformationSchema],
     default: [],
   })
   deliveryAddress: DeliveryInformation[];

@@ -21,6 +21,9 @@ class EnvironmentVariable {
   PORT: number = 3000;
 
   @IsString()
+  JWT_SECRET: string;
+
+  @IsString()
   @IsOptional()
   DATABASE_URL?: string;
 

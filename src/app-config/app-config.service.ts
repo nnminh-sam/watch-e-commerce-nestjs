@@ -9,6 +9,15 @@ export class AppConfigService {
     return this.configService.get<number>('PORT', 3000);
   }
 
+  get jwtSecret(): string {
+    const data = this.configService.get<string>('JWT_SECRET');
+    if (data) {
+      return data;
+    } else {
+      throw new Error('JWT_SECRET is not defined');
+    }
+  }
+
   get databaseUrl(): string {
     const data = this.configService.get<string>('DATABASE_URL');
     if (data) {
