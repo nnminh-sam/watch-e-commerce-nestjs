@@ -16,7 +16,7 @@ export class UserService {
     private readonly userModel: Model<User>,
   ) {}
 
-  private async checkUserAvailabilityByEmail(email: string): Promise<boolean> {
+  private async getUserAvailabilityByEmail(email: string): Promise<boolean> {
     const user = await this.userModel.findOne({ email });
     return user ? true : false;
   }
@@ -26,7 +26,7 @@ export class UserService {
   }
 
   async create(userRegistrationDto: UserRegistrationDto) {
-    const isEmailTaken = await this.checkUserAvailabilityByEmail(
+    const isEmailTaken = await this.getUserAvailabilityByEmail(
       userRegistrationDto.email,
     );
     if (isEmailTaken) {
@@ -36,8 +36,8 @@ export class UserService {
     try {
       const user = new this.userModel({
         ...userRegistrationDto,
-        deliveryAddress: [],
         password: await this.hashPassword(userRegistrationDto.password),
+        deliveryAddress: [],
       });
       const createdUser = await user.save();
       return createdUser.toJSON();
@@ -47,15 +47,15 @@ export class UserService {
     }
   }
 
-  async retrieveUserCredentialsByEmail(
-    email: string,
-  ): Promise<UserCredentialsDto> {
+  async getUserCredentialsByEmail(email: string): Promise<UserCredentialsDto> {
     const user = await this.userModel
       .findOne({ email })
       .select('+password +email +id +role');
+
     if (!user) {
       throw new BadRequestException('User not found');
     }
+
     return {
       id: user.id,
       email: user.email,

@@ -14,7 +14,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  private checkTokenExpiration(exp: number): boolean {
+  private isTokenExpired(exp: number): boolean {
     const currentTime = Math.floor(Date.now() / 1000);
     return currentTime > exp;
   }
@@ -29,37 +29,34 @@ export class AuthService {
   async generateTokens(tokenPayload: TokenPayloadDto) {
     const accessToken = this.jwtService.sign({
       ...tokenPayload,
-      expiresIn: '3600s',
+      expiresIn: '1h',
     });
     const refreshToken = this.jwtService.sign({
       ...tokenPayload,
-      expiresIn: '2592000s',
+      expiresIn: '30d',
     });
 
     return { accessToken, refreshToken };
   }
 
   async validateToken(token: string) {
-    const decodedToken = this.jwtService.decode(token) as { exp: number };
-    if (!decodedToken || this.checkTokenExpiration(decodedToken.exp)) {
+    const decodedToken: TokenPayloadDto = this.jwtService.decode(token);
+    if (!decodedToken?.exp || this.isTokenExpired(decodedToken.exp)) {
       throw new BadRequestException('Invalid token');
     }
-
     return true;
   }
 
   async validateUser({ email, password }: UserAuthenticationDto) {
-    const userCredentials =
-      await this.userService.retrieveUserCredentialsByEmail(email);
-    const isPasswordValid = await this.comparePasswords(
+    const credentials = await this.userService.getUserCredentialsByEmail(email);
+    const isValidPassword = await this.comparePasswords(
       password,
-      userCredentials.password,
+      credentials.password,
     );
-    if (!isPasswordValid) {
+    if (!isValidPassword) {
       throw new BadRequestException('Invalid credentials');
     }
-
-    return userCredentials;
+    return credentials;
   }
 
   async login(userAuthenticationDto: UserAuthenticationDto) {
@@ -67,7 +64,7 @@ export class AuthService {
       userAuthenticationDto,
     );
 
-    const tokenPayload = {
+    const tokenPayload: TokenPayloadDto = {
       jti: uuid(),
       sub: validatedUserCredential.id,
       email: validatedUserCredential.email,
@@ -76,9 +73,9 @@ export class AuthService {
     return await this.generateTokens(tokenPayload);
   }
 
-  async registrate(userRegistrationDto: UserRegistrationDto) {
+  async signUp(userRegistrationDto: UserRegistrationDto) {
     const user = await this.userService.create(userRegistrationDto);
-    const tokenPayload = {
+    const tokenPayload: TokenPayloadDto = {
       jti: uuid(),
       sub: user.id,
       email: user.email,

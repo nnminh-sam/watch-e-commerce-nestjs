@@ -16,10 +16,10 @@ export class AuthController {
   }
 
   @Post('sign-up')
-  async register(
+  async signUp(
     @Body()
     userRegistrationDto: UserRegistrationDto,
   ) {
-    return await this.authService.registrate(userRegistrationDto);
+    return await this.authService.signUp(userRegistrationDto);
   }
 }
