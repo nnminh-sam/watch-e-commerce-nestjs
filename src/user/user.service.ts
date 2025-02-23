@@ -1,11 +1,17 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserCredentialsDto } from '@root/auth/dto/user-credential.dto';
 import { UserRegistrationDto } from '@root/auth/dto/user-registration.dto';
 import { Role } from '@root/user/entities/role.enum';
-import { User } from '@root/user/entities/user.model';
+import { User, UserDocument } from '@root/user/entities/user.model';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { UpdateUserDto } from '@root/user/dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -13,7 +19,7 @@ export class UserService {
 
   constructor(
     @InjectModel(User.name)
-    private readonly userModel: Model<User>,
+    private readonly userModel: Model<UserDocument>,
   ) {}
 
   private async getUserAvailabilityByEmail(email: string): Promise<boolean> {
@@ -48,9 +54,15 @@ export class UserService {
   }
 
   async getUserCredentialsByEmail(email: string): Promise<UserCredentialsDto> {
-    const user = await this.userModel
-      .findOne({ email })
-      .select('+password +email +id +role');
+    const user = await this.userModel.findOne(
+      { email },
+      {
+        password: 1,
+        email: 1,
+        id: 1,
+        role: 1,
+      },
+    );
 
     if (!user) {
       throw new BadRequestException('User not found');
@@ -62,5 +74,37 @@ export class UserService {
       password: user.password,
       role: user.role as Role,
     };
+  }
+
+  async findOneById(id: string) {
+    const user = await this.userModel.findOne(
+      {
+        _id: id,
+        isActive: true,
+      },
+      { password: 0, role: 0, isActive: 0, deliveryAddress: 0 },
+    );
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user.toJSON();
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await this.userModel.findOne({ _id: id, isActive: true });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    try {
+      await user.updateOne(updateUserDto, { new: true });
+      return await this.findOneById(id);
+    } catch (error: any) {
+      this.logger.error(error.message, error.stack);
+      throw new BadRequestException('Cannot update user');
+    }
   }
 }

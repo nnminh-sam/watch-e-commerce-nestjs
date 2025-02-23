@@ -11,7 +11,6 @@ import { JwtStrategy } from '@root/auth/strategies/jwt.strategy';
 
 @Module({
   imports: [
-    // * Adding this for the JwtStrategy import to work
     AppConfigModule,
     DatabaseModule,
     UserModule,
@@ -20,7 +19,7 @@ import { JwtStrategy } from '@root/auth/strategies/jwt.strategy';
       inject: [AppConfigService],
       useFactory: async (configService: AppConfigService) => ({
         secret: configService.jwtSecret,
-        signOptions: { expiresIn: '60s' },
+        signOptions: { expiresIn: '15m' },
       }),
     }),
   ],

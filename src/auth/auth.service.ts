@@ -28,6 +28,10 @@ export class AuthService {
     return bcrypt.compareSync(password, hashedPassword);
   }
 
+  private getClaims(token: string) {
+    return this.jwtService.decode(token) as TokenPayloadDto;
+  }
+
   async generateTokens(tokenPayload: TokenPayloadDto) {
     const accessToken = this.jwtService.sign({
       ...tokenPayload,
@@ -42,14 +46,19 @@ export class AuthService {
   }
 
   async validateToken(token: string) {
-    const isTokenBlacklisted =
-      await this.redisService.isTokenBlacklisted(token);
+    const claims: TokenPayloadDto = this.getClaims(token);
+    if (!claims?.exp) {
+      throw new BadRequestException('Invalid token');
+    }
+
+    const isTokenBlacklisted = await this.redisService.isTokenBlacklisted(
+      claims.jti,
+    );
     if (isTokenBlacklisted) {
       throw new BadRequestException('Invalid token');
     }
 
-    const decodedToken: TokenPayloadDto = this.jwtService.decode(token);
-    if (!decodedToken?.exp || this.isTokenExpired(decodedToken.exp)) {
+    if (this.isTokenExpired(claims.exp)) {
       throw new BadRequestException('Invalid token');
     }
     return true;
@@ -105,6 +114,6 @@ export class AuthService {
 
     // Add 10 seconds to the token's expiration time to make sure it is blacklisted
     const ttl: number = claims.exp - Math.floor(Date.now() / 1000) + 10;
-    await this.redisService.setTokenToBlackList(token, ttl);
+    await this.redisService.setTokenToBlackList(claims.jti, ttl);
   }
 }

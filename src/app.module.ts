@@ -6,7 +6,6 @@ import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { BrandModule } from './brand/brand.module';
 import { CategoryModule } from './category/category.module';
-import { RoleGuardProviderConfig } from '@root/user/guard/role.guard';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 
@@ -21,6 +20,6 @@ import { DatabaseModule } from './database/database.module';
     DatabaseModule,
   ],
   controllers: [AppController],
-  providers: [AppService, RoleGuardProviderConfig],
+  providers: [AppService],
 })
 export class AppModule {}

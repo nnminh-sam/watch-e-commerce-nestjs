@@ -1,13 +1,14 @@
 import {
+  BadRequestException,
   CanActivate,
   ExecutionContext,
   Injectable,
-  Provider,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Role } from '@root/user/entities/role.enum';
 import { Observable } from 'rxjs';
-import { APP_GUARD } from '@nestjs/core';
+import { HasRoles } from '@root/user/decorator/has-role.decorator';
+import { Request } from 'express';
+import { TokenPayloadDto } from '@root/auth/dto/token-payload.dto';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
@@ -16,22 +17,17 @@ export class RoleGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const roles = this.reflector.get(Role, context.getHandler());
+    const roles = this.reflector.get(HasRoles, context.getHandler());
     if (!roles) {
       return true;
     }
 
-    const request = context.switchToHttp().getRequest();
-    const user = request.user;
+    const request: Request = context.switchToHttp().getRequest();
+    const user = request.user as TokenPayloadDto;
     if (!user) {
-      return false;
+      throw new BadRequestException('Invalid token');
     }
 
-    return roles.some((role: string) => user.roles?.includes(role));
+    return roles.includes(user.role);
   }
 }
-
-export const RoleGuardProviderConfig: Provider = {
-  provide: APP_GUARD,
-  useClass: RoleGuard,
-};
