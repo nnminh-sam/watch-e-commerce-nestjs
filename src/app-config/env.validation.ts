@@ -46,6 +46,12 @@ class EnvironmentVariable {
   @IsString()
   @IsOptional()
   DATABASE_PASSWORD?: string;
+
+  @IsString()
+  REDIS_BLACKLIST_HOST: string;
+
+  @IsNumber()
+  REDIS_BLACKLIST_PORT: number;
 }
 
 export function validate(

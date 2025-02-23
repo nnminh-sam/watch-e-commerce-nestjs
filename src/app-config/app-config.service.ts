@@ -71,4 +71,22 @@ export class AppConfigService {
       throw new Error('DATABASE_PASSWORD is not defined');
     }
   }
+
+  get redisBlacklistHost(): string {
+    const data = this.configService.get<string>('REDIS_BLACKLIST_HOST');
+    if (data) {
+      return data;
+    } else {
+      throw new Error('REDIS_BLACKLIST_HOST is not defined');
+    }
+  }
+
+  get redisBlacklistPort(): number {
+    const data = this.configService.get<number>('REDIS_BLACKLIST_PORT');
+    if (data) {
+      return data;
+    } else {
+      throw new Error('REDIS_BLACKLIST_PORT is not defined');
+    }
+  }
 }

@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { TokenPayloadDto } from '@root/auth/dto/token-payload.dto';
 import { UserAuthenticationDto } from '@root/auth/dto/user-authentication.dto';
 import { UserRegistrationDto } from '@root/auth/dto/user-registration.dto';
+import { RedisService } from '@root/database/redis.service';
 import { UserService } from '@root/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
@@ -10,6 +11,7 @@ import { v4 as uuid } from 'uuid';
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly redisService: RedisService,
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
   ) {}
@@ -40,6 +42,12 @@ export class AuthService {
   }
 
   async validateToken(token: string) {
+    const isTokenBlacklisted =
+      await this.redisService.isTokenBlacklisted(token);
+    if (isTokenBlacklisted) {
+      throw new BadRequestException('Invalid token');
+    }
+
     const decodedToken: TokenPayloadDto = this.jwtService.decode(token);
     if (!decodedToken?.exp || this.isTokenExpired(decodedToken.exp)) {
       throw new BadRequestException('Invalid token');
@@ -59,7 +67,7 @@ export class AuthService {
     return credentials;
   }
 
-  async login(userAuthenticationDto: UserAuthenticationDto) {
+  async signIn(userAuthenticationDto: UserAuthenticationDto) {
     const validatedUserCredential = await this.validateUser(
       userAuthenticationDto,
     );
@@ -84,8 +92,19 @@ export class AuthService {
     return await this.generateTokens(tokenPayload);
   }
 
-  // async logout(token: string, ttl: number) {
-  //   const clamis = this.jwtService.decode(token) as TokenPayloadDto;
-  //   await this.redisService.set(`blacklist:${clamis.jti}`, 'true', ttl);
-  // }
+  async signOut(token: string) {
+    const isValidToken = await this.validateToken(token);
+    if (!isValidToken) {
+      throw new BadRequestException('Invalid token');
+    }
+
+    const claims: TokenPayloadDto = await this.jwtService.decode(token);
+    if (!claims?.exp) {
+      throw new BadRequestException('Invalid token');
+    }
+
+    // Add 10 seconds to the token's expiration time to make sure it is blacklisted
+    const ttl: number = claims.exp - Math.floor(Date.now() / 1000) + 10;
+    await this.redisService.setTokenToBlackList(token, ttl);
+  }
 }
