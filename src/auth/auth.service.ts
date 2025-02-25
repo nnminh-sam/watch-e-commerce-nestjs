@@ -1,6 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { RevokeTokenPayload } from '@root/auth/dto/revoke-token-payload.dto';
+import { SignOutResponseDto } from '@root/auth/dto/sign-out-response.dto';
 import { TokenPayloadDto } from '@root/auth/dto/token-payload.dto';
+import { TokenResponseDto } from '@root/auth/dto/tokens-response.dto';
 import { UserAuthenticationDto } from '@root/auth/dto/user-authentication.dto';
 import { UserRegistrationDto } from '@root/auth/dto/user-registration.dto';
 import { RedisService } from '@root/database/redis.service';
@@ -16,15 +19,12 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  private isTokenExpired(exp: number): boolean {
-    const currentTime = Math.floor(Date.now() / 1000);
+  private isTokenExpired(exp: number) {
+    const currentTime: number = Math.floor(Date.now() / 1000);
     return currentTime > exp;
   }
 
-  private async comparePasswords(
-    password: string,
-    hashedPassword: string,
-  ): Promise<boolean> {
+  private validatePassword(password: string, hashedPassword: string) {
     return bcrypt.compareSync(password, hashedPassword);
   }
 
@@ -32,12 +32,12 @@ export class AuthService {
     return this.jwtService.decode(token) as TokenPayloadDto;
   }
 
-  async generateTokens(tokenPayload: TokenPayloadDto) {
-    const accessToken = this.jwtService.sign({
+  private generateTokens(tokenPayload: TokenPayloadDto): TokenResponseDto {
+    const accessToken: string = this.jwtService.sign({
       ...tokenPayload,
       expiresIn: '1h',
     });
-    const refreshToken = this.jwtService.sign({
+    const refreshToken: string = this.jwtService.sign({
       ...tokenPayload,
       expiresIn: '30d',
     });
@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   async validateToken(token: string) {
-    const claims: TokenPayloadDto = this.getClaims(token);
+    const claims = this.getClaims(token);
     if (!claims?.exp) {
       throw new BadRequestException('Invalid token');
     }
@@ -66,7 +66,7 @@ export class AuthService {
 
   async validateUser({ email, password }: UserAuthenticationDto) {
     const credentials = await this.userService.getUserCredentialsByEmail(email);
-    const isValidPassword = await this.comparePasswords(
+    const isValidPassword = await this.validatePassword(
       password,
       credentials.password,
     );
@@ -87,7 +87,7 @@ export class AuthService {
       email: validatedUserCredential.email,
       role: validatedUserCredential.role,
     };
-    return await this.generateTokens(tokenPayload);
+    return this.generateTokens(tokenPayload);
   }
 
   async signUp(userRegistrationDto: UserRegistrationDto) {
@@ -98,7 +98,7 @@ export class AuthService {
       email: user.email,
       role: user.role,
     };
-    return await this.generateTokens(tokenPayload);
+    return this.generateTokens(tokenPayload);
   }
 
   async signOut(token: string) {
@@ -112,8 +112,50 @@ export class AuthService {
       throw new BadRequestException('Invalid token');
     }
 
-    // Add 10 seconds to the token's expiration time to make sure it is blacklisted
-    const ttl: number = claims.exp - Math.floor(Date.now() / 1000) + 10;
-    await this.redisService.setTokenToBlackList(claims.jti, ttl);
+    // * Add 10 seconds to the token's expiration time to make sure it is blacklisted
+    const blackListTtl: number =
+      claims.exp - Math.floor(Date.now() / 1000) + 10;
+    await this.redisService.setTokenToBlackList(claims.jti, blackListTtl);
+
+    return {
+      message: 'User signed out',
+      statusCode: 200,
+      timestamp: new Date(),
+    } as SignOutResponseDto;
+  }
+
+  async revokeTokens(accessToken: string, refreshToken: string) {
+    const accessTokenClams = this.getClaims(accessToken);
+    if (!accessTokenClams?.exp) {
+      throw new BadRequestException('Invalid token');
+    }
+
+    if (this.isTokenExpired(accessTokenClams.exp)) {
+      throw new BadRequestException('Invalid token');
+    }
+
+    const claims = this.getClaims(refreshToken);
+    if (!claims?.exp) {
+      throw new BadRequestException('Invalid refresh token');
+    }
+
+    if (this.isTokenExpired(claims.exp)) {
+      throw new BadRequestException('Invalid refresh token');
+    }
+
+    const blackListAccessTokenTtl: number =
+      claims.exp - Math.floor(Date.now() / 1000) + 10;
+    await this.redisService.setTokenToBlackList(
+      accessTokenClams.jti,
+      blackListAccessTokenTtl,
+    );
+
+    const tokenPayload: TokenPayloadDto = {
+      jti: uuid(),
+      sub: claims.sub,
+      email: claims.email,
+      role: claims.role,
+    };
+    return this.generateTokens(tokenPayload);
   }
 }

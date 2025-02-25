@@ -19,7 +19,7 @@ import { JwtStrategy } from '@root/auth/strategies/jwt.strategy';
       inject: [AppConfigService],
       useFactory: async (configService: AppConfigService) => ({
         secret: configService.jwtSecret,
-        signOptions: { expiresIn: '15m' },
+        signOptions: { expiresIn: '1h' },
       }),
     }),
   ],

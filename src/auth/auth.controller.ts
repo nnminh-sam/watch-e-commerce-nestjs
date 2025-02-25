@@ -13,6 +13,8 @@ import { UserAuthenticationDto } from '@root/auth/dto/user-authentication.dto';
 import { UserRegistrationDto } from '@root/auth/dto/user-registration.dto';
 import { JwtGuard } from '@root/auth/guard/jwt.guard';
 import { Request } from 'express';
+import { RevokeTokenPayload } from '@root/auth/dto/revoke-token-payload.dto';
+import { AccessToken } from '@root/auth/decorator/access-token.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -44,7 +46,21 @@ export class AuthController {
     }
 
     const token: string = authHeader.split(' ')[1];
-    await this.authService.signOut(token);
-    return { message: 'Successfully signed out' };
+    return await this.authService.signOut(token);
+  }
+
+  @HttpCode(200)
+  @UseGuards(JwtGuard)
+  @Post('revoke-tokens')
+  async revokeTokens(
+    @Body()
+    revokeTokenPayload: RevokeTokenPayload,
+    @AccessToken()
+    accessToken: string,
+  ) {
+    return this.authService.revokeTokens(
+      accessToken,
+      revokeTokenPayload.refreshToken,
+    );
   }
 }
