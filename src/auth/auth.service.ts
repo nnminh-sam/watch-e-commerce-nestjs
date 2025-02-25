@@ -4,6 +4,7 @@ import { RevokeTokenPayload } from '@root/auth/dto/revoke-token-payload.dto';
 import { SignOutResponseDto } from '@root/auth/dto/sign-out-response.dto';
 import { TokenPayloadDto } from '@root/auth/dto/token-payload.dto';
 import { TokenResponseDto } from '@root/auth/dto/tokens-response.dto';
+import { UpdatePasswordDto } from '@root/auth/dto/update-password.dto';
 import { UserAuthenticationDto } from '@root/auth/dto/user-authentication.dto';
 import { UserRegistrationDto } from '@root/auth/dto/user-registration.dto';
 import { RedisService } from '@root/database/redis.service';
@@ -157,5 +158,21 @@ export class AuthService {
       role: claims.role,
     };
     return this.generateTokens(tokenPayload);
+  }
+
+  async updatePassword(updatePasswordDto: UpdatePasswordDto) {
+    const isValidUser = await this.validateUser({
+      email: updatePasswordDto.email,
+      password: updatePasswordDto.oldPassword,
+    });
+
+    if (!isValidUser) {
+      throw new BadRequestException('Invalid user');
+    }
+
+    return await this.userService.updatePassword(
+      isValidUser.id,
+      updatePasswordDto.newPassword,
+    );
   }
 }

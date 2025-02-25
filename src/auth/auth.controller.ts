@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpCode,
+  Patch,
   Post,
   Req,
   UnauthorizedException,
@@ -15,6 +16,7 @@ import { JwtGuard } from '@root/auth/guard/jwt.guard';
 import { Request } from 'express';
 import { RevokeTokenPayload } from '@root/auth/dto/revoke-token-payload.dto';
 import { AccessToken } from '@root/auth/decorator/access-token.decorator';
+import { UpdatePasswordDto } from '@root/auth/dto/update-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -62,5 +64,13 @@ export class AuthController {
       accessToken,
       revokeTokenPayload.refreshToken,
     );
+  }
+
+  @Patch('update-password')
+  async updatePassword(
+    @Body()
+    updatePasswordDto: UpdatePasswordDto,
+  ) {
+    return await this.authService.updatePassword(updatePasswordDto);
   }
 }

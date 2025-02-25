@@ -93,18 +93,37 @@ export class UserService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.userModel.findOne({ _id: id, isActive: true });
+    const user = await this.userModel
+      .findOneAndUpdate({ _id: id, isActive: true }, updateUserDto, {
+        new: true,
+      })
+      .select('-IsActive -deliveryAddress');
 
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
+    return user.toJSON();
+  }
+
+  async updatePassword(id: string, newPassword: string) {
     try {
-      await user.updateOne(updateUserDto, { new: true });
-      return await this.findOneById(id);
+      const user = await this.userModel
+        .findOneAndUpdate(
+          { _id: id, isActive: true },
+          { password: await this.hashPassword(newPassword) },
+          {
+            new: true,
+          },
+        )
+        .select('-isActive -deliveryAddress');
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      return user.toJSON();
     } catch (error: any) {
       this.logger.error(error.message, error.stack);
-      throw new BadRequestException('Cannot update user');
+      throw new BadRequestException('Cannot update password');
     }
   }
 }
