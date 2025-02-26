@@ -12,6 +12,7 @@ import { User, UserDocument } from '@root/user/entities/user.model';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserDto } from '@root/user/dto/update-user.dto';
+import { FindUserDto } from '@root/user/dto/find-user.dto';
 
 @Injectable()
 export class UserService {
@@ -90,6 +91,43 @@ export class UserService {
     }
 
     return user.toJSON();
+  }
+
+  async find(findUserDto: FindUserDto) {
+    const searchTerms = [];
+    if (findUserDto?.firstName) searchTerms.push(findUserDto.firstName);
+    if (findUserDto?.lastName) searchTerms.push(findUserDto.lastName);
+    if (findUserDto?.name) searchTerms.push(findUserDto.name);
+
+    const searchQuery =
+      searchTerms.length <= 0
+        ? {}
+        : { $text: { $search: searchTerms.join(' ') } };
+
+    const users = await this.userModel.find(
+      {
+        ...searchQuery,
+        ...(findUserDto?.email && {
+          email: findUserDto?.email,
+        }),
+        ...(findUserDto?.gender && {
+          gender: findUserDto.gender,
+        }),
+        ...(findUserDto?.dateOfBirth && {
+          dateOfBirth: findUserDto.dateOfBirth,
+        }),
+        ...(findUserDto?.phoneNumber && {
+          phoneNumber: findUserDto.phoneNumber,
+        }),
+        ...(findUserDto?.role && {
+          role: findUserDto.role,
+        }),
+      },
+      {
+        deliveryAddress: 0,
+      },
+    );
+    return users;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {

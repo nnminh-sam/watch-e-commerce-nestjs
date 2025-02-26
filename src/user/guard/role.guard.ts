@@ -1,33 +1,27 @@
-import {
-  BadRequestException,
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-} from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Observable } from 'rxjs';
-import { HasRoles } from '@root/user/decorator/has-role.decorator';
-import { Request } from 'express';
-import { TokenPayloadDto } from '@root/auth/dto/token-payload.dto';
+import { ROLES_KEY } from '@root/user/decorator/has-role.decorator';
+import { Role } from '@root/user/entities/role.enum';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
+  constructor(private reflector: Reflector) {}
 
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    const roles = this.reflector.get(HasRoles, context.getHandler());
-    if (!roles) {
+  canActivate(context: ExecutionContext): boolean {
+    const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+
+    if (!requiredRoles) {
       return true;
     }
 
-    const request: Request = context.switchToHttp().getRequest();
-    const user = request.user as TokenPayloadDto;
-    if (!user) {
-      throw new BadRequestException('Invalid token');
+    const { user } = context.switchToHttp().getRequest();
+    if (!user || !user.role) {
+      return false;
     }
 
-    return roles.includes(user.role);
+    return requiredRoles.includes(user.role);
   }
 }
