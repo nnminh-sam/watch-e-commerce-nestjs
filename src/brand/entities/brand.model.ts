@@ -1,14 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 
 export type BrandDocument = Brand & Document;
 
 @Schema({ timestamps: true, collection: 'brands', id: true })
 export class Brand {
-  @Prop({ required: true, unique: true })
+  @Prop({
+    // type: MongooseSchema.Types
+    required: true,
+    unique: true,
+  })
   name: string;
 
-  @Prop({ required: true, unique: false })
+  @Prop({ required: true, unique: true })
   slug: string;
 
   @Prop()
@@ -22,6 +26,10 @@ export class Brand {
 }
 
 const BrandSchema = SchemaFactory.createForClass(Brand);
+
+BrandSchema.index({
+  name: 'text',
+});
 
 BrandSchema.set('toJSON', {
   virtuals: true,

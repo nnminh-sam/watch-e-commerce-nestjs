@@ -37,11 +37,13 @@ export class BrandService {
     }
   }
 
-  async findOne(brandId: string) {
-    const brand = await this.brandModel.findOne({
-      _id: brandId,
-      deletedAt: null,
-    });
+  async findOne(id: string) {
+    const brand = await this.brandModel
+      .findOne({
+        _id: id,
+        deletedAt: null,
+      })
+      .select('-deletedAt');
 
     if (!brand) {
       throw new NotFoundException('Brand not found');
@@ -50,13 +52,46 @@ export class BrandService {
     return brand.toJSON();
   }
 
-  async update(brandId: string, updateBrandDto: UpdateBrandDto) {
+  async findOneBySlug(slug: string) {
+    const brand = await this.brandModel.findOne(
+      {
+        slug,
+        deletedAt: null,
+      },
+      {
+        deletedAt: 0,
+      },
+    );
+    if (!brand) {
+      throw new NotFoundException('Brand not found');
+    }
+    return brand.toJSON();
+  }
+
+  async findByName(name: string) {
+    const brands = await this.brandModel.find(
+      {
+        $text: {
+          $search: name,
+        },
+        deletedAt: null,
+      },
+      { deletedAt: 0 },
+    );
+    if (!brands) {
+      throw new NotFoundException('Brands not found');
+    }
+
+    return brands;
+  }
+
+  async update(id: string, updateBrandDto: UpdateBrandDto) {
     try {
-      const updatedBrand = await this.brandModel.findOneAndUpdate(
-        { _id: brandId, deletedAt: null },
-        updateBrandDto,
-        { new: true },
-      );
+      const updatedBrand = await this.brandModel
+        .findOneAndUpdate({ _id: id, deletedAt: null }, updateBrandDto, {
+          new: true,
+        })
+        .select('-deletedAt');
 
       if (!updatedBrand) {
         throw new BadRequestException('Brand not found');
@@ -69,10 +104,10 @@ export class BrandService {
     }
   }
 
-  async delete(brandId: string) {
+  async delete(id: string) {
     try {
       const deletedBrand = await this.brandModel.findOneAndUpdate(
-        { _id: brandId, deletedAt: null },
+        { _id: id, deletedAt: null },
         { deletedAt: Date.now() },
         { new: true },
       );
