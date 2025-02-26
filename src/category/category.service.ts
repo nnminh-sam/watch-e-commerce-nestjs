@@ -7,7 +7,7 @@ import {
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Category } from '@root/category/entities/category.entity';
+import { Category } from '@root/category/entities/category.model';
 import { Model } from 'mongoose';
 import { generateSlug } from '@root/utils';
 
@@ -39,16 +39,55 @@ export class CategoryService {
   }
 
   async findOne(id: string) {
-    const category = await this.categoryModel.findOne({
-      _id: id,
-      deletedAt: null,
-    });
+    const category = await this.categoryModel.findOne(
+      {
+        _id: id,
+        deletedAt: null,
+      },
+      {
+        deletedAt: 0,
+      },
+    );
 
     if (!category) {
       throw new NotFoundException('Category not found');
     }
 
     return category.toJSON();
+  }
+
+  async findOneBySlug(slug: string) {
+    const category = await this.categoryModel.findOne(
+      {
+        slug,
+        deletedAt: null,
+      },
+      {
+        deletedAt: 0,
+      },
+    );
+    if (!category) {
+      throw new NotFoundException('Category not found');
+    }
+    return category.toJSON();
+  }
+
+  async findByName(name: string) {
+    const categories = await this.categoryModel.find(
+      {
+        $text: {
+          $search: name,
+        },
+        deletedAt: null,
+      },
+      {
+        deletedAt: 0,
+      },
+    );
+    if (!categories) {
+      throw new NotFoundException('Categories not found');
+    }
+    return categories;
   }
 
   async update(id: string, updateCategoryDto: UpdateCategoryDto) {

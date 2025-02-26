@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Brand } from '@root/brand/entities/brand.model';
-import { Category } from '@root/category/entities/category.entity';
+import { Category } from '@root/category/entities/category.model';
 import { CommentSchema } from '@root/product/entities/comment.model';
 import { ProductStatus } from '@root/product/entities/product-status.enum';
 import { Spec, SpecSchema } from '@root/product/entities/spec.model';

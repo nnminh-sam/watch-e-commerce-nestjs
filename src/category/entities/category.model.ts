@@ -17,8 +17,8 @@ export class Category {
   @Prop({ required: true, unique: true })
   slug: string;
 
-  @Prop({ default: null })
-  assets: string[];
+  @Prop({ default: [] })
+  assets: [string];
 
   @Prop({ default: false })
   isFeatured: boolean;
@@ -28,6 +28,9 @@ export class Category {
 }
 
 const CategorySchema = SchemaFactory.createForClass(Category);
+CategorySchema.index({
+  name: 'text',
+});
 
 CategorySchema.set('toJSON', {
   virtuals: true,
