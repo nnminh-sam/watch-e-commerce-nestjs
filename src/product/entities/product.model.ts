@@ -8,7 +8,7 @@ import { Schema as MongooseSchema } from 'mongoose';
 
 export type ProductDocument = Document & Product;
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, id: true, collection: 'products' })
 export class Product {
   @Prop({ required: true, unique: true })
   name: string;
@@ -27,14 +27,14 @@ export class Product {
     ref: Brand.name,
     required: true,
   })
-  brand: string;
+  brand: Brand;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: Category.name,
     required: true,
   })
-  category: string;
+  category: Category;
 
   @Prop({ default: 0 })
   stock: number;
@@ -64,13 +64,14 @@ export class Product {
 const ProductSchema = SchemaFactory.createForClass(Product);
 
 ProductSchema.index({ 'spec.key': 1, 'spec.value': 1 });
+ProductSchema.index({ name: 'text' });
 
 ProductSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
-    delete ret.customerVisible;
     delete ret._id;
+    delete ret.customerVisible;
     return ret;
   },
 });
