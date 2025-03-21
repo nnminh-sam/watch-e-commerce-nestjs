@@ -1,25 +1,28 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AppConfigModule } from './app-config/app-config.module';
-import { UserModule } from './user/user.module';
-import { ProductModule } from './product/product.module';
-import { BrandModule } from './brand/brand.module';
-import { CategoryModule } from './category/category.module';
-import { AuthModule } from './auth/auth.module';
-import { DatabaseModule } from './database/database.module';
+
+import { CartModule } from './modules/cart/cart.module';
+import { AuthModule } from '@root/modules/auth/auth.module';
+import { BrandModule } from '@root/modules/brand/brand.module';
+import { CategoryModule } from '@root/modules/category/category.module';
+import { DatabaseModule } from '@root/database/database.module';
+import { ProductModule } from '@root/modules/product/product.module';
+import { UserModule } from '@root/modules/user/user.module';
+import { EnvironmentModule } from '@root/environment/environment.module';
+import { JwtManagerModule } from './modules/jwt-manager/jwt-manager.module';
 
 @Module({
   imports: [
-    AppConfigModule,
+    EnvironmentModule,
     UserModule,
     ProductModule,
     BrandModule,
     CategoryModule,
     AuthModule,
     DatabaseModule,
+    CartModule,
+    JwtManagerModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

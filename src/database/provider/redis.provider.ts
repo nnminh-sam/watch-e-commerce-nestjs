@@ -1,14 +1,15 @@
 import { Provider } from '@nestjs/common';
-import { AppConfigService } from '@root/app-config/app-config.service';
+import { EnvironmentService } from '@root/environment/environment.service';
 import Redis from 'ioredis';
 
 export const RedisProvider: Provider = {
   provide: 'REDIS_CLIENT',
-  inject: [AppConfigService],
-  useFactory: (appConfigService: AppConfigService) => {
+  inject: [EnvironmentService],
+  useFactory: (environmentService: EnvironmentService) => {
     return new Redis({
-      host: appConfigService.redisBlacklistHost,
-      port: appConfigService.redisBlacklistPort,
+      host: environmentService.redisHost,
+      port: environmentService.redisPort,
+      password: environmentService.redisPassword,
     });
   },
 };
