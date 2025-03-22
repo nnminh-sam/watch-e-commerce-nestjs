@@ -3,12 +3,9 @@ services:
     container_name: watch-e-commerce-mongodb
     image: mongo:8.0.5
     ports:
-      - '27017:27017'
+      - '${DATABASE_PORT}:27017'
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${DATABASE_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_PASSWORD}
       - MONGO_INITDB_DATABASE=${DATABASE_NAME}
-    command: ['mongod', '--auth']
     volumes:
       - ./docker-volumes/mongodb:/data/db
     # networks:
@@ -18,7 +15,7 @@ services:
     container_name: watch-e-commerce-redis
     image: redis:8.0-M02-alpine
     ports:
-      - '6379:6379'
+      - '${REDIS_PORT}:6379'
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     volumes:
