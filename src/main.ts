@@ -6,6 +6,7 @@ import { Logger, VersioningType } from '@nestjs/common';
 import { SnakeCaseApiResponseInterceptor } from '@root/commons/interceptors/snake-case-api-response.interceptor';
 import { ApiResponseWrapperInterceptor } from '@root/commons/interceptors/api-response-wrapper.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { CamelCaseApiRequestInterceptor } from '@root/commons/interceptors/camel-case-api-request.interceptor';
 
 async function bootstrap() {
   const logger: Logger = new Logger('Application');
@@ -22,7 +23,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  // app.useGlobalInterceptors(new ApiResponseWrapperInterceptor());
+  app.useGlobalInterceptors(new CamelCaseApiRequestInterceptor());
   app.useGlobalInterceptors(new SnakeCaseApiResponseInterceptor());
 
   app.setGlobalPrefix('api');
