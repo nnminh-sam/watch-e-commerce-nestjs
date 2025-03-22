@@ -2,11 +2,17 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { User } from '@root/models/user.model';
 import { CartItem, CartItemSchema } from '@root/models/cart-item.model';
+import { ApiProperty } from '@nestjs/swagger';
 
 export type CartDocument = Document & Cart;
 
 @Schema({ timestamps: true, id: true, collection: 'carts' })
 export class Cart {
+  @ApiProperty({
+    example: '60d21b4667d0d8992e610c91',
+    description: 'User ID associated with the cart',
+    type: User,
+  })
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: User.name,
@@ -14,9 +20,14 @@ export class Cart {
   })
   user: string;
 
+  @ApiProperty({ example: 999.99, description: 'Total cart price' })
   @Prop({ default: 0 })
   total: number;
 
+  @ApiProperty({
+    description: 'List of items in the cart',
+    type: [CartItem],
+  })
   @Prop({ type: [CartItemSchema], default: [] })
   items: CartItem[];
 }

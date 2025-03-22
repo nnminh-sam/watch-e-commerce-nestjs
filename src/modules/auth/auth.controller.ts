@@ -6,8 +6,6 @@ import {
   Patch,
   Post,
   UseGuards,
-  UseInterceptors,
-  Version,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
@@ -18,19 +16,7 @@ import { UpdatePasswordDto } from '@root/modules/auth/dtos/update-password.dto';
 import { RevokeTokenPayload } from '@root/modules/auth/dtos/revoke-token-payload.dto';
 import { RequestedUser } from '@root/commons/decorators/request-user.decorator';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
-import {
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-  ApiBody,
-  ApiExtraModels,
-  ApiOkResponse,
-  ApiUnauthorizedResponse,
-  ApiBadRequestResponse,
-  ApiProperty,
-} from '@nestjs/swagger';
-import { ApiResponseWrapperInterceptor } from '@root/commons/interceptors/api-response-wrapper.interceptor';
-import { ApiWrapperDto } from '@root/commons/dtos/api-wrapper.dto';
+import { ApiTags, ApiBadRequestResponse } from '@nestjs/swagger';
 import { TokenResponseDto } from '@root/modules/auth/dtos/tokens-response.dto';
 import { ApiResponseWrapper } from '@root/commons/decorators/api-response-wrapper.decorator';
 import { ApiDocDetail } from '@root/commons/decorators/api-doc-detail.decorator';
