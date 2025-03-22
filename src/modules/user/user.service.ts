@@ -97,48 +97,47 @@ export class UserService {
     return user.toJSON();
   }
 
-  async find(findUserDto: FindUserDto) {
+  async find({ page, limit, sortBy, orderBy, ...filter }: FindUserDto) {
+    console.log('🚀 ~ UserService ~ find ~ page:', page);
+    console.log('🚀 ~ UserService ~ find ~ limit:', limit);
     const searchTerms = [];
-    if (findUserDto?.firstName) searchTerms.push(findUserDto.firstName);
-    if (findUserDto?.lastName) searchTerms.push(findUserDto.lastName);
-    if (findUserDto?.name) searchTerms.push(findUserDto.name);
+    if (filter?.firstName) searchTerms.push(filter.firstName);
+    if (filter?.lastName) searchTerms.push(filter.lastName);
+    if (filter?.name) searchTerms.push(filter.name);
 
-    const searchQuery =
+    const searchQuery: Record<string, any> =
       searchTerms.length <= 0
         ? {}
         : { $text: { $search: searchTerms.join(' ') } };
 
-    const users = await this.userModel.find(
-      {
-        ...searchQuery,
-        ...(findUserDto?.email && {
-          email: findUserDto?.email,
-        }),
-        ...(findUserDto?.gender && {
-          gender: findUserDto.gender,
-        }),
-        ...(findUserDto?.dateOfBirth && {
-          dateOfBirth: findUserDto.dateOfBirth,
-        }),
-        ...(findUserDto?.phoneNumber && {
-          phoneNumber: findUserDto.phoneNumber,
-        }),
-        ...(findUserDto?.role && {
-          role: findUserDto.role,
-        }),
-      },
-      { deliveryAddress: 0 },
-    );
-    return users;
+    try {
+      const users = await this.userModel.find<UserDocument>(
+        { ...filter, ...searchQuery },
+        { deliveryAddress: 0 },
+        {
+          skip: (page - 1) * limit,
+          limit,
+          sort: {
+            [sortBy]: orderBy,
+          },
+        },
+      );
+      return users.map((user: UserDocument) => user.toJSON());
+    } catch (error: any) {
+      this.logger.error(error.message);
+      throw new BadRequestException('Cannot find user');
+    }
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     await this.validatePhoneNumber(updateUserDto.phoneNumber);
 
     const user = await this.userModel
-      .findOneAndUpdate({ _id: id, isActive: true }, updateUserDto, {
-        new: true,
-      })
+      .findOneAndUpdate<UserDocument>(
+        { _id: id, isActive: true },
+        updateUserDto,
+        { new: true },
+      )
       .select('-IsActive -deliveryAddress');
 
     if (!user) throw new NotFoundException('User not found');

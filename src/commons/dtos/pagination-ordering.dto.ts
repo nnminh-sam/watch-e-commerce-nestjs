@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 import { IsInt, IsOptional, IsString, Min, Max, IsIn } from 'class-validator';
 
 export class PaginationOrderingDto {
@@ -9,9 +10,10 @@ export class PaginationOrderingDto {
     required: false,
   })
   @IsOptional()
+  @Transform((value) => parseInt(value.value))
   @IsInt()
   @Min(1)
-  page?: number = 1;
+  page: number = 1;
 
   @ApiProperty({
     example: 10,
@@ -20,10 +22,11 @@ export class PaginationOrderingDto {
     required: false,
   })
   @IsOptional()
+  @Transform((value) => parseInt(value.value))
   @IsInt()
   @Min(1)
   @Max(100)
-  limit?: number = 10;
+  limit: number = 10;
 
   @ApiProperty({
     example: 'name',
@@ -33,7 +36,7 @@ export class PaginationOrderingDto {
   })
   @IsOptional()
   @IsString()
-  sortBy?: string = 'id';
+  sortBy: string = '_id';
 
   @ApiProperty({
     example: 'asc',
@@ -44,5 +47,5 @@ export class PaginationOrderingDto {
   })
   @IsOptional()
   @IsIn(['asc', 'desc'])
-  orderBy?: 'asc' | 'desc' = 'asc';
+  orderBy: 'asc' | 'desc' = 'asc';
 }
