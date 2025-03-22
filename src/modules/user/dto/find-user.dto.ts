@@ -7,15 +7,6 @@ import { PaginationOrderingDto } from '@root/commons/dtos/pagination-ordering.dt
 
 export class FindUserDto extends PaginationOrderingDto {
   @ApiProperty({
-    example: 'John Doe',
-    description: 'User full name',
-    name: 'name',
-  })
-  @IsString()
-  @IsOptional()
-  name?: string;
-
-  @ApiProperty({
     example: 'John',
     description: 'User first name',
     name: 'first_name',

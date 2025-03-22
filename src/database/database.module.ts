@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { RedisProvider } from '@root/database/provider/redis.provider';
 import { RedisService } from '@root/database/redis.service';
 import { EnvironmentModule } from '@root/environment/environment.module';
 import { EnvironmentService } from '@root/environment/environment.service';
-import { JwtManagerModule } from '@root/modules/jwt-manager/jwt-manager.module';
+import mongoose from 'mongoose';
 
 @Module({
   imports: [
@@ -22,6 +21,8 @@ import { JwtManagerModule } from '@root/modules/jwt-manager/jwt-manager.module';
         const credentials =
           username && password ? `${username}:${password}@` : '';
         const uri = `mongodb://${credentials}${host}:${port}/${dbName}?authSource=admin`;
+
+        mongoose.set('debug', environmentService.databaseDebug);
 
         return {
           uri,

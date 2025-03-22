@@ -1,5 +1,6 @@
 import { plainToInstance } from 'class-transformer';
 import {
+  IsBoolean,
   IsEnum,
   IsNumber,
   IsOptional,
@@ -52,6 +53,10 @@ class EnvironmentModel {
   @IsOptional()
   @IsString()
   DATABASE_PASSWORD?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  DATABASE_DEBUG?: boolean = false;
 
   @IsString()
   REDIS_HOST: string;

@@ -45,6 +45,10 @@ export class EnvironmentService {
     return this.configService.get<string>('DATABASE_PASSWORD');
   }
 
+  get databaseDebug() {
+    return this.configService.get<boolean>('DATABASE_DEBUG');
+  }
+
   get redisHost() {
     return this.configService.get<string>('REDIS_HOST');
   }

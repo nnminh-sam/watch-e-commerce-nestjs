@@ -35,7 +35,6 @@ export class UserController {
   @HasRoles([Role.EMPLOYEE, Role.ADMIN])
   @Get()
   async find(@Query() findUserDto: FindUserDto) {
-    console.log('🚀 ~ UserController ~ find ~ findUserDto:', findUserDto);
     return await this.userService.find(findUserDto);
   }
 

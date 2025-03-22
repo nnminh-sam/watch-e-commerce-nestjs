@@ -17,10 +17,6 @@ export class CamelCaseApiParamInterceptor implements NestInterceptor {
     const request: Request = context.switchToHttp().getRequest();
     if (request.query) {
       request.query = this.convertKeysToCamelCase(request.query);
-      console.log(
-        '🚀 ~ CamelCaseApiParamInterceptor ~ request.query:',
-        request.query,
-      );
     }
 
     return next.handle();

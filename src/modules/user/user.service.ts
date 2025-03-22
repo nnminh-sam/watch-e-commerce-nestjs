@@ -97,22 +97,31 @@ export class UserService {
     return user.toJSON();
   }
 
-  async find({ page, limit, sortBy, orderBy, ...filter }: FindUserDto) {
-    console.log('🚀 ~ UserService ~ find ~ page:', page);
-    console.log('🚀 ~ UserService ~ find ~ limit:', limit);
+  async find({
+    page,
+    limit,
+    sortBy,
+    orderBy,
+    firstName,
+    lastName,
+    ...filter
+  }: FindUserDto) {
     const searchTerms = [];
-    if (filter?.firstName) searchTerms.push(filter.firstName);
-    if (filter?.lastName) searchTerms.push(filter.lastName);
-    if (filter?.name) searchTerms.push(filter.name);
+    if (firstName) searchTerms.push(firstName);
+    if (lastName) searchTerms.push(lastName);
 
     const searchQuery: Record<string, any> =
       searchTerms.length <= 0
         ? {}
         : { $text: { $search: searchTerms.join(' ') } };
+    console.log('🚀 ~ UserService ~ find ~ searchQuery:', searchQuery);
 
     try {
       const users = await this.userModel.find<UserDocument>(
-        { ...filter, ...searchQuery },
+        {
+          ...filter,
+          ...searchQuery,
+        },
         { deliveryAddress: 0 },
         {
           skip: (page - 1) * limit,
