@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   Logger,
   NotFoundException,
 } from '@nestjs/common';
@@ -24,8 +25,8 @@ export class UserService {
   ) {}
 
   private async existBy(payload: Record<string, any>): Promise<boolean> {
-    const user = await this.userModel.findOne({ ...payload });
-    return user ? true : false;
+    const result = await this.userModel.countDocuments({ ...payload });
+    return result > 0;
   }
 
   private async validateEmail(email: string) {
@@ -38,7 +39,7 @@ export class UserService {
     if (isExisted) throw new BadRequestException('Phone number is taken');
   }
 
-  private async hashPassword(password: string): Promise<string> {
+  private async hashPassword(password: string) {
     return await bcrypt.hash(password, 10);
   }
 
@@ -48,7 +49,7 @@ export class UserService {
   }
 
   async validateUser(email: string, password: string) {
-    const user = await this.userModel.findOne(
+    const user = await this.userModel.findOne<UserDocument>(
       { email },
       {
         password: 1,
@@ -74,7 +75,7 @@ export class UserService {
     await this.validatePhoneNumber(userRegistrationDto.phoneNumber);
 
     try {
-      const user = new this.userModel({
+      const user: UserDocument = new this.userModel({
         ...userRegistrationDto,
         password: await this.hashPassword(userRegistrationDto.password),
         deliveryAddress: [],
@@ -83,12 +84,12 @@ export class UserService {
       return createdUser.toJSON();
     } catch (error: any) {
       this.logger.error(error.message, error.stack);
-      throw new BadRequestException('Cannot create user');
+      throw new InternalServerErrorException('Cannot create user');
     }
   }
 
   async findOneById(id: string) {
-    const user = await this.userModel.findOne(
+    const user = await this.userModel.findOne<UserDocument>(
       { _id: id, isActive: true },
       { password: 0, role: 0, isActive: 0, deliveryAddress: 0 },
     );
@@ -126,43 +127,35 @@ export class UserService {
           role: findUserDto.role,
         }),
       },
-      {
-        deliveryAddress: 0,
-      },
+      { deliveryAddress: 0 },
     );
     return users;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
+    await this.validatePhoneNumber(updateUserDto.phoneNumber);
+
     const user = await this.userModel
       .findOneAndUpdate({ _id: id, isActive: true }, updateUserDto, {
         new: true,
       })
       .select('-IsActive -deliveryAddress');
 
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
+    if (!user) throw new NotFoundException('User not found');
     return user.toJSON();
   }
 
   async updatePassword(id: string, newPassword: string) {
-    try {
-      const user = await this.userModel
-        .findOneAndUpdate(
-          { _id: id, isActive: true },
-          { password: await this.hashPassword(newPassword) },
-          { new: true },
-        )
-        .select('-isActive -deliveryAddress');
-      if (!user) {
-        throw new NotFoundException('User not found');
-      }
-      return user.toJSON();
-    } catch (error: any) {
-      this.logger.error(error.message, error.stack);
-      throw new BadRequestException('Cannot update password');
+    const user = await this.userModel
+      .findOneAndUpdate(
+        { _id: id, isActive: true },
+        { password: await this.hashPassword(newPassword) },
+        { new: true },
+      )
+      .select('-isActive -deliveryAddress');
+    if (!user) {
+      throw new NotFoundException('User not found');
     }
+    return user.toJSON();
   }
 }

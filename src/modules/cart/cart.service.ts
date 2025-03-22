@@ -22,7 +22,6 @@ export class CartService {
   constructor(
     @InjectModel(Cart.name)
     private readonly cartModel: Model<CartDocument>,
-    private readonly redisService: RedisService,
     private readonly productService: ProductService,
   ) {}
 
