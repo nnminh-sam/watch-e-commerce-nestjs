@@ -16,9 +16,9 @@ import { HasRoles } from '@root/commons/decorators/has-role.decorator';
 import { Role } from '@root/models/enums/role.enum';
 import { CreateBrandDto } from '@root/modules/brand/dto/create-brand.dto';
 import { UpdateBrandDto } from '@root/modules/brand/dto/update-brand.dto';
-import { ApiDocDetail } from '@root/commons/decorators/api-doc-detail.decorator';
-import { ApiResponseWrapper } from '@root/commons/decorators/api-response-wrapper.decorator';
-import { ApiTags, ApiBadRequestResponse } from '@nestjs/swagger';
+import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 
 @ApiTags('Brands')
 @UseGuards(JwtGuard)
@@ -26,9 +26,20 @@ import { ApiTags, ApiBadRequestResponse } from '@nestjs/swagger';
 export class BrandController {
   constructor(private readonly brandService: BrandService) {}
 
-  @ApiDocDetail({ summary: 'Create a new brand' })
-  @ApiResponseWrapper(CreateBrandDto, 'brand', 'Brand created successfully')
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Create a new brand' })
+  @SuccessApiResponse({
+    model: CreateBrandDto,
+    key: 'brand',
+    description: 'Brand created successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Brand name has been taken',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.ADMIN])
   @Post()
@@ -36,30 +47,65 @@ export class BrandController {
     return await this.brandService.create(createBrandDto);
   }
 
-  @ApiDocDetail({ summary: 'Find brand by slug' })
-  @ApiResponseWrapper(CreateBrandDto, 'brand', 'Brand details by slug')
+  @ApiOperation({ summary: 'Find brand by slug' })
+  @SuccessApiResponse({
+    model: CreateBrandDto,
+    key: 'brand',
+    description: 'Brand details by slug',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Brand not found',
+  })
   @Get('/slug/:slug')
   async findOneBySlug(@Param('slug') slug: string) {
     return await this.brandService.findOneBySlug(slug);
   }
 
-  @ApiDocDetail({ summary: 'Find brands by name' })
-  @ApiResponseWrapper(CreateBrandDto, 'brands', 'List of brands')
+  @ApiOperation({ summary: 'Find brands by name' })
+  @SuccessApiResponse({
+    model: CreateBrandDto,
+    key: 'brands',
+    description: 'List of brands',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Brand not found',
+  })
   @Get()
   async findByName(@Query('name') name: string) {
     return await this.brandService.findByName(name);
   }
 
-  @ApiDocDetail({ summary: 'Find brand by ID' })
-  @ApiResponseWrapper(CreateBrandDto, 'brand', 'Brand details by ID')
+  @ApiOperation({ summary: 'Find brand by ID' })
+  @SuccessApiResponse({
+    model: CreateBrandDto,
+    key: 'brand',
+    description: 'Brand details by ID',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Brand not found',
+  })
   @Get('/:id')
   async findOne(@Param('id') id: string) {
     return await this.brandService.findOne(id);
   }
 
-  @ApiDocDetail({ summary: 'Update a brand' })
-  @ApiResponseWrapper(UpdateBrandDto, 'brand', 'Brand updated successfully')
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Update a brand' })
+  @SuccessApiResponse({
+    model: UpdateBrandDto,
+    key: 'brand',
+    description: 'Brand updated successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Brand name has been taken',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.ADMIN])
   @Patch('/:id')
@@ -70,8 +116,20 @@ export class BrandController {
     return await this.brandService.update(id, updateBrandDto);
   }
 
-  @ApiDocDetail({ summary: 'Delete a brand' })
-  @ApiResponseWrapper(String, 'message', 'Brand deleted successfully')
+  @ApiOperation({ summary: 'Delete a brand' })
+  @SuccessApiResponse({
+    model: String,
+    key: 'message',
+    description: 'Brand deleted successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Brand not found',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.ADMIN])
   @Delete('/:id')

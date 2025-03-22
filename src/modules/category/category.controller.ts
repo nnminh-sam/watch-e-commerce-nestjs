@@ -10,15 +10,15 @@ import {
   Query,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { ApiDocDetail } from '@root/commons/decorators/api-doc-detail.decorator';
-import { ApiResponseWrapper } from '@root/commons/decorators/api-response-wrapper.decorator';
-import { ApiTags, ApiBadRequestResponse } from '@nestjs/swagger';
+import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
 import { RoleGuard } from '@root/commons/guards/role.guard';
 import { Role } from '@root/models/enums/role.enum';
 import { HasRoles } from '@root/commons/decorators/has-role.decorator';
+import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 
 @ApiTags('Categories')
 @UseGuards(JwtGuard)
@@ -26,13 +26,20 @@ import { HasRoles } from '@root/commons/decorators/has-role.decorator';
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @ApiDocDetail({ summary: 'Create a new category' })
-  @ApiResponseWrapper(
-    CreateCategoryDto,
-    'category',
-    'Category created successfully',
-  )
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Create a new category' })
+  @SuccessApiResponse({
+    model: CreateCategoryDto,
+    key: 'category',
+    description: 'Category created successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Category name has been taken',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.ADMIN])
   @Post()
@@ -40,34 +47,65 @@ export class CategoryController {
     return this.categoryService.create(createCategoryDto);
   }
 
-  @ApiDocDetail({ summary: 'Find category by slug' })
-  @ApiResponseWrapper(CreateCategoryDto, 'category', 'Category details by slug')
+  @ApiOperation({ summary: 'Find category by slug' })
+  @SuccessApiResponse({
+    model: CreateCategoryDto,
+    key: 'category',
+    description: 'Category details by slug',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Category not found',
+  })
   @Get('/slug/:slug')
   async findOneBySlug(@Param('slug') slug: string) {
     return await this.categoryService.findOneBySlug(slug);
   }
 
-  @ApiDocDetail({ summary: 'Find categories by name' })
-  @ApiResponseWrapper(CreateCategoryDto, 'categories', 'List of categories')
+  @ApiOperation({ summary: 'Find categories by name' })
+  @SuccessApiResponse({
+    model: CreateCategoryDto,
+    key: 'categories',
+    description: 'List of categories',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Category not found',
+  })
   @Get()
   async findByName(@Query('name') name: string) {
     return await this.categoryService.findByName(name);
   }
 
-  @ApiDocDetail({ summary: 'Find category by ID' })
-  @ApiResponseWrapper(CreateCategoryDto, 'category', 'Category details by ID')
+  @ApiOperation({ summary: 'Find category by ID' })
+  @SuccessApiResponse({
+    model: CreateCategoryDto,
+    key: 'category',
+    description: 'Category details by ID',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Category not found',
+  })
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.categoryService.findOne(id);
   }
 
-  @ApiDocDetail({ summary: 'Update a category' })
-  @ApiResponseWrapper(
-    UpdateCategoryDto,
-    'category',
-    'Category updated successfully',
-  )
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Update a category' })
+  @SuccessApiResponse({
+    model: UpdateCategoryDto,
+    key: 'category',
+    description: 'Category updated successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Category name has been taken',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.ADMIN])
   @Patch(':id')
@@ -78,8 +116,11 @@ export class CategoryController {
     return await this.categoryService.update(id, updateCategoryDto);
   }
 
-  @ApiDocDetail({ summary: 'Delete a category' })
-  @ApiResponseWrapper(String, 'message', 'Category deleted successfully')
+  @ApiOperation({ summary: 'Delete a category' })
+  @SuccessApiResponse({
+    description: 'Category deleted successfully',
+    messageKeyExample: 'Category removed',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.ADMIN])
   @Delete(':id')

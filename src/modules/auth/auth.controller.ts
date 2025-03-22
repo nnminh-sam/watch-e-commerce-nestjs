@@ -16,36 +16,53 @@ import { UpdatePasswordDto } from '@root/modules/auth/dtos/update-password.dto';
 import { RevokeTokenPayload } from '@root/modules/auth/dtos/revoke-token-payload.dto';
 import { RequestedUser } from '@root/commons/decorators/request-user.decorator';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
-import { ApiTags, ApiBadRequestResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { TokenResponseDto } from '@root/modules/auth/dtos/tokens-response.dto';
-import { ApiResponseWrapper } from '@root/commons/decorators/api-response-wrapper.decorator';
-import { ApiDocDetail } from '@root/commons/decorators/api-doc-detail.decorator';
+import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
+import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 
 @ApiTags('Authentications')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiDocDetail({ summary: 'User sign-in' })
-  @ApiResponseWrapper(TokenResponseDto, 'tokens', 'Successful sign-in')
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'User sign-in' })
+  @SuccessApiResponse({
+    model: TokenResponseDto,
+    key: 'tokens',
+    description: 'Successful sign-in',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Invalid credentials',
+  })
   @HttpCode(200)
   @Post('sign-in')
   async signIn(@Body() userAuthenticationDto: UserAuthenticationDto) {
     return await this.authService.signIn(userAuthenticationDto);
   }
 
-  @ApiDocDetail({ summary: 'User registration' })
-  @ApiResponseWrapper(TokenResponseDto, 'tokens', 'Successful sign-up')
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'User registration' })
+  @SuccessApiResponse({
+    model: TokenResponseDto,
+    key: 'tokens',
+    description: 'Successful sign-up',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Email or phone number has been taken',
+  })
   @HttpCode(200)
   @Post('sign-up')
   async signUp(@Body() userRegistrationDto: UserRegistrationDto) {
     return await this.authService.signUp(userRegistrationDto);
   }
 
-  @ApiDocDetail({ summary: 'User sign-out' })
-  @ApiResponseWrapper(String, 'message', 'Successful sign-out')
+  @ApiOperation({ summary: 'User sign-out' })
+  @SuccessApiResponse({
+    description: 'Successful sign-out',
+    messageKeyExample: 'Sign out success',
+  })
   @Get('sign-out')
   @HttpCode(200)
   @UseGuards(JwtGuard)
@@ -53,8 +70,16 @@ export class AuthController {
     return await this.authService.signOut(token);
   }
 
-  @ApiDocDetail({ summary: 'Revoke tokens' })
-  @ApiResponseWrapper(TokenResponseDto, 'tokens', 'Tokens revoked successfully')
+  @ApiOperation({ summary: 'Revoke tokens' })
+  @SuccessApiResponse({
+    model: TokenResponseDto,
+    key: 'tokens',
+    description: 'Tokens revoked successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Invalid tokens',
+  })
   @Post('revoke-tokens')
   @HttpCode(200)
   @UseGuards(JwtGuard)
@@ -70,8 +95,16 @@ export class AuthController {
     );
   }
 
-  @ApiDocDetail({ summary: 'Update user password' })
-  @ApiResponseWrapper(String, 'message', 'Password updated successfully')
+  @ApiOperation({ summary: 'Update user password' })
+  @SuccessApiResponse({
+    model: String,
+    key: 'message',
+    description: 'Password updated successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Invalid credentials or invalid token',
+  })
   @Patch('/update-password')
   @HttpCode(200)
   @UseGuards(JwtGuard)

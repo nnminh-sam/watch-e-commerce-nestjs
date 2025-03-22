@@ -114,7 +114,6 @@ export class UserService {
       searchTerms.length <= 0
         ? {}
         : { $text: { $search: searchTerms.join(' ') } };
-    console.log('🚀 ~ UserService ~ find ~ searchQuery:', searchQuery);
 
     try {
       const users = await this.userModel.find<UserDocument>(

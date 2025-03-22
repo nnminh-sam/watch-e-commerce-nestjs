@@ -3,9 +3,9 @@ import { Role } from '@root/models/enums/role.enum';
 import { Transform } from 'class-transformer';
 import { IsDate, IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { PaginationOrderingDto } from '@root/commons/dtos/pagination-ordering.dto';
+import { BaseRequesetFilterDto } from '@root/commons/dtos/base-request-filter.dto';
 
-export class FindUserDto extends PaginationOrderingDto {
+export class FindUserDto extends BaseRequesetFilterDto {
   @ApiProperty({
     example: 'John',
     description: 'User first name',

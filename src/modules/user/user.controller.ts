@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Patch, Query, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBadRequestResponse } from '@nestjs/swagger';
-import { ApiResponseWrapper } from '@root/commons/decorators/api-response-wrapper.decorator';
-import { ApiDocDetail } from '@root/commons/decorators/api-doc-detail.decorator';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { UserService } from './user.service';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
 import { RequestedUser } from '@root/commons/decorators/request-user.decorator';
@@ -12,6 +11,7 @@ import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
 import { FindUserDto } from '@root/modules/user/dto/find-user.dto';
 import { UpdateUserDto } from '@root/modules/user/dto/update-user.dto';
 import { User } from '@root/models/user.model';
+import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 
 @ApiTags('Users')
 @UseGuards(JwtGuard)
@@ -19,18 +19,31 @@ import { User } from '@root/models/user.model';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @ApiDocDetail({ summary: 'Get user profile' })
-  @ApiResponseWrapper(User, 'user', 'User profile retrieved successfully')
-  @ApiOperation({ summary: "Get the authenticated user's profile" })
+  @ApiOperation({ summary: 'Get user profile' })
+  @SuccessApiResponse({
+    model: User,
+    key: 'users',
+    description: 'User profile retrieved successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Invalid token',
+  })
   @Get('my')
   async getUserProfile(@RequestedUser() claims: TokenPayloadDto) {
     return this.userService.findOneById(claims.sub);
   }
 
-  @ApiDocDetail({ summary: 'Find users' })
-  @ApiResponseWrapper(User, 'users', 'List of users retrieved successfully')
-  @ApiOperation({ summary: 'Retrieve a list of users based on query filters' })
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Find users' })
+  @SuccessApiResponse({
+    model: User,
+    key: 'users',
+    description: 'List of users retrieved successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.EMPLOYEE, Role.ADMIN])
   @Get()
@@ -38,10 +51,16 @@ export class UserController {
     return await this.userService.find(findUserDto);
   }
 
-  @ApiDocDetail({ summary: 'Update user profile' })
-  @ApiResponseWrapper(User, 'user', 'User profile updated successfully')
-  @ApiOperation({ summary: "Update the authenticated user's profile" })
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Update user profile' })
+  @SuccessApiResponse({
+    model: User,
+    key: 'user',
+    description: 'User profile updated successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Cannot update user profile',
+  })
   @Patch()
   async updateUser(
     @RequestedUser() claims: TokenPayloadDto,

@@ -4,6 +4,7 @@ import {
   ExceptionFilter,
   HttpException,
 } from '@nestjs/common';
+import { GenericApiResponseDto } from '@root/commons/dtos/generic-api-response.dto';
 import { Request, Response } from 'express';
 
 @Catch(HttpException)

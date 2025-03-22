@@ -5,7 +5,6 @@ import {
   Param,
   Get,
   Put,
-  BadRequestException,
   UseGuards,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
@@ -16,10 +15,10 @@ import { JwtGuard } from '@root/commons/guards/jwt.guard';
 import { RoleGuard } from '@root/commons/guards/role.guard';
 import { HasRoles } from '@root/commons/decorators/has-role.decorator';
 import { Role } from '@root/models/enums/role.enum';
-import { ApiBadRequestResponse, ApiTags } from '@nestjs/swagger';
-import { ApiDocDetail } from '@root/commons/decorators/api-doc-detail.decorator';
-import { ApiResponseWrapper } from '@root/commons/decorators/api-response-wrapper.decorator';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { Cart } from '@root/models/cart.model';
+import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 
 @ApiTags('Carts')
 @UseGuards(JwtGuard)
@@ -27,9 +26,16 @@ import { Cart } from '@root/models/cart.model';
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 
-  @ApiDocDetail({ summary: 'Create a new cart' })
-  @ApiResponseWrapper(Cart, 'cart', 'Cart created successfully')
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Create a new cart' })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Cart created successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.CUSTOMER])
   @Post()
@@ -37,9 +43,20 @@ export class CartController {
     return this.cartService.create(createCartDto);
   }
 
-  @ApiDocDetail({ summary: 'Create new cart item' })
-  @ApiResponseWrapper(Cart, 'cart', 'Cart item created successfully')
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Create new cart item' })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Cart item created successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Product has existed in cart',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.CUSTOMER])
   @Post('item')
@@ -47,9 +64,20 @@ export class CartController {
     return this.cartService.createCartItem(createCartItemDto);
   }
 
-  @ApiDocDetail({ summary: 'Update cart' })
-  @ApiResponseWrapper(Cart, 'cart', 'Cart updated successfully')
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Update cart' })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Cart updated successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Product not found',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.CUSTOMER])
   @Put('item')
@@ -57,9 +85,20 @@ export class CartController {
     return this.cartService.updateCartItem(updateCartItemDto);
   }
 
-  @ApiDocDetail({ summary: 'Find cart by cart id' })
-  @ApiResponseWrapper(Cart, 'cart', 'Cart detail by id')
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Find cart by cart id' })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Cart detail by id',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Cart item not found',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.CUSTOMER])
   @Get(':id')
@@ -67,9 +106,20 @@ export class CartController {
     return this.cartService.findOne(id);
   }
 
-  @ApiDocDetail({ summary: 'Find cart by user id' })
-  @ApiResponseWrapper(Cart, 'cart', 'Cart detail by user id')
-  @ApiBadRequestResponse()
+  @ApiOperation({ summary: 'Find cart by user id' })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Cart detail by user id',
+  })
+  @ClientErrorApiResponse({
+    status: 403,
+    description: 'Forbidden request',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'User not found',
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.CUSTOMER])
   @Get('user/:userId')
