@@ -68,11 +68,7 @@ export class AuthService {
       BlackListTokenMessage.SIGNED_OUT,
     );
 
-    return {
-      message: 'User signed out',
-      statusCode: 200,
-      timestamp: new Date(),
-    } as SignOutResponseDto;
+    return 'Signed out success';
   }
 
   private async revokeToken(token: string, tokenName: string = 'token') {
@@ -124,7 +120,7 @@ export class AuthService {
     const jit = uuidv4();
     const iat = Math.floor(Date.now() / 1000);
     const exp = iat + 10 * 24 * 60 * 60;
-    await this.redisService.invalidateTokenToBlackList(
+    const result = await this.redisService.invalidateTokenToBlackList(
       {
         jit,
         iat,
@@ -135,5 +131,9 @@ export class AuthService {
       },
       BlackListTokenMessage.CHANGED_PASSWORD,
     );
+    if (!result)
+      throw new BadRequestException('Cannot black list change password token');
+
+    return 'Change password success';
   }
 }

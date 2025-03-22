@@ -3,10 +3,11 @@ import {
   Controller,
   Get,
   HttpCode,
-  Param,
   Patch,
   Post,
   UseGuards,
+  UseInterceptors,
+  Version,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
@@ -17,27 +18,48 @@ import { UpdatePasswordDto } from '@root/modules/auth/dtos/update-password.dto';
 import { RevokeTokenPayload } from '@root/modules/auth/dtos/revoke-token-payload.dto';
 import { RequestedUser } from '@root/commons/decorators/request-user.decorator';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiBody,
+  ApiExtraModels,
+  ApiOkResponse,
+  ApiUnauthorizedResponse,
+  ApiBadRequestResponse,
+  ApiProperty,
+} from '@nestjs/swagger';
+import { ApiResponseWrapperInterceptor } from '@root/commons/interceptors/api-response-wrapper.interceptor';
+import { ApiWrapperDto } from '@root/commons/dtos/api-wrapper.dto';
+import { TokenResponseDto } from '@root/modules/auth/dtos/tokens-response.dto';
+import { ApiResponseWrapper } from '@root/commons/decorators/api-response-wrapper.decorator';
+import { ApiDocDetail } from '@root/commons/decorators/api-doc-detail.decorator';
 
+@ApiTags('Authentications')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiDocDetail({ summary: 'User sign-in' })
+  @ApiResponseWrapper(TokenResponseDto, 'tokens', 'Successful sign-in')
+  @ApiBadRequestResponse()
+  @HttpCode(200)
   @Post('sign-in')
-  async signIn(
-    @Body()
-    userAuthenticationDto: UserAuthenticationDto,
-  ) {
+  async signIn(@Body() userAuthenticationDto: UserAuthenticationDto) {
     return await this.authService.signIn(userAuthenticationDto);
   }
 
+  @ApiDocDetail({ summary: 'User registration' })
+  @ApiResponseWrapper(TokenResponseDto, 'tokens', 'Successful sign-up')
+  @ApiBadRequestResponse()
+  @HttpCode(200)
   @Post('sign-up')
-  async signUp(
-    @Body()
-    userRegistrationDto: UserRegistrationDto,
-  ) {
+  async signUp(@Body() userRegistrationDto: UserRegistrationDto) {
     return await this.authService.signUp(userRegistrationDto);
   }
 
+  @ApiDocDetail({ summary: 'User sign-out' })
+  @ApiResponseWrapper(String, 'message', 'Successful sign-out')
   @Get('sign-out')
   @HttpCode(200)
   @UseGuards(JwtGuard)
@@ -45,31 +67,32 @@ export class AuthController {
     return await this.authService.signOut(token);
   }
 
+  @ApiDocDetail({ summary: 'Revoke tokens' })
+  @ApiResponseWrapper(TokenResponseDto, 'tokens', 'Tokens revoked successfully')
+  @Post('revoke-tokens')
   @HttpCode(200)
   @UseGuards(JwtGuard)
-  @Post('revoke-tokens')
   async revokeTokens(
-    @Body()
-    revokeTokenPayload: RevokeTokenPayload,
+    @Body() revokeTokenPayload: RevokeTokenPayload,
     @RequestedUser() claims: TokenPayloadDto,
     @AccessToken() accessToken: string,
   ) {
-    // TODO: return success response
-    await this.authService.revokeTokens(
+    return await this.authService.revokeTokens(
       claims,
       accessToken,
       revokeTokenPayload.refreshToken,
     );
   }
 
+  @ApiDocDetail({ summary: 'Update user password' })
+  @ApiResponseWrapper(String, 'message', 'Password updated successfully')
+  @Patch('/update-password')
   @HttpCode(200)
   @UseGuards(JwtGuard)
-  @Patch('/update-password')
   async updatePassword(
     @RequestedUser() claims: TokenPayloadDto,
     @Body() updatePasswordDto: UpdatePasswordDto,
   ) {
-    // TODO: return success response
     return await this.authService.changePassword(claims.sub, updatePasswordDto);
   }
 }
