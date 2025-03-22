@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   Logger,
   NotFoundException,
 } from '@nestjs/common';
@@ -14,6 +15,15 @@ import { RedisService } from '@root/database/redis.service';
 
 import { Model } from 'mongoose';
 import { ProductService } from '@root/modules/product/product.service';
+import { Product } from '@root/models/product.model';
+import {
+  EventEmitter2,
+  EventEmitterReadinessWatcher,
+  OnEvent,
+} from '@nestjs/event-emitter';
+import { UserEventsEnum } from '@root/models/enums/user-events.enum';
+import { User } from '@root/models/user.model';
+import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
 
 @Injectable()
 export class CartService {
@@ -23,53 +33,94 @@ export class CartService {
     @InjectModel(Cart.name)
     private readonly cartModel: Model<CartDocument>,
     private readonly productService: ProductService,
+    private readonly eventEmitter: EventEmitter2,
+    private readonly eventEmitterReadinessWatcher: EventEmitterReadinessWatcher,
   ) {}
 
-  async create(createCartDto: CreateCartDto) {
-    try {
-      const document = await this.cartModel.create(createCartDto);
-      const cart = await document.save();
-      return cart.toJSON();
-    } catch (error: any) {
-      this.logger.log(error.message);
-      throw new BadRequestException('Cannot create cart');
-    }
+  private async getValidatedCartItems(
+    items: CreateCartItemDto[],
+  ): Promise<CartItem[]> {
+    if (!items?.length) return [];
+
+    return await Promise.all(
+      items.map(async (createCartItemDto) => {
+        try {
+          return await this.validateCartItem(createCartItemDto);
+        } catch (error: any) {
+          this.logger.error(`Invalid cart item: ${error.message}`);
+          throw new BadRequestException('Invalid cart item');
+        }
+      }),
+    ).then((results) => results.filter((item) => item !== null));
   }
 
-  async createCartItem(createCartItemDto: CreateCartItemDto) {
+  private calculateTotalPrice(cartItems: CartItem[]): number {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0,
+    );
+  }
+
+  async validateCartItem(
+    createCartItemDto: CreateCartItemDto,
+  ): Promise<CartItem> {
+    const product = await this.productService.findOneById(
+      createCartItemDto.productId,
+    );
+    if (createCartItemDto.quantity > product.stock) {
+      throw new BadRequestException('Required quantity is unavailable');
+    }
+
+    return {
+      productId: createCartItemDto.productId,
+      name: product.name,
+      price: product.price,
+      quantity: createCartItemDto.quantity,
+      spec: createCartItemDto.spec,
+      asset: product.assets[0] || '',
+      availability: true,
+    };
+  }
+
+  @OnEvent(CartEventsEnum.CART_CREATED, { async: true, promisify: true })
+  async create(createCartDto: CreateCartDto): Promise<Cart> {
+    await this.eventEmitterReadinessWatcher.waitUntilReady();
+    const user: User = (
+      await this.eventEmitter.emitAsync(
+        UserEventsEnum.USER_FIND_REQUEST,
+        createCartDto.userId,
+      )
+    )[0];
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const validatedCartItems = createCartDto?.items
+      ? await this.getValidatedCartItems(createCartDto.items)
+      : [];
+    const totalPrice = this.calculateTotalPrice(validatedCartItems);
+    if (createCartDto?.total && totalPrice !== createCartDto?.total) {
+      throw new BadRequestException('Given total is invalid');
+    }
+
     try {
-      const product = await this.productService.findOne(
-        createCartItemDto.productId,
-      );
-      if (!product) {
-        throw new BadRequestException('Product not found');
-      }
-
-      const cartItem: CartItem = {
-        productId: createCartItemDto.productId,
-        name: product.name,
-        price: createCartItemDto.price,
-        quantity: createCartItemDto.quantity,
-        spec: createCartItemDto.spec,
-        asset: product.assets[0] || '',
-        availability: true,
-      };
-
-      const updatedCart = await this.cartModel.findOneAndUpdate(
-        { _id: createCartItemDto.cartId },
-        {
-          $push: { items: cartItem },
-          $inc: { total: cartItem.quantity * cartItem.price },
-        },
-        { new: true, upsert: true },
-      );
-      if (!updatedCart) {
-        throw new BadRequestException('Cart not found');
-      }
-      return updatedCart.toJSON();
+      const cartDocument = new this.cartModel({
+        user: createCartDto.userId,
+        items: validatedCartItems,
+        total: totalPrice,
+      });
+      const cart = await cartDocument.save();
+      return cart.toJSON();
     } catch (error: any) {
-      this.logger.log(error.message);
-      throw new BadRequestException('Cannot create cart item');
+      this.logger.error(`Error creating cart: ${error.message}`);
+      switch (error.name) {
+        case 'ValidationError':
+          throw new BadRequestException('Cart data validation failed');
+        case 'CastError':
+          throw new BadRequestException(error.message);
+        default:
+          throw new InternalServerErrorException('Unable to create cart');
+      }
     }
   }
 

@@ -43,13 +43,14 @@ export class BrandService {
         _id: id,
         deletedAt: null,
       })
-      .select('-deletedAt');
+      .select('-deletedAt')
+      .lean();
 
     if (!brand) {
       throw new NotFoundException('Brand not found');
     }
 
-    return brand.toJSON();
+    return brand;
   }
 
   async findOneBySlug(slug: string) {

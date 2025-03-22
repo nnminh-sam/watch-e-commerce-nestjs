@@ -9,23 +9,14 @@ import {
 } from 'class-validator';
 
 export class CreateCartItemDto {
-  @ApiProperty({ example: '60d21b4667d0d8992e610c85', description: 'Cart ID' })
-  @IsMongoId()
-  @IsString()
-  cartId: string;
-
   @ApiProperty({
     example: '60d21b4667d0d8992e610c86',
-    description: 'Product ID',
+    description:
+      'Product ID at the moment where the product is added into the cart. Other product information such as price or name can be changed',
   })
   @IsMongoId()
   @IsString()
   productId: string;
-
-  @ApiProperty({ example: 199.99, description: 'Item price' })
-  @IsNumber()
-  @IsNotEmpty()
-  price: number;
 
   @ApiProperty({ example: 2, description: 'Quantity of the product' })
   @IsNumber()
@@ -34,7 +25,7 @@ export class CreateCartItemDto {
 
   @ApiProperty({
     example: [{ key: 'Size', value: 'M' }],
-    description: 'Specifications for the product',
+    description: 'User selected specifications of the product',
   })
   @IsArray()
   @IsNotEmpty()

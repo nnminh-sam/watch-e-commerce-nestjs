@@ -1,6 +1,7 @@
 import { CartItem } from '@root/models/cart-item.model';
 import { IsMongoId, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { CreateCartItemDto } from '@root/modules/cart/dto/create-cart-item.dto';
 
 export class CreateCartDto {
   @ApiProperty({
@@ -27,5 +28,5 @@ export class CreateCartDto {
     type: [CartItem],
   })
   @IsOptional()
-  items?: CartItem[];
+  items?: CreateCartItemDto[];
 }

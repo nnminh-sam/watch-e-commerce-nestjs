@@ -21,18 +21,18 @@ async function bootstrap() {
   });
   app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
 
+  app.useGlobalInterceptors(new CamelCaseApiParamInterceptor());
+  app.useGlobalInterceptors(new CamelCaseApiRequestInterceptor());
+  app.useGlobalInterceptors(new SnakeCaseApiResponseInterceptor());
+
+  app.useGlobalFilters(new HttpExceptionFilter());
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
       whitelist: true,
     }),
   );
-
-  app.useGlobalFilters(new HttpExceptionFilter());
-
-  app.useGlobalInterceptors(new CamelCaseApiParamInterceptor());
-  app.useGlobalInterceptors(new CamelCaseApiRequestInterceptor());
-  app.useGlobalInterceptors(new SnakeCaseApiResponseInterceptor());
 
   app.setGlobalPrefix('api');
 

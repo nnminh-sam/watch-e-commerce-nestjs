@@ -10,6 +10,12 @@ export type CategoryDocument = Category & Document;
 })
 export class Category {
   @ApiProperty({
+    example: '60d21b4667d0d8992e610c91',
+    description: 'Category ID',
+  })
+  id: string;
+
+  @ApiProperty({
     example: 'Luxury Watches',
     description: 'Category name',
     name: 'name',
@@ -59,6 +65,7 @@ export class Category {
 }
 
 const CategorySchema = SchemaFactory.createForClass(Category);
+
 CategorySchema.index({
   name: 'text',
 });

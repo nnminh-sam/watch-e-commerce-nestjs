@@ -6,6 +6,12 @@ export type BrandDocument = Brand & Document;
 
 @Schema({ timestamps: true, collection: 'brands', id: true })
 export class Brand {
+  @ApiProperty({
+    example: '60d21b4667d0d8992e610c91',
+    description: 'Brand ID',
+  })
+  id: string;
+
   @ApiProperty({ example: 'Rolex', description: 'The name of the brand' })
   @Prop({
     required: true,

@@ -13,6 +13,12 @@ export type UserDocument = User & Document;
 @Schema({ timestamps: true, collection: 'users', id: true })
 export class User {
   @ApiProperty({
+    example: '60d21b4667d0d8992e610c91',
+    description: 'User ID',
+  })
+  id: string;
+
+  @ApiProperty({
     example: 'user@example.com',
     description: 'User email',
     name: 'email',

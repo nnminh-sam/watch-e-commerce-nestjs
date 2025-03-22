@@ -79,7 +79,7 @@ export class UpdateProductDto {
   @IsNumber()
   @Min(0)
   @IsOptional()
-  price?: number;
+  price: number;
 
   @ApiProperty({
     example: 55,

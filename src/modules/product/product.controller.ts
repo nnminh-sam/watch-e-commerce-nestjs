@@ -68,7 +68,7 @@ export class ProductController {
   })
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.productService.findOne(id);
+    return await this.productService.findOneById(id);
   }
 
   @ApiOperation({ summary: 'Update a product' })

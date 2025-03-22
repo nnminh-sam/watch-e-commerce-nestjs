@@ -13,6 +13,12 @@ export type ProductDocument = Document & Product;
 @Schema({ timestamps: true, id: true, collection: 'products' })
 export class Product {
   @ApiProperty({
+    example: '60d21b4667d0d8992e610c91',
+    description: 'Product ID',
+  })
+  id: string;
+
+  @ApiProperty({
     example: 'Luxury Watch',
     description: 'Product name',
     name: 'name',
@@ -134,24 +140,28 @@ export class Product {
   totalComments: number;
 }
 
-export type PopulatedProduct = Product & {
+export type DetailedProduct = Product & {
   brand: Brand;
   category: Category;
 };
 
 const ProductSchema = SchemaFactory.createForClass(Product);
 
-ProductSchema.index({ 'spec.key': 1, 'spec.value': 1 });
-ProductSchema.index({ name: 'text' });
+ProductSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
 
 ProductSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
+    ret.id = ret._id.toHexString();
     delete ret._id;
-    delete ret.customerVisible;
     return ret;
   },
 });
+
+ProductSchema.index({ 'spec.key': 1, 'spec.value': 1 });
+ProductSchema.index({ name: 'text' });
 
 export { ProductSchema };

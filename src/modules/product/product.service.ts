@@ -1,10 +1,21 @@
 import { FindProductDto } from './dto/find-product.dto';
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Product } from '@root/models/product.model';
+import {
+  DetailedProduct,
+  Product,
+  ProductDocument,
+} from '@root/models/product.model';
 import { Model } from 'mongoose';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { BrandService } from '@root/modules/brand/brand.service';
+import { CategoryService } from '@root/modules/category/category.service';
 
 @Injectable()
 export class ProductService {
@@ -12,44 +23,117 @@ export class ProductService {
 
   constructor(
     @InjectModel(Product.name)
-    private readonly productModel: Model<Product>,
+    private readonly productModel: Model<ProductDocument>,
+    private readonly brandService: BrandService,
+    private readonly categoryService: CategoryService,
   ) {}
 
+  private async existBy(field: string, value: any): Promise<boolean> {
+    return !!(await this.productModel.exists({ [field]: value }));
+  }
+
+  private async validateUniqueField(
+    field: string,
+    value: any,
+    message: string,
+  ): Promise<void> {
+    if (await this.existBy(field, value)) {
+      throw new BadRequestException(message);
+    }
+  }
+
   async create(createProductDto: CreateProductDto) {
+    await this.validateUniqueField(
+      'name',
+      createProductDto.name,
+      'Product name is already in use',
+    );
+    await this.validateUniqueField(
+      'code',
+      createProductDto.code,
+      'Product code is already in use',
+    );
+    if (createProductDto.price < 0) {
+      throw new BadRequestException('Price cannot be negative number');
+    }
+    if (createProductDto.stock < 0) {
+      throw new BadRequestException('Stock cannot be negative number');
+    }
+    if (createProductDto?.sold && createProductDto?.sold < 0) {
+      throw new BadRequestException('Product sold cannot be negative number');
+    }
+    const brand = await this.brandService.findOne(createProductDto.brand);
+    const category = await this.categoryService.findOne(
+      createProductDto.category,
+    );
+
     try {
       const productModel = new this.productModel({
         ...createProductDto,
         customerVisible: true,
+        brand: brand.id,
+        category: category.id,
       });
       const savedProductDocument = await productModel.save();
       return savedProductDocument.toJSON();
     } catch (error: any) {
-      this.logger.error(error.message);
-      throw new BadRequestException('Cannot create product');
+      this.logger.error(`Error creating user: ${error.message}`);
+      switch (error.name) {
+        case 'ValidationError':
+          throw new BadRequestException('User data validation failed');
+        case 'CastError':
+          throw new BadRequestException(error.message);
+        default:
+          throw new InternalServerErrorException('Unable to create user');
+      }
     }
   }
 
-  async findOne(id: string) {
+  async findDetailedProductById(id: string): Promise<DetailedProduct> {
     const product = await this.productModel
       .findOne(
         { _id: id },
         {
+          customerVisible: 1,
+          status: 1,
+          spec: 1,
+          assets: 1,
           comments: 1,
           totalComments: 1,
+        },
+      )
+      .populate('brand category')
+      .lean<DetailedProduct>();
+    if (!product) {
+      throw new BadRequestException('Product not found');
+    }
+
+    return product;
+  }
+
+  async findOneById(id: string): Promise<Product> {
+    const product = await this.productModel
+      .findOne(
+        { _id: id },
+        {
+          customerVisible: 1,
+          status: 1,
           spec: 1,
           assets: 1,
         },
       )
-      .populate('brand category');
+      .populate('brand category')
+      .lean();
 
     if (!product) {
       throw new BadRequestException('Product not found');
     }
 
-    return product.toJSON();
+    return product;
   }
 
-  async find(findProductDto: FindProductDto) {
+  // TODO: Redesign this find product API with better filter and product details population
+  async find(findProductDto: FindProductDto): Promise<Product[]> {
     const searchTerms: string[] = [];
     if (findProductDto?.name) searchTerms.push(findProductDto.name);
 
@@ -73,39 +157,81 @@ export class ProductService {
       ],
     };
 
-    const products = this.productModel.find(
-      {
-        ...textSearchQuery,
-        ...priceQuery,
-        ...(findProductDto?.code && { code: findProductDto.code }),
-        ...(findProductDto?.brand && { code: findProductDto.brand }),
-        ...(findProductDto?.category && { code: findProductDto.category }),
-      },
-      {
-        comments: 0,
-        totalComments: 0,
-        spec: 0,
-        description: 0,
-      },
-    );
+    const products = this.productModel
+      .find(
+        {
+          ...textSearchQuery,
+          ...priceQuery,
+          ...(findProductDto?.code && { code: findProductDto.code }),
+          ...(findProductDto?.brand && { code: findProductDto.brand }),
+          ...(findProductDto?.category && { code: findProductDto.category }),
+        },
+        {
+          comments: 0,
+          totalComments: 0,
+          spec: 0,
+          description: 0,
+        },
+      )
+      .lean();
 
     return products;
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
-    try {
-      const updatedProduct = await this.productModel
-        .findOneAndUpdate({ _id: id }, updateProductDto, { new: true })
-        .populate('category brand');
+  async update(
+    id: string,
+    updateProductDto: UpdateProductDto,
+  ): Promise<Product> {
+    await this.validateUniqueField(
+      'name',
+      updateProductDto.name,
+      'Product name is already in use',
+    );
+    await this.validateUniqueField(
+      'code',
+      updateProductDto.code,
+      'Product code is already in use',
+    );
+    if (updateProductDto.price < 0) {
+      throw new BadRequestException('Price cannot be negative number');
+    }
+    if (updateProductDto.stock < 0) {
+      throw new BadRequestException('Stock cannot be negative number');
+    }
+    if (updateProductDto?.sold && updateProductDto?.sold < 0) {
+      throw new BadRequestException('Product sold cannot be negative number');
+    }
+    const brand = await this.brandService.findOne(updateProductDto.brand);
+    const category = await this.categoryService.findOne(
+      updateProductDto.category,
+    );
 
-      if (!updatedProduct) {
+    try {
+      const product = await this.productModel
+        .findOneAndUpdate(
+          { _id: id },
+          { $set: updateProductDto },
+          { new: true },
+        )
+        .select('customerVisible status spec assets')
+        .populate('category brand')
+        .lean();
+
+      if (!product) {
         throw new BadRequestException('Product not found');
       }
 
-      return updatedProduct.toJSON();
+      return product;
     } catch (error: any) {
-      this.logger.error(error.message);
-      throw new BadRequestException('Cannot update product');
+      this.logger.error(`Error creating user: ${error.message}`);
+      switch (error.name) {
+        case 'ValidationError':
+          throw new BadRequestException('User data validation failed');
+        case 'CastError':
+          throw new BadRequestException(error.message);
+        default:
+          throw new InternalServerErrorException('Unable to update user');
+      }
     }
   }
 }

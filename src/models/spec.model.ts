@@ -35,7 +35,6 @@ SpecSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
-    delete ret.customerVisible;
     delete ret._id;
     return ret;
   },

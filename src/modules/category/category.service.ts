@@ -7,7 +7,7 @@ import {
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Category } from '@root/models/category.model';
+import { Category, CategoryDocument } from '@root/models/category.model';
 import { Model } from 'mongoose';
 import { generateSlug } from '@root/utils';
 
@@ -17,7 +17,7 @@ export class CategoryService {
 
   constructor(
     @InjectModel(Category.name)
-    private readonly categoryModel: Model<Category>,
+    private readonly categoryModel: Model<CategoryDocument>,
   ) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
@@ -38,22 +38,20 @@ export class CategoryService {
     }
   }
 
-  async findOne(id: string) {
-    const category = await this.categoryModel.findOne(
-      {
+  async findOne(id: string): Promise<any> {
+    const category = await this.categoryModel
+      .findOne({
         _id: id,
         deletedAt: null,
-      },
-      {
-        deletedAt: 0,
-      },
-    );
+      })
+      .select('-deletedAt')
+      .lean();
 
     if (!category) {
       throw new NotFoundException('Category not found');
     }
 
-    return category.toJSON();
+    return category;
   }
 
   async findOneBySlug(slug: string) {

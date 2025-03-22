@@ -45,7 +45,11 @@ export class UserRegistrationDto {
   @Length(3, 50)
   lastName: string;
 
-  @ApiProperty({ example: 'MALE', enum: Gender, description: 'User gender' })
+  @ApiProperty({
+    example: Gender.MALE,
+    enum: Gender,
+    description: 'User gender',
+  })
   @IsNotEmpty()
   @IsEnum(Gender)
   gender: Gender;
@@ -56,7 +60,7 @@ export class UserRegistrationDto {
     name: 'phone_number',
   })
   @IsNotEmpty()
-  @IsPhoneNumber('VN')
+  @IsString()
   phoneNumber: string;
 
   @ApiProperty({
@@ -65,10 +69,9 @@ export class UserRegistrationDto {
     name: 'date_of_birth',
   })
   @IsNotEmpty()
-  @IsDate()
   dateOfBirth: Date;
 
-  @ApiProperty({ example: 'USER', enum: Role, description: 'User role' })
+  @ApiProperty({ example: Role.CUSTOMER, enum: Role, description: 'User role' })
   @IsNotEmpty()
   @IsEnum(Role)
   role: Role;

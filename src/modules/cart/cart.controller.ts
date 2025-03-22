@@ -43,27 +43,6 @@ export class CartController {
     return this.cartService.create(createCartDto);
   }
 
-  @ApiOperation({ summary: 'Create new cart item' })
-  @SuccessApiResponse({
-    model: Cart,
-    key: 'cart',
-    description: 'Cart item created successfully',
-  })
-  @ClientErrorApiResponse({
-    status: 403,
-    description: 'Forbidden request',
-  })
-  @ClientErrorApiResponse({
-    status: 400,
-    description: 'Product has existed in cart',
-  })
-  @UseGuards(RoleGuard)
-  @HasRoles([Role.CUSTOMER])
-  @Post('item')
-  async addCartItem(@Body() createCartItemDto: CreateCartItemDto) {
-    return this.cartService.createCartItem(createCartItemDto);
-  }
-
   @ApiOperation({ summary: 'Update cart' })
   @SuccessApiResponse({
     model: Cart,
