@@ -2,16 +2,26 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from '@root/commons/filters/http-exception.filter';
 import { EnvironmentService } from '@root/environment/environment.service';
-import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import {
+  INestApplication,
+  INestMicroservice,
+  Logger,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { SnakeCaseApiResponseInterceptor } from '@root/commons/interceptors/snake-case-api-response.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CamelCaseApiRequestInterceptor } from '@root/commons/interceptors/camel-case-api-request.interceptor';
 import { CamelCaseApiParamInterceptor } from '@root/commons/interceptors/camel-case-api-param.interceptor';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { MicroservicesModule } from '@root/microservices.module';
 
 async function bootstrap() {
-  const logger: Logger = new Logger('Application');
-  const app = await NestFactory.create(AppModule);
-  const configService = app.get(EnvironmentService);
+  const logger: Logger = new Logger('API Service');
+
+  const app: INestApplication = await NestFactory.create(AppModule);
+  const environmentService: EnvironmentService = app.get(EnvironmentService);
+  const port = environmentService.port;
 
   app.enableCors({
     origin: '*',
@@ -49,10 +59,25 @@ async function bootstrap() {
     },
   });
 
-  const port = configService.port;
-  await app.listen(port, () => {
-    logger.log(`Server is running on http://localhost:${port}`);
-    logger.log(`API document is at http://localhost:${port}/api-document`);
-  });
+  const microservices: INestMicroservice =
+    await NestFactory.createMicroservice<MicroserviceOptions>(
+      MicroservicesModule,
+      {
+        transport: Transport.REDIS,
+        options: {
+          host: environmentService.redisHost,
+          port: environmentService.redisPort,
+          db: environmentService.redisDbRpc,
+        },
+      },
+    );
+
+  await Promise.all([
+    await app.listen(port, () => {
+      logger.log(`Server is running on http://localhost:${port}`);
+      logger.log(`API document is at http://localhost:${port}/api-document`);
+    }),
+    await microservices.listen(),
+  ]);
 }
 bootstrap();

@@ -8,7 +8,6 @@ export class RedisService implements OnModuleInit {
   private readonly logger: Logger = new Logger(RedisService.name);
   private readonly blackListClient: Redis;
   private readonly cartClient: Redis;
-  private readonly rpcClient: Redis;
 
   constructor(private readonly environmentService: EnvironmentService) {
     this.blackListClient = new Redis({
@@ -24,22 +23,14 @@ export class RedisService implements OnModuleInit {
       db: this.environmentService.redisDbCart,
       // password: this.environmentService.redisPassword,
     });
-
-    this.rpcClient = new Redis({
-      host: this.environmentService.redisHost,
-      port: this.environmentService.redisPort,
-      db: this.environmentService.redisDbRpc,
-      // password: this.environmentService.redisPassword,
-    });
   }
 
   async onModuleInit() {
     try {
-      const clientList: string[] = ['Black list', 'Cart', 'RPC'];
+      const clientList: string[] = ['Black list', 'Cart'];
       const connectionResults = await Promise.all([
         this.blackListClient.ping(),
         this.cartClient.ping(),
-        this.rpcClient.ping(),
       ]);
       connectionResults.forEach((value: 'PONG', index: number) => {
         if (value !== 'PONG') {
