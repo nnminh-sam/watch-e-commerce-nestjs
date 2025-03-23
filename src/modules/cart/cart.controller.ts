@@ -1,15 +1,5 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Param,
-  Get,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Body, Param, Get, Put, UseGuards } from '@nestjs/common';
 import { CartService } from './cart.service';
-import { CreateCartDto } from './dto/create-cart.dto';
-import { CreateCartItemDto } from './dto/create-cart-item.dto';
 import { UpdateCartItemDto } from './dto/update-cart-item.dto';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
 import { RoleGuard } from '@root/commons/guards/role.guard';
@@ -25,23 +15,6 @@ import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-ap
 @Controller('carts')
 export class CartController {
   constructor(private readonly cartService: CartService) {}
-
-  @ApiOperation({ summary: 'Create a new cart' })
-  @SuccessApiResponse({
-    model: Cart,
-    key: 'cart',
-    description: 'Cart created successfully',
-  })
-  @ClientErrorApiResponse({
-    status: 403,
-    description: 'Forbidden request',
-  })
-  @UseGuards(RoleGuard)
-  @HasRoles([Role.CUSTOMER])
-  @Post()
-  async createCart(@Body() createCartDto: CreateCartDto) {
-    return this.cartService.create(createCartDto);
-  }
 
   @ApiOperation({ summary: 'Update cart' })
   @SuccessApiResponse({

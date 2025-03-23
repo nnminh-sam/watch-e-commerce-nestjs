@@ -21,7 +21,6 @@ import {
 } from '@nestjs/event-emitter';
 import { UserEventsEnum } from '@root/models/enums/user-events.enum';
 import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
-import { CreateCartDto } from '@root/modules/cart/dto/create-cart.dto';
 
 @Injectable()
 export class UserService {
@@ -34,16 +33,19 @@ export class UserService {
     private readonly eventEmitterReadinessWatcher: EventEmitterReadinessWatcher,
   ) {}
 
-  private async existsBy(field: string, value: any): Promise<boolean> {
-    return !!(await this.userModel.exists({ [field]: value }));
-  }
-
   private async validateUniqueField(
     field: string,
     value: any,
     message: string,
+    userId?: string,
   ) {
-    if (await this.existsBy(field, value)) {
+    const isExisted = await this.userModel.findOne({
+      [field]: value,
+      ...(userId && {
+        _id: { $neq: userId },
+      }),
+    });
+    if (isExisted) {
       throw new BadRequestException(message);
     }
   }
@@ -60,81 +62,6 @@ export class UserService {
     if (!isMatch) throw new BadRequestException('Invalid credentials');
   }
 
-  async validateUser(
-    email: string,
-    password: string,
-  ): Promise<UserCredentialsDto> {
-    const user = await this.userModel
-      .findOne<UserDocument>({ email }, 'password email id role')
-      .lean();
-
-    if (!user) throw new BadRequestException('User not found');
-    await this.validatePassword(password, user.password);
-
-    return {
-      id: user.id,
-      email: user.email,
-      role: user.role as Role,
-    };
-  }
-
-  async create(userRegistrationDto: UserRegistrationDto): Promise<User> {
-    await this.validateUniqueField(
-      'email',
-      userRegistrationDto.email,
-      'Email is already in use',
-    );
-    await this.validateUniqueField(
-      'phoneNumber',
-      userRegistrationDto.phoneNumber,
-      'Phone number is already in use',
-    );
-
-    const session = await this.userModel.db.startSession();
-    session.startTransaction();
-
-    try {
-      const userModel = new this.userModel({
-        ...userRegistrationDto,
-        password: await this.hashPassword(userRegistrationDto.password),
-        deliveryAddress: [],
-      });
-      const user = await userModel.save({ session });
-
-      await this.eventEmitterReadinessWatcher.waitUntilReady();
-      const createCartDto: CreateCartDto = { userId: user.id };
-      const cartCreationResult = await this.eventEmitter.emitAsync(
-        CartEventsEnum.CART_CREATED,
-        createCartDto,
-      );
-      if (!cartCreationResult || cartCreationResult[0] instanceof Error) {
-        throw new InternalServerErrorException(
-          'User created but cart creation failed',
-        );
-      }
-
-      await session.commitTransaction();
-
-      return user.toJSON();
-    } catch (error: any) {
-      await session.abortTransaction();
-
-      this.logger.error(`Error creating user and cart: ${error.message}`);
-      switch (error.name) {
-        case 'ValidationError':
-          throw new BadRequestException('User data validation failed');
-        case 'CastError':
-          throw new BadRequestException(error.message);
-        default:
-          throw new InternalServerErrorException(
-            error.message || 'Failed to create user and cart',
-          );
-      }
-    } finally {
-      session.endSession();
-    }
-  }
-
   @OnEvent(UserEventsEnum.USER_FIND_REQUEST, { async: true, promisify: true })
   async findOneById(id: string): Promise<User> {
     const user = await this.userModel
@@ -143,8 +70,8 @@ export class UserService {
         '-password -role -isActive -deliveryAddress',
       )
       .lean<User>();
-
     if (!user) throw new NotFoundException('User not found');
+
     return user;
   }
 
@@ -188,12 +115,82 @@ export class UserService {
     }
   }
 
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<UserCredentialsDto> {
+    const user = await this.userModel
+      .findOne({ email }, 'password email id role')
+      .lean<User>();
+
+    if (!user) throw new BadRequestException('User not found');
+    await this.validatePassword(password, user.password);
+
+    return {
+      id: user.id,
+      email: user.email,
+      role: user.role as Role,
+    };
+  }
+
+  async create(userRegistrationDto: UserRegistrationDto): Promise<User> {
+    await this.validateUniqueField(
+      'email',
+      userRegistrationDto.email,
+      'Email is already in use',
+    );
+    await this.validateUniqueField(
+      'phoneNumber',
+      userRegistrationDto.phoneNumber,
+      'Phone number is already in use',
+    );
+
+    try {
+      const userModel = new this.userModel({
+        ...userRegistrationDto,
+        password: await this.hashPassword(userRegistrationDto.password),
+        deliveryAddress: [],
+      });
+      const user = await userModel.save();
+
+      await this.eventEmitterReadinessWatcher.waitUntilReady();
+      const cartCreationResult = await this.eventEmitter.emitAsync(
+        CartEventsEnum.CART_CREATED,
+        user.id,
+      );
+      console.log(
+        '🚀 ~ UserService ~ create ~ cartCreationResult:',
+        cartCreationResult,
+      );
+      if (!cartCreationResult || cartCreationResult[0] instanceof Error) {
+        throw new InternalServerErrorException(
+          'User created but cart creation failed',
+        );
+      }
+
+      return user.toJSON();
+    } catch (error: any) {
+      this.logger.error(`Error creating user and cart: ${error.message}`);
+      switch (error.name) {
+        case 'ValidationError':
+          throw new BadRequestException('User data validation failed');
+        case 'CastError':
+          throw new BadRequestException(error.message);
+        default:
+          throw new InternalServerErrorException(
+            error.message || 'Failed to create user and cart',
+          );
+      }
+    }
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     if (updateUserDto.phoneNumber) {
       await this.validateUniqueField(
         'phoneNumber',
         updateUserDto.phoneNumber,
         'Phone number is already in use',
+        id,
       );
     }
 

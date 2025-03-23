@@ -1,5 +1,5 @@
 import { Gender } from '@root/models/enums/gender.enum';
-import { IsDate, IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateUserDto {
@@ -8,8 +8,8 @@ export class UpdateUserDto {
     description: 'Updated first name',
     name: 'first_name',
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   firstName: string;
 
   @ApiProperty({
@@ -17,8 +17,8 @@ export class UpdateUserDto {
     description: 'Updated last name',
     name: 'last_name',
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   lastName: string;
 
   @ApiProperty({
@@ -27,8 +27,8 @@ export class UpdateUserDto {
     description: 'Updated gender',
     name: 'gender',
   })
-  @IsEnum(Gender)
   @IsOptional()
+  @IsEnum(Gender)
   gender: Gender;
 
   @ApiProperty({
@@ -36,7 +36,6 @@ export class UpdateUserDto {
     description: 'Updated date of birth',
     name: 'date_of_birth',
   })
-  @IsDate()
   @IsOptional()
   dateOfBirth: Date;
 
@@ -45,7 +44,7 @@ export class UpdateUserDto {
     description: 'Updated phone number',
     name: 'phone_number',
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   phoneNumber: string;
 }

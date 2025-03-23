@@ -68,4 +68,28 @@ export class EnvironmentService {
   get redisDbCart() {
     return this.configService.get<number>('REDIS_DB_CART');
   }
+
+  get redisDbRpc() {
+    return this.configService.get<number>('REDIS_DB_RPC');
+  }
+
+  get useMongoCluster() {
+    return this.configService.get<boolean>('USE_MONGO_CLUSTER');
+  }
+
+  get databaseClusterUrl() {
+    return this.configService.get<string>('DATABASE_CLUSTER_URL');
+  }
+
+  get database1Port() {
+    return this.configService.get<number>('DATABASE_1_PORT');
+  }
+
+  get database2Port() {
+    return this.configService.get<number>('DATABASE_2_PORT');
+  }
+
+  get database3Port() {
+    return this.configService.get<number>('DATABASE_3_PORT');
+  }
 }

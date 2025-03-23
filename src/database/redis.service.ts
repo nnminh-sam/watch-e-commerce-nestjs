@@ -1,8 +1,6 @@
-import { Response } from 'express';
-import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { EnvironmentService } from '@root/environment/environment.service';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
-import { JwtManagerService } from '@root/modules/jwt-manager/jwt-manager.service';
 import Redis from 'ioredis';
 
 @Injectable()
@@ -10,30 +8,46 @@ export class RedisService implements OnModuleInit {
   private readonly logger: Logger = new Logger(RedisService.name);
   private readonly blackListClient: Redis;
   private readonly cartClient: Redis;
+  private readonly rpcClient: Redis;
 
   constructor(private readonly environmentService: EnvironmentService) {
     this.blackListClient = new Redis({
       host: this.environmentService.redisHost,
       port: this.environmentService.redisPort,
       db: this.environmentService.redisDbJwtBlacklist,
-      password: this.environmentService.redisPassword,
+      // password: this.environmentService.redisPassword,
     });
 
     this.cartClient = new Redis({
       host: this.environmentService.redisHost,
       port: this.environmentService.redisPort,
       db: this.environmentService.redisDbCart,
-      password: this.environmentService.redisPassword,
+      // password: this.environmentService.redisPassword,
+    });
+
+    this.rpcClient = new Redis({
+      host: this.environmentService.redisHost,
+      port: this.environmentService.redisPort,
+      db: this.environmentService.redisDbRpc,
+      // password: this.environmentService.redisPassword,
     });
   }
 
   async onModuleInit() {
     try {
-      const blackListClientResult = await this.blackListClient.ping();
-      const cartClientResult = await this.cartClient.ping();
-      if (blackListClientResult !== 'PONG' || cartClientResult !== 'PONG') {
-        return false;
-      }
+      const clientList: string[] = ['Black list', 'Cart', 'RPC'];
+      const connectionResults = await Promise.all([
+        this.blackListClient.ping(),
+        this.cartClient.ping(),
+        this.rpcClient.ping(),
+      ]);
+      connectionResults.forEach((value: 'PONG', index: number) => {
+        if (value !== 'PONG') {
+          this.logger.error(`Cannot connect to ${clientList[index]} redis DB`);
+        } else {
+          this.logger.log(`Connected to ${clientList.at(index)} Redis DB`);
+        }
+      });
       this.logger.log('Redis databases connected');
     } catch (error: any) {
       this.logger.error(`Cannot connect to Redis server: ${error.message}`);

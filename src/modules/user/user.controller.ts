@@ -22,7 +22,7 @@ export class UserController {
   @ApiOperation({ summary: 'Get user profile' })
   @SuccessApiResponse({
     model: User,
-    key: 'users',
+    key: 'user',
     description: 'User profile retrieved successfully',
   })
   @ClientErrorApiResponse({

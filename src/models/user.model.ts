@@ -102,6 +102,8 @@ export class User {
   })
   @Prop({ default: true })
   isActive: boolean;
+
+  v: number;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
@@ -113,12 +115,41 @@ UserSchema.index({
 
 UserSchema.set('toJSON', {
   virtuals: true,
-  versionKey: false,
   transform: (_, ret) => {
     delete ret._id;
     delete ret.password;
     return ret;
   },
+});
+
+UserSchema.post('find', (docs: any) => {
+  return docs.map((doc: any) => {
+    if (!doc) return;
+    doc.id = doc._id.toString();
+    delete doc._id;
+    return doc;
+  });
+});
+
+UserSchema.post('findOne', (doc: any) => {
+  if (!doc) return;
+  doc.id = doc._id.toString();
+  delete doc._id;
+  return doc;
+});
+
+UserSchema.post('findOneAndUpdate', (doc: any) => {
+  if (!doc) return;
+  doc.id = doc._id.toString();
+  delete doc._id;
+  return doc;
+});
+
+UserSchema.post('save', (doc: any) => {
+  if (!doc) return;
+  doc.id = doc._id.toString();
+  delete doc._id;
+  return doc;
 });
 
 export { UserSchema };

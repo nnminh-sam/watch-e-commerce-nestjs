@@ -52,12 +52,7 @@ async function bootstrap() {
   const port = configService.port;
   await app.listen(port, () => {
     logger.log(`Server is running on http://localhost:${port}`);
-    logger.log(`Database URI: ${configService.databaseUrl}`);
-    logger.log(`Database Host: ${configService.redisHost}`);
-    logger.log(`Database Port: ${configService.databasePort}`);
-    logger.log(`Database Name: ${configService.databaseName}`);
-    logger.log(`Database Username: ${configService.databaseUsername}`);
-    logger.log(`Database Password: ${configService.databasePassword}`);
+    logger.log(`API document is at http://localhost:${port}/api-document`);
   });
 }
 bootstrap();

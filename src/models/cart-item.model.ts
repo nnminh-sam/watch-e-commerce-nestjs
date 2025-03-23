@@ -12,7 +12,6 @@ export class CartItem {
   })
   @Prop({
     type: MongooseSchema.Types.ObjectId,
-    unique: true,
     required: true,
   })
   productId: string;
@@ -54,6 +53,5 @@ export class CartItem {
 }
 
 const CartItemSchema = SchemaFactory.createForClass(CartItem);
-CartItemSchema.index({ name: 'text' }, { unique: true });
 
 export { CartItemSchema };

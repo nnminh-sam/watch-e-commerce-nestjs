@@ -40,6 +40,16 @@ export class Cart {
 
 const CartSchema = SchemaFactory.createForClass(Cart);
 
+CartSchema.index(
+  { 'items.productId': 1, user: 1 },
+  {
+    unique: true,
+    partialFilterExpression: {
+      'items.productId': { $exists: true, $ne: null },
+    },
+  },
+);
+
 CartSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,

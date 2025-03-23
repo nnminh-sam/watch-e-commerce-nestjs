@@ -7,22 +7,16 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateCartItemDto } from '@root/modules/cart/dto/create-cart-item.dto';
-import { CreateCartDto } from '@root/modules/cart/dto/create-cart.dto';
 import { UpdateCartItemDto } from '@root/modules/cart/dto/update-cart-item.dto';
 import { CartItem } from '@root/models/cart-item.model';
 import { Cart, CartDocument } from '@root/models/cart.model';
-import { RedisService } from '@root/database/redis.service';
-
 import { Model } from 'mongoose';
 import { ProductService } from '@root/modules/product/product.service';
-import { Product } from '@root/models/product.model';
 import {
   EventEmitter2,
   EventEmitterReadinessWatcher,
   OnEvent,
 } from '@nestjs/event-emitter';
-import { UserEventsEnum } from '@root/models/enums/user-events.enum';
-import { User } from '@root/models/user.model';
 import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
 
 @Injectable()
@@ -83,36 +77,22 @@ export class CartService {
   }
 
   @OnEvent(CartEventsEnum.CART_CREATED, { async: true, promisify: true })
-  async create(createCartDto: CreateCartDto): Promise<Cart> {
-    await this.eventEmitterReadinessWatcher.waitUntilReady();
-    const user: User = (
-      await this.eventEmitter.emitAsync(
-        UserEventsEnum.USER_FIND_REQUEST,
-        createCartDto.userId,
-      )
-    )[0];
-    if (!user) {
-      throw new BadRequestException('User not found');
-    }
-
-    const validatedCartItems = createCartDto?.items
-      ? await this.getValidatedCartItems(createCartDto.items)
-      : [];
-    const totalPrice = this.calculateTotalPrice(validatedCartItems);
-    if (createCartDto?.total && totalPrice !== createCartDto?.total) {
-      throw new BadRequestException('Given total is invalid');
-    }
-
+  async create(userId: string): Promise<Cart> {
+    console.log('🚀 ~ CartService ~ create ~ userId:', userId);
     try {
-      const cartDocument = new this.cartModel({
-        user: createCartDto.userId,
-        items: validatedCartItems,
-        total: totalPrice,
-      });
-      const cart = await cartDocument.save();
-      return cart.toJSON();
+      throw new Error('This is a test error');
+      // const cartDocument = new this.cartModel({
+      //   user: userId,
+      //   items: [],
+      // });
+      // const cart = await cartDocument.save();
+      // return cart.toJSON();
     } catch (error: any) {
       this.logger.error(`Error creating cart: ${error.message}`);
+      return error;
+      if (error.code === 'E11000') {
+        throw new BadRequestException(error.message);
+      }
       switch (error.name) {
         case 'ValidationError':
           throw new BadRequestException('Cart data validation failed');
