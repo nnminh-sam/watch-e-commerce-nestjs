@@ -12,6 +12,13 @@ import mongoose from 'mongoose';
       imports: [EnvironmentModule],
       inject: [EnvironmentService],
       useFactory: (environmentService: EnvironmentService) => {
+        if (environmentService?.databaseUrl) {
+          return {
+            uri: environmentService.databaseUrl,
+            dbName: environmentService.databaseName,
+          };
+        }
+
         const host = environmentService.databaseHost;
         const port = environmentService.databasePort;
         const dbName = environmentService.databaseName;

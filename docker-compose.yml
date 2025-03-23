@@ -1,15 +1,92 @@
 services:
-  mongodb:
-    container_name: watch-e-commerce-mongodb
+  mongo-1:
     image: mongo:8.0.5
+    container_name: mongo-1
+    networks:
+      - mongo-replica-network
     ports:
-      - '${DATABASE_PORT}:27017'
+      - '${DATABASE_1_PORT}:27017'
+    command: ['--replSet', 'rs0', '--bind_ip_all', '--port', '27017']
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'192.168.1.87:27017',priority:1},{_id:1,host:'192.168.1.87:27018',priority:0.5},{_id:2,host:'192.168.1.87:27019',priority:0.5}]}) }" | mongosh --port 27017 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
+    volumes:
+      - ./docker-volumes/mongo-1/data:/data/db
+      - ./docker-volumes/mongo-1/config:/data/configdb
     environment:
       - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+
+  mongo-2:
+    image: mongo:8.0.5
+    container_name: mongo-2
+    networks:
+      - mongo-replica-network
+    ports:
+      - '${DATABASE_2_PORT}:27018'
+    command: ['--replSet', 'rs0', '--bind_ip_all', '--port', '27018']
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
     volumes:
-      - ./docker-volumes/mongodb:/data/db
-    # networks:
-    #   - watch-e-commerce-network
+      - ./docker-volumes/mongo-2/data:/data/db
+      - ./docker-volumes/mongo-2/config:/data/configdb
+    environment:
+      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+
+  mongo-3:
+    image: mongo:8.0.5
+    container_name: mongo-3
+    networks:
+      - mongo-replica-network
+    ports:
+      - '${DATABASE_3_PORT}:27019'
+    command: ['--replSet', 'rs0', '--bind_ip_all', '--port', '27019']
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - ./docker-volumes/mongo-3/data:/data/db
+      - ./docker-volumes/mongo-3/config:/data/configdb
+    environment:
+      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+
+  # mongo-init:
+  #   image: mongo:8.0.5
+  #   container_name: mongo-init
+  #   networks:
+  #     - mongo-replica-network
+  #   depends_on:
+  #     - mongo-master
+  #     - mongo-slave
+  #   entrypoint: ['/bin/bash', '-c']
+  #   command:
+  #     - >
+  #       sleep 5;
+  #       mongosh --host mongo-master:27017 --eval "
+  #       rs.initiate({
+  #         _id: 'rs0',
+  #         members: [
+  #           { _id: 0, host: 'mongo-master:27017' },
+  #           { _id: 1, host: 'mongo-slave:27017' }
+  #         ]
+  #       });
+  #       rs.status();"
+
+  # mongodb:
+  #   container_name: watch-e-commerce-mongodb
+  #   image: mongo:8.0.5
+  #   ports:
+  #     - '${DATABASE_PORT}:27017'
+  #   environment:
+  #     - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+  #   volumes:
+  #     - ./docker-volumes/mongodb:/data/db
+  # networks:
+  #   - watch-e-commerce-network
 
   redis:
     container_name: watch-e-commerce-redis
@@ -42,7 +119,13 @@ services:
 
 volumes:
   redis-data:
-  mongodb-data:
-# networks:
-#   watch-e-commerce-network:
-#     driver: bridge
+  # mongodb-data:
+  mongo-1-data:
+  mongo-2-data:
+  mongo-3-data:
+  mongo-1-config:
+  mongo-2-config:
+  mongo-3-config:
+
+networks:
+  mongo-replica-network:
