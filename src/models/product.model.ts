@@ -21,7 +21,6 @@ export class Product {
   @ApiProperty({
     example: 'Luxury Watch',
     description: 'Product name',
-    name: 'name',
   })
   @Prop({ required: true, unique: true })
   name: string;
@@ -29,7 +28,6 @@ export class Product {
   @ApiProperty({
     example: 'LW12345',
     description: 'Unique product code',
-    name: 'code',
   })
   @Prop({ required: true, unique: true })
   code: string;
@@ -37,7 +35,6 @@ export class Product {
   @ApiProperty({
     example: 'A high-end luxury watch',
     description: 'Product description',
-    name: 'description',
   })
   @Prop({ required: true })
   description: string;
@@ -45,7 +42,6 @@ export class Product {
   @ApiProperty({
     example: 4999.99,
     description: 'Product price',
-    name: 'price',
   })
   @Prop({ required: true })
   price: number;
@@ -53,7 +49,6 @@ export class Product {
   @ApiProperty({
     example: '60d21b4667d0d8992e610c85',
     description: 'Brand ID',
-    name: 'brand',
   })
   @Prop({
     type: MongooseSchema.Types.ObjectId,
@@ -65,7 +60,6 @@ export class Product {
   @ApiProperty({
     example: '60d21b4667d0d8992e610c86',
     description: 'Category ID',
-    name: 'category',
   })
   @Prop({
     type: MongooseSchema.Types.ObjectId,
@@ -77,7 +71,6 @@ export class Product {
   @ApiProperty({
     example: 100,
     description: 'Available stock quantity',
-    name: 'stock',
   })
   @Prop({ default: 0 })
   stock: number;
@@ -85,7 +78,6 @@ export class Product {
   @ApiProperty({
     example: 50,
     description: 'Number of units sold',
-    name: 'sold',
   })
   @Prop({ default: 0 })
   sold: number;
@@ -93,15 +85,14 @@ export class Product {
   @ApiProperty({
     example: ['image1.jpg', 'image2.jpg'],
     description: 'List of product images',
-    name: 'assets',
+    type: 'array',
   })
   @Prop({ default: [] })
   assets: string[];
 
   @ApiProperty({
     description: 'Product specifications',
-    name: 'spec',
-    type: [Spec],
+    type: 'array',
   })
   @Prop({ type: [SpecSchema], default: [] })
   spec: Spec[];
@@ -110,7 +101,6 @@ export class Product {
     example: ProductStatus.AVAILABLE,
     enum: ProductStatus,
     description: 'Product status',
-    name: 'status',
   })
   @Prop({ type: String, enum: ProductStatus, default: ProductStatus.AVAILABLE })
   status: ProductStatus;
@@ -155,10 +145,51 @@ ProductSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
+    if (!ret) return;
+
     ret.id = ret._id.toHexString();
+    ret.brand = ret.brand.toString();
+    ret.category = ret.category.toString();
     delete ret._id;
     return ret;
   },
+});
+
+ProductSchema.post('findOne', (doc: any) => {
+  if (!doc) {
+    return;
+  }
+
+  doc.id = doc._id.toHexString();
+
+  doc.brand.id = doc.brand._id.toString();
+  delete doc.brand._id;
+
+  doc.category.id = doc.category._id.toString();
+  delete doc.category._id;
+
+  doc.spec = doc.spec.map((spec: any) => {
+    spec.id = spec._id.toString();
+    delete spec._id;
+    return spec;
+  });
+
+  delete doc._id;
+  return doc;
+});
+
+ProductSchema.post('find', (docs: any) => {
+  if (!docs) return;
+
+  return docs.map((doc: any) => {
+    if (!doc) return;
+
+    doc.id = doc._id.toHexString();
+    doc.brand = doc.brand.toString();
+    doc.category = doc.category.toString();
+    delete doc._id;
+    return doc;
+  });
 });
 
 ProductSchema.index({ 'spec.key': 1, 'spec.value': 1 });

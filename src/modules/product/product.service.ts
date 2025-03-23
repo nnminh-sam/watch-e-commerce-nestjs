@@ -70,9 +70,9 @@ export class ProductService {
     try {
       const productModel = new this.productModel({
         ...createProductDto,
+        brand,
+        category,
         customerVisible: true,
-        brand: brand.id,
-        category: category.id,
       });
       const savedProductDocument = await productModel.save();
       return savedProductDocument.toJSON();
@@ -120,11 +120,14 @@ export class ProductService {
           status: 1,
           spec: 1,
           assets: 1,
+          stock: 1,
+          name: 1,
+          code: 1,
+          price: 1,
         },
       )
       .populate('brand category')
       .lean();
-
     if (!product) {
       throw new BadRequestException('Product not found');
     }

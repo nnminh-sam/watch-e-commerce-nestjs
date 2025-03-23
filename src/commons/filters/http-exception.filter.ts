@@ -15,9 +15,15 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request: Request = ctx.getRequest<Request>();
     const status = exception.getStatus();
 
+    // TODO: [Low] Error details property field is camel case
+    const exceptionResponse: any = exception.getResponse();
+
     response.status(status).json({
       status_code: status,
-      message: exception.message,
+      message: exceptionResponse.message,
+      ...(exceptionResponse?.details && {
+        errors: exceptionResponse.details,
+      }),
       timestamp: new Date().toISOString(),
       path: request.url,
     });

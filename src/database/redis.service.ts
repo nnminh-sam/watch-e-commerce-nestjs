@@ -8,6 +8,7 @@ export class RedisService implements OnModuleInit {
   private readonly logger: Logger = new Logger(RedisService.name);
   private readonly blackListClient: Redis;
   private readonly cartClient: Redis;
+  private readonly rpcClient: Redis;
 
   constructor(private readonly environmentService: EnvironmentService) {
     this.blackListClient = new Redis({

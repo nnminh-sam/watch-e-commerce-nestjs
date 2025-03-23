@@ -4,6 +4,12 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Schema({ id: true })
 export class Spec {
+  @ApiProperty({
+    example: '60d21b4667d0d8992e610c91',
+    description: 'Specification ID',
+  })
+  id: string;
+
   @ApiProperty({ example: 'Color', description: 'Specification key' })
   @Prop()
   key: string;

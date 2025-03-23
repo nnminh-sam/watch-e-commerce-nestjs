@@ -70,6 +70,12 @@ CategorySchema.index({
   name: 'text',
 });
 
+CategorySchema.post('findOne', (doc: any) => {
+  doc.id = doc._id.toString();
+  delete doc._id;
+  return doc;
+});
+
 CategorySchema.set('toJSON', {
   virtuals: true,
   versionKey: false,

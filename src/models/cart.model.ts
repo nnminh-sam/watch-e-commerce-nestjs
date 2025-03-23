@@ -3,8 +3,9 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 import { User } from '@root/models/user.model';
 import { CartItem, CartItemSchema } from '@root/models/cart-item.model';
 import { ApiProperty } from '@nestjs/swagger';
+import { format } from 'path';
 
-export type CartDocument = Document & Cart;
+export type CartDocument = Cart & Document;
 
 @Schema({ timestamps: true, id: true, collection: 'carts' })
 export class Cart {
@@ -54,9 +55,79 @@ CartSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
+    ret.id = ret._id.toString();
+
+    const formatedItemList: any[] = [];
+    ret.items.forEach((item: any) => {
+      item.productId = item.productId.toString();
+      const formatedSpecList: any[] = [];
+      item.specList.forEach((spec: any) => {
+        if (spec._id) {
+          spec.id = spec._id.toString();
+          delete spec._id;
+        }
+        formatedSpecList.push(spec);
+      });
+      item.specList = formatedSpecList;
+      item.id = item._id.toString();
+      delete item._id;
+      formatedItemList.push(item);
+    });
+
+    delete ret.user;
     delete ret._id;
     return ret;
   },
+});
+
+CartSchema.post('save', (doc: any) => {
+  doc.id = doc._id.toString();
+
+  const formatedItemList: any[] = [];
+  doc.items.forEach((item: any) => {
+    item.productId = item.productId.toString();
+    const formatedSpecList: any[] = [];
+    item.specList.forEach((spec: any) => {
+      if (spec._id) {
+        spec.id = spec._id.toString();
+        delete spec._id;
+      }
+      formatedSpecList.push(spec);
+    });
+    item.specList = formatedSpecList;
+    item.id = item._id.toString();
+    delete item._id;
+    formatedItemList.push(item);
+  });
+
+  delete doc.user;
+  delete doc._id;
+  return doc;
+});
+
+CartSchema.post('findOne', (doc: any) => {
+  doc.id = doc._id.toString();
+
+  const formatedItemList: any[] = [];
+  doc.items.forEach((item: any) => {
+    item.productId = item.productId.toString();
+    const formatedSpecList: any[] = [];
+    item.specList.forEach((spec: any) => {
+      if (spec._id) {
+        spec.id = spec._id.toString();
+        delete spec._id;
+      }
+      formatedSpecList.push(spec);
+    });
+    item.specList = formatedSpecList;
+    item.id = item._id.toString();
+    delete item._id;
+    formatedItemList.push(item);
+  });
+
+  delete doc.user;
+  delete doc._id;
+  return doc;
 });
 
 export { CartSchema };

@@ -20,9 +20,10 @@ import { Role } from '@root/models/enums/role.enum';
 import { FindProductDto } from '@root/modules/product/dto/find-product.dto';
 import { Product } from '@root/models/product.model';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
+import { IsMongoId } from 'class-validator';
+import { MongoIdValidationPipe } from '@root/commons/pipes/mongo-id-validation.pipe';
 
 @ApiTags('Products')
-@UseGuards(JwtGuard)
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -37,8 +38,10 @@ export class ProductController {
     status: 400,
     description: 'Invalid input data or missing required fields.',
   })
-  @UseGuards(RoleGuard)
-  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  // TODO: still has error in role authentication
+  @UseGuards(JwtGuard)
+  // @UseGuards(RoleGuard)
+  // @HasRoles([Role.ADMIN, Role.EMPLOYEE])
   @Post()
   async create(@Body() createProductDto: CreateProductDto) {
     return await this.productService.create(createProductDto);
@@ -67,7 +70,9 @@ export class ProductController {
     description: 'Product not found.',
   })
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(
+    @Param('id', new MongoIdValidationPipe('Invalid product ID')) id: string,
+  ) {
     return await this.productService.findOneById(id);
   }
 
@@ -85,6 +90,7 @@ export class ProductController {
     status: 403,
     description: 'You do not have permission to update this product.',
   })
+  @UseGuards(JwtGuard)
   @UseGuards(RoleGuard)
   @HasRoles([Role.ADMIN, Role.EMPLOYEE])
   @Patch(':id')

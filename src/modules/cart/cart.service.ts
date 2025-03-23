@@ -7,11 +7,20 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateCartItemDto } from '@root/modules/cart/dto/create-cart-item.dto';
-import { UpdateCartItemDto } from '@root/modules/cart/dto/update-cart-item.dto';
 import { CartItem } from '@root/models/cart-item.model';
 import { Cart, CartDocument } from '@root/models/cart.model';
 import { Model } from 'mongoose';
 import { ProductService } from '@root/modules/product/product.service';
+import {
+  EventEmitter2,
+  EventEmitterReadinessWatcher,
+  OnEvent,
+} from '@nestjs/event-emitter';
+import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
+import { UpdateCartDto } from '@root/modules/cart/dto/update-cart.dto';
+import { Product } from '@root/models/product.model';
+import { Spec } from '@root/models/spec.model';
+import { ProductStatus } from '@root/models/enums/product-status.enum';
 
 @Injectable()
 export class CartService {
@@ -23,62 +32,69 @@ export class CartService {
     private readonly productService: ProductService,
   ) {}
 
-  private async getValidatedCartItems(
-    items: CreateCartItemDto[],
-  ): Promise<CartItem[]> {
-    if (!items?.length) return [];
-
-    return await Promise.all(
-      items.map(async (createCartItemDto) => {
-        try {
-          return await this.validateCartItem(createCartItemDto);
-        } catch (error: any) {
-          this.logger.error(`Invalid cart item: ${error.message}`);
-          throw new BadRequestException('Invalid cart item');
-        }
-      }),
-    ).then((results) => results.filter((item) => item !== null));
+  private checkInvalidSpecification(
+    checkingSpecIdList: string[],
+    correctSpecList: Spec[],
+  ): boolean {
+    const result: number = checkingSpecIdList.findIndex(
+      (checkingSpecId: string): boolean => {
+        const invalidSpecIndex: number = correctSpecList.findIndex(
+          (spec: Spec): boolean => spec.id !== checkingSpecId,
+        );
+        return invalidSpecIndex === -1;
+      },
+    );
+    return result !== -1;
   }
 
-  private calculateTotalPrice(cartItems: CartItem[]): number {
-    return cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0,
-    );
+  private retrieveSpecListFromSpecIdList(
+    product: Product,
+    specIdList: string[],
+  ): Spec[] {
+    const result: Spec[] = [];
+    specIdList.forEach((specId: string) => {
+      const foundSpec = product.spec.find((spec: Spec) => spec.id === specId);
+      if (!foundSpec) {
+        throw new BadRequestException(
+          'Invalid expected product specifications ID ',
+        );
+      }
+      result.push(foundSpec);
+    });
+    return result;
   }
 
-  async validateCartItem(
-    createCartItemDto: CreateCartItemDto,
-  ): Promise<CartItem> {
-    const product = await this.productService.findOneById(
-      createCartItemDto.productId,
-    );
-    if (createCartItemDto.quantity > product.stock) {
-      throw new BadRequestException('Required quantity is unavailable');
+  async findOne(id: string): Promise<Cart> {
+    const cart = await this.cartModel
+      .findOne({ _id: id }, 'items')
+      .lean<Cart>();
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
     }
-
-    return {
-      productId: createCartItemDto.productId,
-      name: product.name,
-      price: product.price,
-      quantity: createCartItemDto.quantity,
-      spec: createCartItemDto.spec,
-      asset: product.assets[0] || '',
-      availability: true,
-    };
+    return cart;
   }
 
-  // @MessagePattern(CartEventsEnum.CART_CREATED, { async: true, promisify: true })
+  async findOneByUserId(userId: string): Promise<Cart> {
+    const cart = await this.cartModel
+      .findOne({
+        user: userId,
+      })
+      .lean();
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
+    }
+    return cart;
+  }
+
+  @OnEvent(CartEventsEnum.CART_CREATED, { async: true, promisify: true })
   async create(userId: string): Promise<Cart> {
-    console.log('🚀 ~ CartService ~ create ~ userId:', userId);
     try {
-      throw new Error('This is a test error');
-      // const cartDocument = new this.cartModel({
-      //   user: userId,
-      //   items: [],
-      // });
-      // const cart = await cartDocument.save();
-      // return cart.toJSON();
+      const cartDocument = new this.cartModel({
+        user: userId,
+        items: [],
+      });
+      const cart = await cartDocument.save();
+      return cart.toJSON();
     } catch (error: any) {
       this.logger.error(`Error creating cart: ${error.message}`);
       if (error.code === 'E11000') {
@@ -95,66 +111,82 @@ export class CartService {
     }
   }
 
-  async updateCartItem(updateCartItemDto: UpdateCartItemDto) {
+  async updateCart(
+    userId: string,
+    updateCartDto: UpdateCartDto,
+  ): Promise<Cart> {
+    const { productId, quantity, specIdList } = updateCartDto;
+    if (quantity < 0) {
+      throw new BadRequestException('Invalid quantity');
+    }
+
+    const cart = await this.cartModel.findOne({ user: userId }).select('-user');
+    if (!cart) {
+      throw new BadRequestException('Cart not found');
+    }
+
+    const product: Product = await this.productService.findOneById(productId);
+    if (!product || product.status !== ProductStatus.AVAILABLE) {
+      throw new BadRequestException('Product is unavailable');
+    }
+
+    const existedItemIndex: number = cart.items.findIndex(
+      (cartItem: CartItem) => cartItem.productId.toString() === productId,
+    );
+    if (existedItemIndex !== -1) {
+      if (quantity === 0) {
+        cart.items.splice(existedItemIndex, 1);
+      } else if (quantity > product.stock) {
+        throw new BadRequestException(
+          'Expected product quantity is unavailable',
+        );
+      } else {
+        cart.items[existedItemIndex].quantity = quantity;
+        if (specIdList && specIdList.length > 0) {
+          const containInvalidSpec: boolean = this.checkInvalidSpecification(
+            specIdList,
+            product.spec,
+          );
+          if (containInvalidSpec) {
+            throw new BadRequestException(
+              'Invalid expected product specification',
+            );
+          }
+          cart.items[existedItemIndex].specList =
+            this.retrieveSpecListFromSpecIdList(product, specIdList);
+        }
+      }
+    } else {
+      if (quantity === 0 || product.stock < quantity) {
+        throw new BadRequestException('Invalid quantity');
+      }
+
+      const containInvalidSpec: boolean = this.checkInvalidSpecification(
+        specIdList,
+        product.spec,
+      );
+      if (containInvalidSpec) {
+        throw new BadRequestException('Invalid expected product specification');
+      }
+
+      const newItem: CartItem = {
+        productId,
+        quantity,
+        specList: this.retrieveSpecListFromSpecIdList(product, specIdList),
+        name: product.name,
+        price: product.price,
+        asset: product.assets[0] || 'This is a fake URL',
+        availability: true,
+      };
+      cart.items.push(newItem);
+    }
+
     try {
-      const { cartId, productId, quantity, spec } = updateCartItemDto;
-
-      const cart = await this.cartModel.findOne({ _id: cartId });
-
-      if (!cart) {
-        throw new BadRequestException('Cart not found');
-      }
-
-      const cartItem = cart.items.find(
-        (item) => item.productId.toString() === productId,
-      );
-      if (!cartItem) {
-        throw new BadRequestException('Cart item not found');
-      }
-
-      const oldTotal = cartItem.price * cartItem.quantity;
-      const newTotal = cartItem.price * (quantity ?? cartItem.quantity);
-
-      const updatedCart = await this.cartModel.findOneAndUpdate(
-        { _id: cartId, 'items.productId': productId },
-        {
-          $set: {
-            'items.$.quantity': quantity ?? cartItem.quantity,
-            'items.$.spec': spec ?? cartItem.spec,
-          },
-          $inc: { total: newTotal - oldTotal },
-        },
-        { new: true },
-      );
-
-      if (!updatedCart) {
-        throw new BadRequestException('Failed to update cart item');
-      }
-
-      return updatedCart;
+      const updatedCart = await cart.save();
+      return updatedCart.toJSON();
     } catch (error: any) {
       this.logger.error(error.message);
       throw new BadRequestException('Cannot update cart item');
     }
-  }
-
-  async findOne(id: string) {
-    const cart = this.cartModel.findOne({
-      _id: id,
-    });
-    if (!cart) {
-      throw new NotFoundException('Cart not found');
-    }
-    return cart;
-  }
-
-  async findOneByUserId(userId: string) {
-    const cart = this.cartModel.findOne({
-      user: userId,
-    });
-    if (!cart) {
-      throw new NotFoundException('Cart not found');
-    }
-    return cart;
   }
 }

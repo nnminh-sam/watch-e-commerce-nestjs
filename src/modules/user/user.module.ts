@@ -3,7 +3,6 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '@root/models/user.model';
-import { MicroservicesModule } from '@root/microservices/microservices.module';
 
 @Module({
   imports: [
@@ -13,7 +12,6 @@ import { MicroservicesModule } from '@root/microservices/microservices.module';
         schema: UserSchema,
       },
     ]),
-    MicroservicesModule,
   ],
   controllers: [UserController],
   providers: [UserService],

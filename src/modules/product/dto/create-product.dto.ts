@@ -3,6 +3,7 @@ import {
   IsBoolean,
   IsEnum,
   IsMongoId,
+  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
@@ -18,6 +19,7 @@ export class CreateProductDto {
     description: 'Product name',
     name: 'name',
   })
+  @IsNotEmpty()
   @IsString()
   name: string;
 
@@ -26,6 +28,7 @@ export class CreateProductDto {
     description: 'Product code',
     name: 'code',
   })
+  @IsNotEmpty()
   @IsString()
   code: string;
 
@@ -34,6 +37,7 @@ export class CreateProductDto {
     description: 'Product description',
     name: 'description',
   })
+  @IsNotEmpty()
   @IsString()
   description: string;
 
@@ -42,6 +46,7 @@ export class CreateProductDto {
     description: 'Product price',
     name: 'price',
   })
+  @IsNotEmpty()
   @IsNumber()
   @Min(0)
   price: number;
@@ -51,6 +56,7 @@ export class CreateProductDto {
     description: 'Brand ID',
     name: 'brand',
   })
+  @IsNotEmpty()
   @IsMongoId()
   @IsString()
   brand: string;
@@ -60,11 +66,13 @@ export class CreateProductDto {
     description: 'Category ID',
     name: 'category',
   })
+  @IsNotEmpty()
   @IsMongoId()
   @IsString()
   category: string;
 
   @ApiProperty({ example: 100, description: 'Available stock', name: 'stock' })
+  @IsNotEmpty()
   @IsNumber()
   @Min(0)
   stock: number;
@@ -75,9 +83,9 @@ export class CreateProductDto {
     name: 'sold',
     required: false,
   })
+  @IsOptional()
   @IsNumber()
   @Min(0)
-  @IsOptional()
   sold?: number;
 
   @ApiProperty({
@@ -86,8 +94,8 @@ export class CreateProductDto {
     name: 'assets',
     required: false,
   })
-  @IsArray()
   @IsOptional()
+  @IsArray()
   assets?: string[];
 
   @ApiProperty({
@@ -96,8 +104,8 @@ export class CreateProductDto {
     required: false,
     type: [Spec],
   })
-  @IsArray()
   @IsOptional()
+  @IsArray()
   spec?: Spec[];
 
   @ApiProperty({
@@ -107,8 +115,8 @@ export class CreateProductDto {
     name: 'status',
     required: false,
   })
-  @IsEnum(ProductStatus)
   @IsOptional()
+  @IsEnum(ProductStatus)
   status?: ProductStatus;
 
   @ApiProperty({
@@ -117,7 +125,7 @@ export class CreateProductDto {
     name: 'customer_visible',
     required: false,
   })
-  @IsBoolean()
   @IsOptional()
+  @IsBoolean()
   customerVisible?: boolean;
 }

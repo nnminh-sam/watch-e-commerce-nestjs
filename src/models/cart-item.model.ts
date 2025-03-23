@@ -7,6 +7,12 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CartItem {
   @ApiProperty({
     example: '60d21b4667d0d8992e610c90',
+    description: 'Cart item ID',
+  })
+  id?: string;
+
+  @ApiProperty({
+    example: '60d21b4667d0d8992e610c90',
     description: 'Product ID',
     name: 'product_id',
   })
@@ -31,9 +37,10 @@ export class CartItem {
   @ApiProperty({
     description: 'Product specifications',
     type: [Spec],
+    name: 'spec_list',
   })
   @Prop({ type: [SpecSchema], default: [] })
-  spec: Spec[];
+  specList: Spec[];
 
   @ApiProperty({
     example: 'image-url.jpg',

@@ -53,8 +53,12 @@ export class Brand {
 
 const BrandSchema = SchemaFactory.createForClass(Brand);
 
-BrandSchema.index({
-  name: 'text',
+BrandSchema.index({ name: 'text' });
+
+BrandSchema.post('findOne', (doc: any) => {
+  doc.id = doc._id.toString();
+  delete doc._id;
+  return doc;
 });
 
 BrandSchema.set('toJSON', {

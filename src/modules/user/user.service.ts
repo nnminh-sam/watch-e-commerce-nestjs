@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  Inject,
   Injectable,
   InternalServerErrorException,
   Logger,
@@ -15,10 +14,14 @@ import { UserRegistrationDto } from '@root/modules/auth/dtos/user-registration.d
 import { UserCredentialsDto } from '@root/modules/auth/dtos/user-credential.dto';
 import { FindUserDto } from '@root/modules/user/dto/find-user.dto';
 import { UpdateUserDto } from '@root/modules/user/dto/update-user.dto';
-import { ClientProxy } from '@nestjs/microservices';
-import { ClientsEnum } from '@root/microservices/clients.enum';
-import { firstValueFrom } from 'rxjs';
-import { CartPattern } from '@root/modules/cart/cart-pattern.enum';
+import {
+  EventEmitter2,
+  EventEmitterReadinessWatcher,
+  OnEvent,
+} from '@nestjs/event-emitter';
+
+import { UserEventsEnum } from '@root/models/enums/user-events.enum';
+import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
 
 @Injectable()
 export class UserService {
@@ -27,8 +30,8 @@ export class UserService {
   constructor(
     @InjectModel(User.name)
     private readonly userModel: Model<UserDocument>,
-    @Inject(ClientsEnum.REDIS_RPC)
-    private readonly redisRpcClient: ClientProxy,
+    private readonly eventEmitter: EventEmitter2,
+    private readonly eventEmitterReadinessWatcher: EventEmitterReadinessWatcher,
   ) {}
 
   private async validateUniqueField(
@@ -37,12 +40,14 @@ export class UserService {
     message: string,
     userId?: string,
   ) {
-    const isExisted = await this.userModel.findOne({
-      [field]: value,
-      ...(userId && {
-        _id: { $neq: userId },
-      }),
-    });
+    const isExisted = await this.userModel
+      .findOne({
+        [field]: value,
+        ...(userId && {
+          _id: { $neq: userId },
+        }),
+      })
+      .lean();
     if (isExisted) {
       throw new BadRequestException(message);
     }
@@ -60,6 +65,7 @@ export class UserService {
     if (!isMatch) throw new BadRequestException('Invalid credentials');
   }
 
+  @OnEvent(UserEventsEnum.USER_FIND_REQUEST, { async: true, promisify: true })
   async findOneById(id: string): Promise<User> {
     const user = await this.userModel
       .findOne(
@@ -67,7 +73,9 @@ export class UserService {
         '-password -role -isActive -deliveryAddress',
       )
       .lean<User>();
-    if (!user) throw new NotFoundException('User not found');
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
 
     return user;
   }
@@ -150,11 +158,21 @@ export class UserService {
       });
       const user = await userModel.save();
 
-      console.log('🚀 ~ UserService ~ create ~ Sending RPC request:');
-      // const result = await firstValueFrom(
-      //   this.redisRpcClient.send(CartPattern.CART_CREATE, user.id),
-      // );
-      // console.log('🚀 ~ UserService ~ create ~ result:', result);
+      await this.eventEmitterReadinessWatcher.waitUntilReady();
+    const cartCreationResult = await this.eventEmitter.emitAsync(
+        CartEventsEnum.CART_CREATED,
+        user.id,
+      );
+      if (
+        !cartCreationResult ||
+        cartCreationResult.length === 0 ||
+        cartCreationResult[0] instanceof Error
+      ) {
+        await this.userModel.deleteOne({ _id: user.id });
+        throw new InternalServerErrorException(
+          'Cannot create user due to failure in cart creation process',
+        );
+      }
 
       return user.toJSON();
     } catch (error: any) {

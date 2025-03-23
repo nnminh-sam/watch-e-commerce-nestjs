@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { HttpExceptionFilter } from '@root/commons/filters/http-exception.filter';
 import { EnvironmentService } from '@root/environment/environment.service';
 import {
+  BadRequestException,
   INestApplication,
   INestMicroservice,
   Logger,
@@ -13,12 +14,6 @@ import { SnakeCaseApiResponseInterceptor } from '@root/commons/interceptors/snak
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CamelCaseApiRequestInterceptor } from '@root/commons/interceptors/camel-case-api-request.interceptor';
 import { CamelCaseApiParamInterceptor } from '@root/commons/interceptors/camel-case-api-param.interceptor';
-import {
-  ClientsModule,
-  MicroserviceOptions,
-  Transport,
-} from '@nestjs/microservices';
-import { MicroservicesModule } from '@root/microservices/microservices.module';
 
 async function bootstrap() {
   const logger: Logger = new Logger('API Service');
@@ -43,8 +38,27 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
       whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      exceptionFactory: (errors) => {
+        if (errors.length < 2) {
+          const firstError: string = Object.values(
+            errors[0]?.constraints || '',
+          ).join(', ');
+
+          throw new BadRequestException(firstError);
+        }
+
+        const details = errors.map((error: any) => ({
+          field: error.property,
+          message: Object.values(error.constraints).join(', '),
+        }));
+        throw new BadRequestException({
+          message: 'Invalid request',
+          details,
+        });
+      },
     }),
   );
 
@@ -63,18 +77,9 @@ async function bootstrap() {
     },
   });
 
-  const microservices: INestMicroservice =
-    await NestFactory.createMicroservice<MicroserviceOptions>(
-      MicroservicesModule,
-    );
-
-  await Promise.all([
-    await app.listen(port, () => {
-      logger.log(`Server is running on http://localhost:${port}`);
-      logger.log(`API document is at http://localhost:${port}/api-document`);
-    }),
-    await microservices.listen(),
-  ]);
-  console.log('All application started');
+  await app.listen(port, () => {
+    logger.log(`Server is running on http://localhost:${port}`);
+    logger.log(`API document is at http://localhost:${port}/api-document`);
+  });
 }
 bootstrap();

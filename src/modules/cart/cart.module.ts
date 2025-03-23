@@ -5,7 +5,6 @@ import { Cart, CartSchema } from '@root/models/cart.model';
 import { DatabaseModule } from '@root/database/database.module';
 import { CartController } from './cart.controller';
 import { ProductModule } from '@root/modules/product/product.module';
-import { MicroserviceCartController } from '@root/modules/cart/microservices-cart.controller';
 
 @Module({
   imports: [
