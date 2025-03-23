@@ -55,7 +55,11 @@ export class AuthController {
   @HttpCode(200)
   @Post('sign-up')
   async signUp(@Body() userRegistrationDto: UserRegistrationDto) {
-    return await this.authService.signUp(userRegistrationDto);
+    console.log(
+      '🚀 ~ AuthController ~ signUp ~ userRegistrationDto:',
+      userRegistrationDto,
+    );
+    // return await this.authService.signUp(userRegistrationDto);
   }
 
   @ApiOperation({ summary: 'User sign-out' })

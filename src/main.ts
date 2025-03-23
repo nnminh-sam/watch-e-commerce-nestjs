@@ -13,8 +13,12 @@ import { SnakeCaseApiResponseInterceptor } from '@root/commons/interceptors/snak
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CamelCaseApiRequestInterceptor } from '@root/commons/interceptors/camel-case-api-request.interceptor';
 import { CamelCaseApiParamInterceptor } from '@root/commons/interceptors/camel-case-api-param.interceptor';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { MicroservicesModule } from '@root/microservices.module';
+import {
+  ClientsModule,
+  MicroserviceOptions,
+  Transport,
+} from '@nestjs/microservices';
+import { MicroservicesModule } from '@root/microservices/microservices.module';
 
 async function bootstrap() {
   const logger: Logger = new Logger('API Service');
@@ -62,14 +66,6 @@ async function bootstrap() {
   const microservices: INestMicroservice =
     await NestFactory.createMicroservice<MicroserviceOptions>(
       MicroservicesModule,
-      {
-        transport: Transport.REDIS,
-        options: {
-          host: environmentService.redisHost,
-          port: environmentService.redisPort,
-          db: environmentService.redisDbRpc,
-        },
-      },
     );
 
   await Promise.all([
@@ -79,5 +75,6 @@ async function bootstrap() {
     }),
     await microservices.listen(),
   ]);
+  console.log('All application started');
 }
 bootstrap();

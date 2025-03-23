@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   InternalServerErrorException,
   Logger,
@@ -14,13 +15,10 @@ import { UserRegistrationDto } from '@root/modules/auth/dtos/user-registration.d
 import { UserCredentialsDto } from '@root/modules/auth/dtos/user-credential.dto';
 import { FindUserDto } from '@root/modules/user/dto/find-user.dto';
 import { UpdateUserDto } from '@root/modules/user/dto/update-user.dto';
-import {
-  EventEmitter2,
-  EventEmitterReadinessWatcher,
-  OnEvent,
-} from '@nestjs/event-emitter';
-import { UserEventsEnum } from '@root/models/enums/user-events.enum';
-import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
+import { ClientProxy } from '@nestjs/microservices';
+import { ClientsEnum } from '@root/microservices/clients.enum';
+import { firstValueFrom } from 'rxjs';
+import { CartPattern } from '@root/modules/cart/cart-pattern.enum';
 
 @Injectable()
 export class UserService {
@@ -29,8 +27,8 @@ export class UserService {
   constructor(
     @InjectModel(User.name)
     private readonly userModel: Model<UserDocument>,
-    private readonly eventEmitter: EventEmitter2,
-    private readonly eventEmitterReadinessWatcher: EventEmitterReadinessWatcher,
+    @Inject(ClientsEnum.REDIS_RPC)
+    private readonly redisRpcClient: ClientProxy,
   ) {}
 
   private async validateUniqueField(
@@ -62,7 +60,6 @@ export class UserService {
     if (!isMatch) throw new BadRequestException('Invalid credentials');
   }
 
-  @OnEvent(UserEventsEnum.USER_FIND_REQUEST, { async: true, promisify: true })
   async findOneById(id: string): Promise<User> {
     const user = await this.userModel
       .findOne(
@@ -153,20 +150,11 @@ export class UserService {
       });
       const user = await userModel.save();
 
-      await this.eventEmitterReadinessWatcher.waitUntilReady();
-      const cartCreationResult = await this.eventEmitter.emitAsync(
-        CartEventsEnum.CART_CREATED,
-        user.id,
-      );
-      console.log(
-        '🚀 ~ UserService ~ create ~ cartCreationResult:',
-        cartCreationResult,
-      );
-      if (!cartCreationResult || cartCreationResult[0] instanceof Error) {
-        throw new InternalServerErrorException(
-          'User created but cart creation failed',
-        );
-      }
+      console.log('🚀 ~ UserService ~ create ~ Sending RPC request:');
+      // const result = await firstValueFrom(
+      //   this.redisRpcClient.send(CartPattern.CART_CREATE, user.id),
+      // );
+      // console.log('🚀 ~ UserService ~ create ~ result:', result);
 
       return user.toJSON();
     } catch (error: any) {

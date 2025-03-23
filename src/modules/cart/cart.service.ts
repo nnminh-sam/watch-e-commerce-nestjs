@@ -12,12 +12,6 @@ import { CartItem } from '@root/models/cart-item.model';
 import { Cart, CartDocument } from '@root/models/cart.model';
 import { Model } from 'mongoose';
 import { ProductService } from '@root/modules/product/product.service';
-import {
-  EventEmitter2,
-  EventEmitterReadinessWatcher,
-  OnEvent,
-} from '@nestjs/event-emitter';
-import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
 
 @Injectable()
 export class CartService {
@@ -27,8 +21,6 @@ export class CartService {
     @InjectModel(Cart.name)
     private readonly cartModel: Model<CartDocument>,
     private readonly productService: ProductService,
-    private readonly eventEmitter: EventEmitter2,
-    private readonly eventEmitterReadinessWatcher: EventEmitterReadinessWatcher,
   ) {}
 
   private async getValidatedCartItems(
@@ -76,7 +68,7 @@ export class CartService {
     };
   }
 
-  @OnEvent(CartEventsEnum.CART_CREATED, { async: true, promisify: true })
+  // @MessagePattern(CartEventsEnum.CART_CREATED, { async: true, promisify: true })
   async create(userId: string): Promise<Cart> {
     console.log('🚀 ~ CartService ~ create ~ userId:', userId);
     try {
@@ -89,7 +81,6 @@ export class CartService {
       // return cart.toJSON();
     } catch (error: any) {
       this.logger.error(`Error creating cart: ${error.message}`);
-      return error;
       if (error.code === 'E11000') {
         throw new BadRequestException(error.message);
       }
