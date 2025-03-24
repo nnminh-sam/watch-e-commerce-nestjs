@@ -62,25 +62,4 @@ export class CartController {
   ): Promise<Cart> {
     return this.cartService.updateCart(claims.sub, updateCartDto);
   }
-
-  @ApiOperation({ summary: 'Find cart by user id' })
-  @SuccessApiResponse({
-    model: Cart,
-    key: 'cart',
-    description: 'Cart detail by user id',
-  })
-  @ClientErrorApiResponse({
-    status: 403,
-    description: 'Forbidden request',
-  })
-  @ClientErrorApiResponse({
-    status: 400,
-    description: 'User not found',
-  })
-  @UseGuards(RoleGuard)
-  @HasRoles([Role.CUSTOMER])
-  @Get('user/:userId')
-  async getCartByUserId(@Param('userId') userId: string) {
-    return this.cartService.findOneByUserId(userId);
-  }
 }
