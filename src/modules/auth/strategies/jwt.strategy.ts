@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { RedisService } from '@root/database/redis.service';
+import { TokenBlackListService } from '@root/database/token-black-list.service';
 import { EnvironmentService } from '@root/environment/environment.service';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
 import { JwtManagerService } from '@root/modules/jwt-manager/jwt-manager.service';
@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly EnvironmentService: EnvironmentService,
     private readonly jwtManagerService: JwtManagerService,
-    private readonly redisService: RedisService,
+    private readonly TokenBlackListService: TokenBlackListService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -32,7 +32,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (isExpiredToken) throw new BadRequestException('Invalid token');
 
     const isBlackListedToken =
-      await this.redisService.validateBlackListedToken(payload);
+      await this.TokenBlackListService.validateBlackListedToken(payload);
     if (isBlackListedToken) throw new BadRequestException('Invalid token');
 
     return payload;

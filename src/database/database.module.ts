@@ -1,6 +1,7 @@
 import { Logger, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { RedisService } from '@root/database/redis.service';
+import { RedisCartService } from '@root/database/redis-cart.service';
+import { TokenBlackListService } from '@root/database/token-black-list.service';
 import { EnvironmentModule } from '@root/environment/environment.module';
 import { EnvironmentService } from '@root/environment/environment.service';
 import mongoose from 'mongoose';
@@ -69,7 +70,7 @@ import mongoose from 'mongoose';
       },
     }),
   ],
-  providers: [RedisService],
-  exports: [RedisService],
+  providers: [TokenBlackListService, RedisCartService],
+  exports: [TokenBlackListService, RedisCartService],
 })
 export class DatabaseModule {}

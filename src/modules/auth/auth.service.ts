@@ -1,6 +1,6 @@
 import { BlackListTokenMessage } from './../../models/enums/black-list-token-message.enum';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { RedisService } from '@root/database/redis.service';
+import { TokenBlackListService } from '@root/database/token-black-list.service';
 import { EnvironmentService } from '@root/environment/environment.service';
 import { SignOutResponseDto } from '@root/modules/auth/dtos/sign-out-response.dto';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly redisService: RedisService,
+    private readonly TokenBlackListService: TokenBlackListService,
     private readonly jwtManagerService: JwtManagerService,
     private readonly environmentService: EnvironmentService,
     private readonly userService: UserService,
@@ -63,7 +63,7 @@ export class AuthService {
     const claims = await this.jwtManagerService.validateToken(token);
     if (!claims) throw new BadRequestException('Invalid token');
 
-    await this.redisService.invalidateTokenToBlackList(
+    await this.TokenBlackListService.invalidateTokenToBlackList(
       claims,
       BlackListTokenMessage.SIGNED_OUT,
     );
@@ -78,13 +78,14 @@ export class AuthService {
     if (!claims) throw new BadRequestException(invalidTokenMessage);
 
     const isBlackListedToken =
-      await this.redisService.validateBlackListedToken(claims);
+      await this.TokenBlackListService.validateBlackListedToken(claims);
     if (isBlackListedToken) throw new BadRequestException(invalidTokenMessage);
 
-    const blackListedToken = await this.redisService.invalidateTokenToBlackList(
-      claims,
-      BlackListTokenMessage.REVOKED,
-    );
+    const blackListedToken =
+      await this.TokenBlackListService.invalidateTokenToBlackList(
+        claims,
+        BlackListTokenMessage.REVOKED,
+      );
     if (!blackListedToken)
       throw new BadRequestException('Cannot add token to black list');
   }
@@ -120,7 +121,7 @@ export class AuthService {
     const jit = uuidv4();
     const iat = Math.floor(Date.now() / 1000);
     const exp = iat + 10 * 24 * 60 * 60;
-    const result = await this.redisService.invalidateTokenToBlackList(
+    const result = await this.TokenBlackListService.invalidateTokenToBlackList(
       {
         jit,
         iat,

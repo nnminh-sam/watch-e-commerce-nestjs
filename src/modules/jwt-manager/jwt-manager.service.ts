@@ -1,4 +1,4 @@
-import { RedisService } from '@root/database/redis.service';
+import { TokenBlackListService } from '@root/database/token-black-list.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
@@ -6,7 +6,7 @@ import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
 @Injectable()
 export class JwtManagerService {
   constructor(
-    private readonly redisService: RedisService,
+    private readonly TokenBlackListService: TokenBlackListService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -33,11 +33,11 @@ export class JwtManagerService {
     if (isExpiredToken) return null;
 
     const isBlackListedToken =
-      await this.redisService.validateBlackListedToken(claims);
+      await this.TokenBlackListService.validateBlackListedToken(claims);
     if (isBlackListedToken) return null;
 
     const isNotResolveAfterChangePassword =
-      await this.redisService.validateWithChangePasswordBlackListedToken(
+      await this.TokenBlackListService.validateWithChangePasswordBlackListedToken(
         claims,
       );
     if (isNotResolveAfterChangePassword) return null;

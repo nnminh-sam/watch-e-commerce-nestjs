@@ -5,7 +5,7 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel, raw } from '@nestjs/mongoose';
 import { CreateCartItemDto } from '@root/modules/cart/dto/create-cart-item.dto';
 import { CartItem } from '@root/models/cart-item.model';
 import { Cart, CartDocument } from '@root/models/cart.model';
@@ -21,6 +21,7 @@ import { UpdateCartDto } from '@root/modules/cart/dto/update-cart.dto';
 import { Product } from '@root/models/product.model';
 import { Spec } from '@root/models/spec.model';
 import { ProductStatus } from '@root/models/enums/product-status.enum';
+import { RedisCartService } from '@root/database/redis-cart.service';
 
 @Injectable()
 export class CartService {
@@ -30,6 +31,7 @@ export class CartService {
     @InjectModel(Cart.name)
     private readonly cartModel: Model<CartDocument>,
     private readonly productService: ProductService,
+    private readonly redisCartService: RedisCartService,
   ) {}
 
   private checkInvalidSpecification(
@@ -111,6 +113,7 @@ export class CartService {
     }
   }
 
+  // TODO: Calculate total for this
   async updateCart(
     userId: string,
     updateCartDto: UpdateCartDto,
@@ -188,5 +191,101 @@ export class CartService {
       this.logger.error(error.message);
       throw new BadRequestException('Cannot update cart item');
     }
+  }
+
+  async parseRedisQueryResult(
+    productId: string,
+    queryResult: string,
+  ): Promise<CartItem> {
+    const product: Product = await this.productService.findOneById(productId);
+    const queryParts: string[] = queryResult.split('&');
+    if (!queryParts || queryParts.length < 2) {
+      throw new BadRequestException('Invalid query result');
+    }
+
+    try {
+      const quantity: number = parseInt(queryParts[0], 10);
+      const specIdList: string[] = queryParts.slice(1);
+      const specList: Spec[] = [];
+      specIdList.forEach((specId: string) => {
+        const spec = product.spec.find((spec: Spec) => {
+          return spec.id === specId;
+        });
+        if (!spec) {
+          throw new BadRequestException('Invalid product specifiaction ID');
+        }
+        specList.push(spec);
+      });
+
+      return {
+        productId,
+        name: product.name,
+        price: product.price,
+        quantity,
+        asset: product.assets[0] || 'This should be a URL',
+        specList,
+        availability: true,
+      };
+    } catch (error: any) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  buildRedisValue(quantity: number, specIdList: string[]): string {
+    const values: string[] = [];
+    values.push(`${quantity}`);
+    specIdList.forEach((id: string) => {
+      values.push(id);
+    });
+    return values.join('&');
+  }
+
+  async redis_findCartByUserId(userId: string): Promise<Cart> {
+    const queryResult: Record<string, string> =
+      await this.redisCartService.getAllProducts(userId);
+    const productIds: string[] = Object.keys(queryResult).map(
+      (rawProductId: string) => {
+        if (!rawProductId) return '';
+        return rawProductId.split(':')[1];
+      },
+    );
+    let total = 0;
+    const items: CartItem[] = await Promise.all(
+      productIds.map(async (productId: string) => {
+        const cartItem: CartItem = await this.parseRedisQueryResult(
+          productId,
+          queryResult[`product:${productId}`],
+        );
+        total += cartItem.price * cartItem.quantity;
+        return cartItem;
+      }),
+    );
+    return {
+      id: `cart:${userId}`,
+      user: userId,
+      total,
+      items,
+    };
+  }
+
+  // TODO: add update cart dto validation
+  async redis_addProduct(userId: string, updateCartDto: UpdateCartDto) {
+    const { productId, quantity, specIdList } = updateCartDto;
+    const redisValue: string = this.buildRedisValue(quantity, specIdList);
+    await this.redisCartService.addProduct(userId, productId, redisValue);
+    return await this.redis_findCartByUserId(userId);
+  }
+
+  // TODO: add update cart dto validation
+  async redis_updateProduct(userId: string, updateCartDto: UpdateCartDto) {
+    const { productId, quantity, specIdList } = updateCartDto;
+    const redisValue: string = this.buildRedisValue(quantity, specIdList);
+    await this.redisCartService.updateProduct(userId, productId, redisValue);
+    return await this.redis_findCartByUserId(userId);
+  }
+
+  async redis_removeProduct(userId: string, productId: string) {
+    await this.redisCartService.removeProduct(userId, productId);
+    return await this.redis_findCartByUserId(userId);
   }
 }

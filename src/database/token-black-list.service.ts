@@ -4,43 +4,26 @@ import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
 import Redis from 'ioredis';
 
 @Injectable()
-export class RedisService implements OnModuleInit {
-  private readonly logger: Logger = new Logger(RedisService.name);
+export class TokenBlackListService implements OnModuleInit {
+  private readonly logger: Logger = new Logger(TokenBlackListService.name);
   private readonly blackListClient: Redis;
-  private readonly cartClient: Redis;
-  private readonly rpcClient: Redis;
 
   constructor(private readonly environmentService: EnvironmentService) {
     this.blackListClient = new Redis({
       host: this.environmentService.redisHost,
       port: this.environmentService.redisPort,
       db: this.environmentService.redisDbJwtBlacklist,
-      // password: this.environmentService.redisPassword,
-    });
-
-    this.cartClient = new Redis({
-      host: this.environmentService.redisHost,
-      port: this.environmentService.redisPort,
-      db: this.environmentService.redisDbCart,
-      // password: this.environmentService.redisPassword,
     });
   }
 
   async onModuleInit() {
     try {
-      const clientList: string[] = ['Black list', 'Cart'];
-      const connectionResults = await Promise.all([
-        this.blackListClient.ping(),
-        this.cartClient.ping(),
-      ]);
-      connectionResults.forEach((value: 'PONG', index: number) => {
-        if (value !== 'PONG') {
-          this.logger.error(`Cannot connect to ${clientList[index]} redis DB`);
-        } else {
-          this.logger.log(`Connected to ${clientList.at(index)} Redis DB`);
-        }
-      });
-      this.logger.log('Redis databases connected');
+      const connectionResult = await this.blackListClient.ping();
+      if (connectionResult !== 'PONG') {
+        this.logger.error(`Cannot connect to Redis blacklist DB`);
+      } else {
+        this.logger.log(`Connected to redis blacklist DB`);
+      }
     } catch (error: any) {
       this.logger.error(`Cannot connect to Redis server: ${error.message}`);
       return false;

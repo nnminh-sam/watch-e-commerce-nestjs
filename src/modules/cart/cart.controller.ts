@@ -7,6 +7,10 @@ import {
   UseGuards,
   Post,
   Patch,
+  Version,
+  Delete,
+  HttpCode,
+  Query,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
@@ -43,8 +47,9 @@ export class CartController {
   }
 
   @ApiOperation({
-    summary: 'Update user cart',
-    description: 'Including add a product into cart, update product quantity',
+    summary: 'Update user cart (Add product, update quantity, remove product)',
+    description:
+      'This API support adding new product into cart, update product quantity and removing product out of cart by set the quantity to 0',
   })
   @SuccessApiResponse({
     model: Cart,
@@ -61,5 +66,76 @@ export class CartController {
     @Body() updateCartDto: UpdateCartDto,
   ): Promise<Cart> {
     return this.cartService.updateCart(claims.sub, updateCartDto);
+  }
+
+  @ApiOperation({
+    summary: 'Find user cart using Redis.',
+  })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Successfully retrieve user cart data',
+  })
+  @Version('2')
+  @Get()
+  async getCartRedis(@RequestedUser() claims: TokenPayloadDto): Promise<Cart> {
+    return await this.cartService.redis_findCartByUserId(claims.sub);
+  }
+
+  @ApiOperation({
+    summary:
+      'Add product into user cart stored using Redis. This also create user cart if not existed',
+  })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Successfully added new product into cart',
+  })
+  @Version('2')
+  @HttpCode(200)
+  @Post()
+  async addProduct(
+    @RequestedUser() claims: TokenPayloadDto,
+    @Body() updateCartDto: UpdateCartDto,
+  ): Promise<Cart> {
+    return await this.cartService.redis_addProduct(claims.sub, updateCartDto);
+  }
+
+  @ApiOperation({
+    summary:
+      'Update product inside user cart using Redis. This also create user cart if not existed',
+  })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Successfully updated product in cart',
+  })
+  @Version('2')
+  @Patch()
+  async updateProduct(
+    @RequestedUser() claims: TokenPayloadDto,
+    @Body() updateCartDto: UpdateCartDto,
+  ): Promise<Cart> {
+    return await this.cartService.redis_updateProduct(
+      claims.sub,
+      updateCartDto,
+    );
+  }
+
+  @ApiOperation({
+    summary: 'Remove product out of user cart using Redis.',
+  })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Successfully removed product out of user cart',
+  })
+  @Version('2')
+  @Delete('/:id')
+  async removeProduct(
+    @RequestedUser() claims: TokenPayloadDto,
+    @Param('id') id: string,
+  ): Promise<Cart> {
+    return await this.cartService.redis_removeProduct(claims.sub, id);
   }
 }

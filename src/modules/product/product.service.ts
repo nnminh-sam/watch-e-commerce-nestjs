@@ -70,8 +70,8 @@ export class ProductService {
     try {
       const productModel = new this.productModel({
         ...createProductDto,
-        brand,
-        category,
+        brand: brand.id,
+        category: category.id,
         customerVisible: true,
       });
       const savedProductDocument = await productModel.save();
