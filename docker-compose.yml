@@ -10,7 +10,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     healthcheck:
-      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'192.168.1.87:27017',priority:1},{_id:1,host:'192.168.1.87:27018',priority:0.5},{_id:2,host:'192.168.1.87:27019',priority:0.5}]}) }" | mongosh --port 27017 --quiet
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'${DATABASE_1_HOST}:${DATABASE_1_PORT}',priority:1},{_id:1,host:'${DATABASE_2_HOST}:${DATABASE_2_PORT}',priority:0.5},{_id:2,host:'${DATABASE_3_HOST}:${DATABASE_3_PORT}',priority:0.5}]}) }" | mongosh --port ${DATABASE_1_PORT} --quiet
       interval: 5s
       timeout: 30s
       start_period: 0s
@@ -54,40 +54,6 @@ services:
     environment:
       - MONGO_INITDB_DATABASE=${DATABASE_NAME}
 
-  # mongo-init:
-  #   image: mongo:8.0.5
-  #   container_name: mongo-init
-  #   networks:
-  #     - mongo-replica-network
-  #   depends_on:
-  #     - mongo-master
-  #     - mongo-slave
-  #   entrypoint: ['/bin/bash', '-c']
-  #   command:
-  #     - >
-  #       sleep 5;
-  #       mongosh --host mongo-master:27017 --eval "
-  #       rs.initiate({
-  #         _id: 'rs0',
-  #         members: [
-  #           { _id: 0, host: 'mongo-master:27017' },
-  #           { _id: 1, host: 'mongo-slave:27017' }
-  #         ]
-  #       });
-  #       rs.status();"
-
-  # mongodb:
-  #   container_name: watch-e-commerce-mongodb
-  #   image: mongo:8.0.5
-  #   ports:
-  #     - '${DATABASE_PORT}:27017'
-  #   environment:
-  #     - MONGO_INITDB_DATABASE=${DATABASE_NAME}
-  #   volumes:
-  #     - ./docker-volumes/mongodb:/data/db
-  # networks:
-  #   - watch-e-commerce-network
-
   redis:
     container_name: watch-e-commerce-redis
     image: redis:8.0-M02-alpine
@@ -97,8 +63,6 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     volumes:
       - ./docker-volumes/redis:/data/db
-    # networks:
-    #   - watch-e-commerce-network
 
   # backend:
   #   container_name: watch-e-commerce-backend
@@ -119,7 +83,6 @@ services:
 
 volumes:
   redis-data:
-  # mongodb-data:
   mongo-1-data:
   mongo-2-data:
   mongo-3-data:
