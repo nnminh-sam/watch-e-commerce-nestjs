@@ -20,6 +20,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { TokenResponseDto } from '@root/modules/auth/dtos/tokens-response.dto';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
+import { ProtectedApi } from '@root/commons/decorators/protected-api.decorator';
 
 @ApiTags('Authentications')
 @Controller('auth')
@@ -58,7 +59,7 @@ export class AuthController {
     return await this.authService.signUp(userRegistrationDto);
   }
 
-  @ApiOperation({ summary: 'User sign-out' })
+  @ProtectedApi({ summary: 'User sign-out' })
   @SuccessApiResponse({
     description: 'Successful sign-out',
     messageKeyExample: 'Sign out success',
@@ -70,7 +71,7 @@ export class AuthController {
     return await this.authService.signOut(token);
   }
 
-  @ApiOperation({ summary: 'Revoke tokens' })
+  @ProtectedApi({ summary: 'Revoke tokens' })
   @SuccessApiResponse({
     model: TokenResponseDto,
     key: 'tokens',
@@ -95,7 +96,7 @@ export class AuthController {
     );
   }
 
-  @ApiOperation({ summary: 'Update user password' })
+  @ProtectedApi({ summary: 'Update user password' })
   @SuccessApiResponse({
     model: String,
     key: 'message',

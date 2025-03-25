@@ -17,7 +17,7 @@ import { JwtGuard } from '@root/commons/guards/jwt.guard';
 import { RoleGuard } from '@root/commons/guards/role.guard';
 import { HasRoles } from '@root/commons/decorators/has-role.decorator';
 import { Role } from '@root/models/enums/role.enum';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { Cart } from '@root/models/cart.model';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
@@ -26,6 +26,7 @@ import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
 import { UpdateCartDto } from '@root/modules/cart/dto/update-cart.dto';
 
 @ApiTags('Carts')
+@ApiBearerAuth()
 @UseGuards(JwtGuard)
 @Controller('carts')
 export class CartController {

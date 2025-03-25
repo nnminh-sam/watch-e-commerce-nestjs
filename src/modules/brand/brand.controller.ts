@@ -18,17 +18,21 @@ import { Role } from '@root/models/enums/role.enum';
 import { CreateBrandDto } from '@root/modules/brand/dto/create-brand.dto';
 import { UpdateBrandDto } from '@root/modules/brand/dto/update-brand.dto';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 import { Brand } from '@root/models/brand.model';
 import { FindBrandDto } from '@root/modules/brand/dto/find-brand.dto';
+import { ProtectedApi } from '@root/commons/decorators/protected-api.decorator';
 
 @ApiTags('Brands')
 @Controller('brands')
 export class BrandController {
   constructor(private readonly brandService: BrandService) {}
 
-  @ApiOperation({ summary: 'Create a new brand' })
+  @ProtectedApi({
+    summary: 'Create a new brand',
+    roles: [Role.ADMIN, Role.EMPLOYEE],
+  })
   @SuccessApiResponse({
     model: Brand,
     key: 'brand',
@@ -92,7 +96,10 @@ export class BrandController {
     return await this.brandService.findOneBy('_id', id);
   }
 
-  @ApiOperation({ summary: 'Update a brand' })
+  @ProtectedApi({
+    summary: 'Update a brand',
+    roles: [Role.ADMIN, Role.EMPLOYEE],
+  })
   @SuccessApiResponse({
     model: Brand,
     key: 'brand',
@@ -117,7 +124,10 @@ export class BrandController {
     return await this.brandService.update(id, updateBrandDto);
   }
 
-  @ApiOperation({ summary: 'Delete a brand' })
+  @ProtectedApi({
+    summary: 'Delete a brand',
+    roles: [Role.ADMIN, Role.EMPLOYEE],
+  })
   @SuccessApiResponse({
     description: 'Brand deleted successfully',
   })

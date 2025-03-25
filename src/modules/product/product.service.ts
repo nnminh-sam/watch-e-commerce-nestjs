@@ -28,16 +28,19 @@ export class ProductService {
     private readonly categoryService: CategoryService,
   ) {}
 
-  private async existBy(field: string, value: any): Promise<boolean> {
-    return !!(await this.productModel.exists({ [field]: value }));
-  }
-
   private async validateUniqueField(
     field: string,
     value: any,
     message: string,
+    exceptId?: string,
   ): Promise<void> {
-    if (await this.existBy(field, value)) {
+    const result = await this.productModel
+      .exists({
+        [field]: value,
+        ...(exceptId && { _id: exceptId }),
+      })
+      .lean();
+    if (!result) {
       throw new BadRequestException(message);
     }
   }

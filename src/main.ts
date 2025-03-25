@@ -67,7 +67,6 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Watch E-Commerce API Service')
     .setDescription('API Service for Watch E-Commerce store')
-    .addBearerAuth()
     .setVersion('1.0')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);

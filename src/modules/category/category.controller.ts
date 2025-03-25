@@ -21,13 +21,17 @@ import { HasRoles } from '@root/commons/decorators/has-role.decorator';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 import { Category } from '@root/models/category.model';
 import { FindCategoryDto } from '@root/modules/category/dto/find-category.dto';
+import { ProtectedApi } from '@root/commons/decorators/protected-api.decorator';
 
 @ApiTags('Categories')
 @Controller('categories')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @ApiOperation({ summary: 'Create a new category' })
+  @ProtectedApi({
+    summary: 'Create a new category',
+    roles: [Role.ADMIN, Role.EMPLOYEE],
+  })
   @SuccessApiResponse({
     model: Category,
     key: 'category',
@@ -95,7 +99,10 @@ export class CategoryController {
     return await this.categoryService.findOneBy('id', id);
   }
 
-  @ApiOperation({ summary: 'Update a category' })
+  @ProtectedApi({
+    summary: 'Update a category',
+    roles: [Role.ADMIN, Role.EMPLOYEE],
+  })
   @SuccessApiResponse({
     model: UpdateCategoryDto,
     key: 'category',
@@ -120,7 +127,10 @@ export class CategoryController {
     return await this.categoryService.update(id, updateCategoryDto);
   }
 
-  @ApiOperation({ summary: 'Delete a category' })
+  @ProtectedApi({
+    summary: 'Delete a category',
+    roles: [Role.ADMIN, Role.EMPLOYEE],
+  })
   @SuccessApiResponse({
     description: 'Category deleted successfully',
     messageKeyExample: 'Category removed',

@@ -22,13 +22,17 @@ import { Product } from '@root/models/product.model';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 import { IsMongoId } from 'class-validator';
 import { MongoIdValidationPipe } from '@root/commons/pipes/mongo-id-validation.pipe';
+import { ProtectedApi } from '@root/commons/decorators/protected-api.decorator';
 
 @ApiTags('Products')
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @ApiOperation({ summary: 'Create a new product' })
+  @ProtectedApi({
+    summary: 'Create a new product',
+    roles: [Role.ADMIN, Role.EMPLOYEE],
+  })
   @SuccessApiResponse({
     model: Product,
     key: 'product',
@@ -76,7 +80,10 @@ export class ProductController {
     return await this.productService.findOneById(id);
   }
 
-  @ApiOperation({ summary: 'Update a product' })
+  @ProtectedApi({
+    summary: 'Update a product',
+    roles: [Role.ADMIN, Role.EMPLOYEE],
+  })
   @SuccessApiResponse({
     model: Product,
     key: 'product',

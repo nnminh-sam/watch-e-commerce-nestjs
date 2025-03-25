@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Patch, Query, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { UserService } from './user.service';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
@@ -14,6 +14,7 @@ import { User } from '@root/models/user.model';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 
 @ApiTags('Users')
+@ApiBearerAuth()
 @UseGuards(JwtGuard)
 @Controller('users')
 export class UserController {
