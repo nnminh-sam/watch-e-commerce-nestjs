@@ -66,80 +66,85 @@ export class ProductService {
       categoryId,
       specIds,
     } = findProductDto;
+
     const skip: number = (page - 1) * size;
-    const textSearchFilter: any = name ? { $text: { $search: name } } : {};
 
-    const includeSearchFilter: any = code
-      ? { code: { $regex: code, $options: 'i' } }
-      : {};
-    const priceFilter = {
-      $and: [
-        { ...(minPrice && { price: { $gte: minPrice } }) },
-        { ...(maxPrice && { price: { $lte: maxPrice } }) },
-      ],
+    const filters = {
+      ...this.getTextSearchFilter(name),
+      ...this.getIncludeSearchFilter(code),
+      ...this.getPriceFilter(minPrice, maxPrice),
+      ...this.getBrandFilter(brand, brandId),
+      ...this.getCategoryFilter(category, categoryId),
+      ...this.getSpecFilter(specIds),
+      customerVisible: true,
     };
-    const brandFilter =
-      brand || brandId
-        ? {
-            $or: [
-              ...(brand
-                ? [{ 'brand.name': { $regex: brand, $options: 'i' } }]
-                : []),
-              ...(brandId ? [{ 'brand._id': brandId }] : []),
-            ],
-          }
-        : {};
-    const categoryFilter =
-      category || categoryId
-        ? {
-            $or: [
-              ...(category
-                ? [{ 'category.name': { $regex: category, $options: 'i' } }]
-                : []),
-              ...(categoryId ? [{ 'category._id': categoryId }] : []),
-            ],
-          }
-        : {};
-    const specFilter = !specIds
-      ? {}
-      : {
-          $and: [
-            ...specIds.map((id: string) => {
-              return { 'specs._id': id };
-            }),
-          ],
-        };
 
-    const products = await this.productModel
-      .find(
-        {
-          ...textSearchFilter,
-          ...includeSearchFilter,
-          ...priceFilter,
-          ...brandFilter,
-          ...categoryFilter,
-          ...specFilter,
-          customerVisible: true,
-        },
-        {
-          customerVisible: 1,
-          status: 1,
-          specs: 1,
-          assets: 1,
-          stock: 1,
-          name: 1,
-          code: 1,
-          price: 1,
-          brand: 1,
-          category: 1,
-        },
-        { sort: { [sortBy]: orderBy } },
-      )
+    return await this.productModel
+      .find(filters, {
+        customerVisible: 1,
+        status: 1,
+        specs: 1,
+        assets: 1,
+        stock: 1,
+        name: 1,
+        code: 1,
+        price: 1,
+        brand: 1,
+        category: 1,
+      })
+      .sort({ [sortBy]: orderBy })
       .skip(skip)
       .limit(size)
       .lean();
+  }
 
-    return products;
+  private getTextSearchFilter(name?: string) {
+    return name ? { $text: { $search: name } } : {};
+  }
+
+  private getIncludeSearchFilter(code?: string) {
+    return code ? { code: { $regex: code, $options: 'i' } } : {};
+  }
+
+  private getPriceFilter(minPrice?: number, maxPrice?: number) {
+    return {
+      $and: [
+        ...(minPrice !== undefined ? [{ price: { $gte: minPrice } }] : []),
+        ...(maxPrice !== undefined ? [{ price: { $lte: maxPrice } }] : []),
+      ],
+    };
+  }
+
+  private getBrandFilter(brand?: string, brandId?: string) {
+    return brand || brandId
+      ? {
+          $or: [
+            ...(brand
+              ? [{ 'brand.name': { $regex: brand, $options: 'i' } }]
+              : []),
+            ...(brandId ? [{ 'brand._id': brandId }] : []),
+          ],
+        }
+      : {};
+  }
+
+  private getCategoryFilter(category?: string, categoryId?: string) {
+    return category || categoryId
+      ? {
+          $or: [
+            ...(category
+              ? [{ 'category.name': { $regex: category, $options: 'i' } }]
+              : []),
+            ...(categoryId ? [{ 'category._id': categoryId }] : []),
+          ],
+        }
+      : {};
+  }
+
+  private getSpecFilter(specIds?: string[]) {
+    return specIds && specIds.length
+      ? { $and: specIds.map((id) => ({ 'specs._id': id })) }
+      : {};
   }
 
   async findProductSpecifications(): Promise<Spec[]> {
@@ -263,14 +268,8 @@ export class ProductService {
     if (updateProductDto?.sold && updateProductDto?.sold < 0) {
       throw new BadRequestException('Product sold cannot be negative number');
     }
-    const brand = await this.brandService.findOneBy(
-      'id',
-      updateProductDto.brand,
-    );
-    const category = await this.categoryService.findOneBy(
-      'id',
-      updateProductDto.category,
-    );
+    await this.brandService.findOneBy('id', updateProductDto.brand);
+    await this.categoryService.findOneBy('id', updateProductDto.category);
 
     try {
       const product = await this.productModel

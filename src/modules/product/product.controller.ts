@@ -73,7 +73,7 @@ export class ProductController {
     isArray: true,
   })
   @Get()
-  async find(@Body() findProductDto: FindProductDto) {
+  async find(@Query() findProductDto: FindProductDto) {
     return await this.productService.find(findProductDto);
   }
 
