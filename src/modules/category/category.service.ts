@@ -1,3 +1,4 @@
+import { FindCategoryDto } from './dto/find-category.dto';
 import {
   BadRequestException,
   Injectable,
@@ -20,14 +21,14 @@ export class CategoryService {
     private readonly categoryModel: Model<CategoryDocument>,
   ) {}
 
-  async create(createCategoryDto: CreateCategoryDto) {
+  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
     try {
-      const categorySlug: string = createCategoryDto.slug
+      const slug: string = createCategoryDto.slug
         ? createCategoryDto.slug
         : generateSlug(createCategoryDto.name);
       const categoryModel = new this.categoryModel({
         ...createCategoryDto,
-        slug: categorySlug,
+        slug,
         isFeatured: createCategoryDto.isFeatured || false,
       });
       const savedCategoryDocument = await categoryModel.save();
@@ -38,15 +39,17 @@ export class CategoryService {
     }
   }
 
-  async findOne(id: string): Promise<any> {
+  async findOneBy(key: string, value: string): Promise<Category> {
+    if (key === 'id') {
+      key = '_id';
+    }
     const category = await this.categoryModel
       .findOne({
-        _id: id,
+        [key]: value,
         deletedAt: null,
       })
       .select('-deletedAt')
       .lean();
-
     if (!category) {
       throw new NotFoundException('Category not found');
     }
@@ -54,72 +57,58 @@ export class CategoryService {
     return category;
   }
 
-  async findOneBySlug(slug: string) {
-    const category = await this.categoryModel.findOne(
-      {
-        slug,
-        deletedAt: null,
-      },
-      {
-        deletedAt: 0,
-      },
-    );
-    if (!category) {
-      throw new NotFoundException('Category not found');
+  async find(findCategoryDto: FindCategoryDto): Promise<Category[]> {
+    const { name, page, size, sortBy, orderBy } = findCategoryDto;
+    const skip: number = (page - 1) * size;
+    const filter: any = { deletedAt: null };
+    if (name) {
+      filter.$text = { $search: name };
     }
-    return category.toJSON();
-  }
 
-  async findByName(name: string) {
-    const categories = await this.categoryModel.find(
-      {
-        $text: {
-          $search: name,
-        },
-        deletedAt: null,
-      },
-      {
-        deletedAt: 0,
-      },
-    );
-    if (!categories) {
-      throw new NotFoundException('Categories not found');
-    }
+    const categories = await this.categoryModel
+      .find(filter, { deletedAt: 0 }, { sort: { [sortBy]: orderBy } })
+      .skip(skip)
+      .limit(size)
+      .lean();
+
     return categories;
   }
 
-  async update(id: string, updateCategoryDto: UpdateCategoryDto) {
+  async update(
+    id: string,
+    updateCategoryDto: UpdateCategoryDto,
+  ): Promise<Category> {
     try {
-      const updatedCategory = await this.categoryModel.findOneAndUpdate(
-        { _id: id, deletedAt: null },
-        updateCategoryDto,
-        { new: true },
-      );
-
+      const updatedCategory = await this.categoryModel
+        .findOneAndUpdate({ _id: id, deletedAt: null }, updateCategoryDto, {
+          new: true,
+        })
+        .lean();
       if (!updatedCategory) {
         throw new NotFoundException('Category not found');
       }
 
-      return updatedCategory.toJSON();
+      return updatedCategory;
     } catch (error: any) {
       this.logger.error(error.message);
       throw new BadRequestException('Cannot update category');
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<Category> {
     try {
-      const deletedCategory = await this.categoryModel.findOneAndUpdate(
-        { _id: id, deletedAt: null },
-        { deletedAt: new Date() },
-        { new: true },
-      );
-
+      const deletedCategory = await this.categoryModel
+        .findOneAndUpdate(
+          { _id: id, deletedAt: null },
+          { deletedAt: new Date() },
+          { new: true },
+        )
+        .lean();
       if (!deletedCategory) {
         throw new NotFoundException('Category not found');
       }
 
-      return deletedCategory.toJSON();
+      return deletedCategory;
     } catch (error: any) {
       this.logger.error(error.message);
       throw new BadRequestException('Cannot delete category');

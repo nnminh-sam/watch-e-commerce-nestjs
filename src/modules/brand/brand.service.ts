@@ -5,8 +5,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { PaginationResponseDto } from '@root/commons/dtos/pagination-response.dto';
 import { Brand, BrandDocument } from '@root/models/brand.model';
 import { CreateBrandDto } from '@root/modules/brand/dto/create-brand.dto';
+import { FindBrandDto } from '@root/modules/brand/dto/find-brand.dto';
 import { UpdateBrandDto } from '@root/modules/brand/dto/update-brand.dto';
 import { generateSlug } from '@root/utils';
 import { Model } from 'mongoose';
@@ -20,15 +22,12 @@ export class BrandService {
     private readonly brandModel: Model<BrandDocument>,
   ) {}
 
-  async create(createBrandDto: CreateBrandDto) {
+  async create(createBrandDto: CreateBrandDto): Promise<Brand> {
     try {
-      const brandSlug: string = createBrandDto.slug
+      const slug: string = createBrandDto.slug
         ? createBrandDto.slug
         : generateSlug(createBrandDto.name);
-      const brandModel = new this.brandModel({
-        ...createBrandDto,
-        slug: brandSlug,
-      });
+      const brandModel = new this.brandModel({ ...createBrandDto, slug });
       const brandDocument = await brandModel.save();
       return brandDocument.toJSON();
     } catch (error: any) {
@@ -37,15 +36,16 @@ export class BrandService {
     }
   }
 
-  async findOne(id: string) {
+  async findOneBy(key: string, value: string): Promise<Brand> {
+    if (key === 'id') {
+      key = '_id';
+    }
     const brand = await this.brandModel
       .findOne({
-        _id: id,
+        [key]: value,
         deletedAt: null,
       })
-      .select('-deletedAt')
       .lean();
-
     if (!brand) {
       throw new NotFoundException('Brand not found');
     }
@@ -53,71 +53,66 @@ export class BrandService {
     return brand;
   }
 
-  async findOneBySlug(slug: string) {
-    const brand = await this.brandModel.findOne(
-      {
-        slug,
-        deletedAt: null,
-      },
-      {
-        deletedAt: 0,
-      },
-    );
-    if (!brand) {
-      throw new NotFoundException('Brand not found');
+  async find(findBrandDto: FindBrandDto): Promise<Brand[]> {
+    const { name, page, size, orderBy, sortBy } = findBrandDto;
+    const skip: number = (page - 1) * size;
+    const filter: any = { deletedAt: null };
+    if (name) {
+      filter.$text = { $search: name };
     }
-    return brand.toJSON();
-  }
 
-  async findByName(name: string) {
-    const brands = await this.brandModel.find(
-      {
-        $text: {
-          $search: name,
-        },
-        deletedAt: null,
-      },
-      { deletedAt: 0 },
-    );
-    if (!brands) {
-      throw new NotFoundException('Brands not found');
-    }
+    // const total: number = name
+    //   ? await this.brandModel.countDocuments(filter).lean()
+    //   : await this.brandModel.estimatedDocumentCount().lean();
+
+    const brands = await this.brandModel
+      .find(filter, { deletedAt: 0 }, { sort: { [sortBy]: orderBy } })
+      .skip(skip)
+      .limit(size)
+      .lean();
+
+    // const pagination: PaginationResponseDto = {
+    //   page,
+    //   perPage: size,
+    //   total: brands.length,
+    //   totalPages: Math.ceil(total / size),
+    // };
 
     return brands;
   }
 
-  async update(id: string, updateBrandDto: UpdateBrandDto) {
+  async update(id: string, updateBrandDto: UpdateBrandDto): Promise<Brand> {
     try {
       const updatedBrand = await this.brandModel
         .findOneAndUpdate({ _id: id, deletedAt: null }, updateBrandDto, {
           new: true,
         })
-        .select('-deletedAt');
-
+        .lean();
       if (!updatedBrand) {
         throw new BadRequestException('Brand not found');
       }
 
-      return updatedBrand.toJSON();
+      return updatedBrand;
     } catch (error: any) {
       this.logger.error(error.message);
       throw new BadRequestException('Cannot update brand');
     }
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<string> {
     try {
-      const deletedBrand = await this.brandModel.findOneAndUpdate(
-        { _id: id, deletedAt: null },
-        { deletedAt: Date.now() },
-        { new: true },
-      );
-
+      const deletedBrand = await this.brandModel
+        .findOneAndUpdate(
+          { _id: id, deletedAt: null },
+          { deletedAt: Date.now() },
+          { new: true },
+        )
+        .lean();
       if (!deletedBrand) {
         throw new BadRequestException('Brand not found');
       }
 
-      return deletedBrand.toJSON();
+      return 'Brand deleted successfully';
     } catch (error: any) {
       this.logger.error(error.message);
       throw new BadRequestException('Cannot delete brand');

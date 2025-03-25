@@ -61,10 +61,27 @@ BrandSchema.post('findOne', (doc: any) => {
   return doc;
 });
 
+BrandSchema.post('findOneAndUpdate', (doc: any) => {
+  doc.id = doc._id.toString();
+  delete doc._id;
+  return doc;
+});
+
+BrandSchema.post('find', (docs: any) => {
+  if (!docs || docs.length === 0) return docs;
+
+  return docs.map((doc: any) => {
+    doc.id = doc._id.toString();
+    delete doc._id;
+    return doc;
+  });
+});
+
 BrandSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
+    delete ret.deletedAt;
     delete ret._id;
     return ret;
   },

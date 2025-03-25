@@ -7,8 +7,8 @@ export class CreateCategoryDto {
     description: 'Category name',
     name: 'name',
   })
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   name: string;
 
   @ApiProperty({
@@ -16,8 +16,8 @@ export class CreateCategoryDto {
     description: 'Category description',
     name: 'description',
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   description: string;
 
   @ApiProperty({
@@ -25,8 +25,8 @@ export class CreateCategoryDto {
     description: 'Category slug',
     name: 'slug',
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   slug: string;
 
   @ApiProperty({
@@ -34,8 +34,8 @@ export class CreateCategoryDto {
     description: 'List of asset URLs',
     name: 'assets',
   })
-  @IsString({ each: true })
   @IsOptional()
+  @IsString()
   assets: string[];
 
   @ApiProperty({
@@ -43,7 +43,7 @@ export class CreateCategoryDto {
     description: 'Indicates if the category is featured',
     name: 'is_featured',
   })
-  @IsBoolean()
   @IsOptional()
+  @IsBoolean()
   isFeatured: boolean;
 }

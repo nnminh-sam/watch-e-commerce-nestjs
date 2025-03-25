@@ -19,16 +19,17 @@ import { RoleGuard } from '@root/commons/guards/role.guard';
 import { Role } from '@root/models/enums/role.enum';
 import { HasRoles } from '@root/commons/decorators/has-role.decorator';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
+import { Category } from '@root/models/category.model';
+import { FindCategoryDto } from '@root/modules/category/dto/find-category.dto';
 
 @ApiTags('Categories')
-@UseGuards(JwtGuard)
 @Controller('categories')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @ApiOperation({ summary: 'Create a new category' })
   @SuccessApiResponse({
-    model: CreateCategoryDto,
+    model: Category,
     key: 'category',
     description: 'Category created successfully',
   })
@@ -41,7 +42,8 @@ export class CategoryController {
     description: 'Category name has been taken',
   })
   @UseGuards(RoleGuard)
-  @HasRoles([Role.ADMIN])
+  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  @UseGuards(JwtGuard)
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
@@ -49,7 +51,7 @@ export class CategoryController {
 
   @ApiOperation({ summary: 'Find category by slug' })
   @SuccessApiResponse({
-    model: CreateCategoryDto,
+    model: Category,
     key: 'category',
     description: 'Category details by slug',
   })
@@ -59,22 +61,23 @@ export class CategoryController {
   })
   @Get('/slug/:slug')
   async findOneBySlug(@Param('slug') slug: string) {
-    return await this.categoryService.findOneBySlug(slug);
+    return await this.categoryService.findOneBy('slug', slug);
   }
 
-  @ApiOperation({ summary: 'Find categories by name' })
+  @ApiOperation({ summary: 'Find categories' })
   @SuccessApiResponse({
-    model: CreateCategoryDto,
+    model: Category,
     key: 'categories',
     description: 'List of categories',
+    isArray: true,
   })
   @ClientErrorApiResponse({
     status: 404,
     description: 'Category not found',
   })
   @Get()
-  async findByName(@Query('name') name: string) {
-    return await this.categoryService.findByName(name);
+  async find(@Query() findCategoryDto: FindCategoryDto) {
+    return await this.categoryService.find(findCategoryDto);
   }
 
   @ApiOperation({ summary: 'Find category by ID' })
@@ -89,7 +92,7 @@ export class CategoryController {
   })
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.categoryService.findOne(id);
+    return await this.categoryService.findOneBy('id', id);
   }
 
   @ApiOperation({ summary: 'Update a category' })
@@ -107,7 +110,8 @@ export class CategoryController {
     description: 'Forbidden request',
   })
   @UseGuards(RoleGuard)
-  @HasRoles([Role.ADMIN])
+  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  @UseGuards(JwtGuard)
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -122,7 +126,8 @@ export class CategoryController {
     messageKeyExample: 'Category removed',
   })
   @UseGuards(RoleGuard)
-  @HasRoles([Role.ADMIN])
+  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  @UseGuards(JwtGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.categoryService.remove(id);

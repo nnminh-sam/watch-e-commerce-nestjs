@@ -70,7 +70,7 @@ export class UserService {
     const user = await this.userModel
       .findOne(
         { _id: id, isActive: true },
-        '-password -role -isActive -deliveryAddress',
+        '-password -isActive -deliveryAddress',
       )
       .lean<User>();
     if (!user) {
@@ -82,7 +82,7 @@ export class UserService {
 
   async find({
     page,
-    limit,
+    size,
     sortBy,
     orderBy,
     firstName,
@@ -100,8 +100,8 @@ export class UserService {
     try {
       const users = await this.userModel
         .find({ ...filter, ...searchQuery }, '-deliveryAddress', {
-          skip: (page - 1) * limit,
-          limit,
+          skip: (page - 1) * size,
+          size,
           sort: { [sortBy]: orderBy },
         })
         .lean();
@@ -159,7 +159,7 @@ export class UserService {
       const user = await userModel.save();
 
       await this.eventEmitterReadinessWatcher.waitUntilReady();
-    const cartCreationResult = await this.eventEmitter.emitAsync(
+      const cartCreationResult = await this.eventEmitter.emitAsync(
         CartEventsEnum.CART_CREATED,
         user.id,
       );

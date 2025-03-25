@@ -62,8 +62,12 @@ export class ProductService {
     if (createProductDto?.sold && createProductDto?.sold < 0) {
       throw new BadRequestException('Product sold cannot be negative number');
     }
-    const brand = await this.brandService.findOne(createProductDto.brand);
-    const category = await this.categoryService.findOne(
+    const brand = await this.brandService.findOneBy(
+      'id',
+      createProductDto.brand,
+    );
+    const category = await this.categoryService.findOneBy(
+      'id',
       createProductDto.category,
     );
 
@@ -204,8 +208,12 @@ export class ProductService {
     if (updateProductDto?.sold && updateProductDto?.sold < 0) {
       throw new BadRequestException('Product sold cannot be negative number');
     }
-    const brand = await this.brandService.findOne(updateProductDto.brand);
-    const category = await this.categoryService.findOne(
+    const brand = await this.brandService.findOneBy(
+      'id',
+      updateProductDto.brand,
+    );
+    const category = await this.categoryService.findOneBy(
+      'id',
       updateProductDto.category,
     );
 

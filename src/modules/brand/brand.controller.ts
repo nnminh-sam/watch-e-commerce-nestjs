@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Patch,
   Post,
@@ -19,16 +20,17 @@ import { UpdateBrandDto } from '@root/modules/brand/dto/update-brand.dto';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
+import { Brand } from '@root/models/brand.model';
+import { FindBrandDto } from '@root/modules/brand/dto/find-brand.dto';
 
 @ApiTags('Brands')
-@UseGuards(JwtGuard)
 @Controller('brands')
 export class BrandController {
   constructor(private readonly brandService: BrandService) {}
 
   @ApiOperation({ summary: 'Create a new brand' })
   @SuccessApiResponse({
-    model: CreateBrandDto,
+    model: Brand,
     key: 'brand',
     description: 'Brand created successfully',
   })
@@ -41,7 +43,8 @@ export class BrandController {
     description: 'Brand name has been taken',
   })
   @UseGuards(RoleGuard)
-  @HasRoles([Role.ADMIN])
+  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  @UseGuards(JwtGuard)
   @Post()
   async create(@Body() createBrandDto: CreateBrandDto) {
     return await this.brandService.create(createBrandDto);
@@ -49,7 +52,7 @@ export class BrandController {
 
   @ApiOperation({ summary: 'Find brand by slug' })
   @SuccessApiResponse({
-    model: CreateBrandDto,
+    model: Brand,
     key: 'brand',
     description: 'Brand details by slug',
   })
@@ -59,27 +62,24 @@ export class BrandController {
   })
   @Get('/slug/:slug')
   async findOneBySlug(@Param('slug') slug: string) {
-    return await this.brandService.findOneBySlug(slug);
+    return await this.brandService.findOneBy('slug', slug);
   }
 
-  @ApiOperation({ summary: 'Find brands by name' })
+  @ApiOperation({ summary: 'Find brands' })
   @SuccessApiResponse({
-    model: CreateBrandDto,
+    model: Brand,
     key: 'brands',
     description: 'List of brands',
-  })
-  @ClientErrorApiResponse({
-    status: 404,
-    description: 'Brand not found',
+    isArray: true,
   })
   @Get()
-  async findByName(@Query('name') name: string) {
-    return await this.brandService.findByName(name);
+  async find(@Query() findBrandDto: FindBrandDto) {
+    return await this.brandService.find(findBrandDto);
   }
 
   @ApiOperation({ summary: 'Find brand by ID' })
   @SuccessApiResponse({
-    model: CreateBrandDto,
+    model: Brand,
     key: 'brand',
     description: 'Brand details by ID',
   })
@@ -89,12 +89,12 @@ export class BrandController {
   })
   @Get('/:id')
   async findOne(@Param('id') id: string) {
-    return await this.brandService.findOne(id);
+    return await this.brandService.findOneBy('_id', id);
   }
 
   @ApiOperation({ summary: 'Update a brand' })
   @SuccessApiResponse({
-    model: UpdateBrandDto,
+    model: Brand,
     key: 'brand',
     description: 'Brand updated successfully',
   })
@@ -107,7 +107,8 @@ export class BrandController {
     description: 'Forbidden request',
   })
   @UseGuards(RoleGuard)
-  @HasRoles([Role.ADMIN])
+  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  @UseGuards(JwtGuard)
   @Patch('/:id')
   async update(
     @Param('id') id: string,
@@ -118,8 +119,6 @@ export class BrandController {
 
   @ApiOperation({ summary: 'Delete a brand' })
   @SuccessApiResponse({
-    model: String,
-    key: 'message',
     description: 'Brand deleted successfully',
   })
   @ClientErrorApiResponse({
@@ -131,7 +130,9 @@ export class BrandController {
     description: 'Forbidden request',
   })
   @UseGuards(RoleGuard)
-  @HasRoles([Role.ADMIN])
+  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  @UseGuards(JwtGuard)
+  @HttpCode(200)
   @Delete('/:id')
   async delete(@Param('id') id: string) {
     return await this.brandService.delete(id);

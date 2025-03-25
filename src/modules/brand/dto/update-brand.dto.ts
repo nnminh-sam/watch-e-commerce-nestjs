@@ -7,8 +7,8 @@ export class UpdateBrandDto {
     description: 'Updated name of the brand',
     required: false,
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   name: string;
 
   @ApiProperty({
@@ -16,8 +16,8 @@ export class UpdateBrandDto {
     description: 'Updated unique slug for the brand',
     required: false,
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   slug: string;
 
   @ApiProperty({
@@ -25,8 +25,8 @@ export class UpdateBrandDto {
     description: 'Updated description of the brand',
     required: false,
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   description: string;
 
   @ApiProperty({
@@ -34,7 +34,7 @@ export class UpdateBrandDto {
     description: 'Updated list of asset URLs',
     required: false,
   })
-  @IsString({ each: true })
   @IsOptional()
+  @IsString()
   assets: string[];
 }

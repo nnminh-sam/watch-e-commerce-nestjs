@@ -12,8 +12,8 @@ export class CreateBrandDto {
     description: 'The unique slug for the brand',
     required: false,
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   slug: string;
 
   @ApiProperty({
@@ -21,8 +21,8 @@ export class CreateBrandDto {
     description: 'Description of the brand',
     required: false,
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   description: string;
 
   @ApiProperty({
@@ -30,7 +30,7 @@ export class CreateBrandDto {
     description: 'List of asset URLs',
     required: false,
   })
-  @IsString({ each: true })
   @IsOptional()
+  @IsString()
   assets: string[];
 }

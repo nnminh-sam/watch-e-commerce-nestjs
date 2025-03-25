@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class UpdateCategoryDto {
   @ApiProperty({
@@ -7,8 +7,8 @@ export class UpdateCategoryDto {
     description: 'Updated category name',
     name: 'name',
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   name: string;
 
   @ApiProperty({
@@ -16,8 +16,8 @@ export class UpdateCategoryDto {
     description: 'Updated category description',
     name: 'description',
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   description: string;
 
   @ApiProperty({
@@ -25,8 +25,8 @@ export class UpdateCategoryDto {
     description: 'Updated category slug',
     name: 'slug',
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   slug: string;
 
   @ApiProperty({
@@ -34,8 +34,8 @@ export class UpdateCategoryDto {
     description: 'Updated list of asset URLs',
     name: 'assets',
   })
-  @IsString({ each: true })
   @IsOptional()
+  @IsArray()
   assets: string[];
 
   @ApiProperty({

@@ -76,10 +76,27 @@ CategorySchema.post('findOne', (doc: any) => {
   return doc;
 });
 
+CategorySchema.post('findOneAndUpdate', (doc: any) => {
+  doc.id = doc._id.toString();
+  delete doc._id;
+  return doc;
+});
+
+CategorySchema.post('find', (docs: any) => {
+  if (!docs || docs.lenght === 0) return docs;
+
+  return docs.map((doc: any) => {
+    doc.id = doc._id.toString();
+    delete doc._id;
+    return doc;
+  });
+});
+
 CategorySchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
+    ret.id = ret._id.toString();
     delete ret._id;
     return ret;
   },

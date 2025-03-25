@@ -18,7 +18,7 @@ export class BaseRequesetFilterDto {
   @ApiProperty({
     example: 10,
     description: 'Number of items per page',
-    name: 'limit',
+    name: 'size',
     required: false,
   })
   @IsOptional()
@@ -26,7 +26,7 @@ export class BaseRequesetFilterDto {
   @IsInt()
   @Min(1)
   @Max(100)
-  limit: number = 10;
+  size: number = 10;
 
   @ApiProperty({
     example: 'name',
