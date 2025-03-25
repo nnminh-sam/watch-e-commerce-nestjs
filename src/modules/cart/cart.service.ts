@@ -55,7 +55,7 @@ export class CartService {
   ): Spec[] {
     const result: Spec[] = [];
     specIdList.forEach((specId: string) => {
-      const foundSpec = product.spec.find((spec: Spec) => spec.id === specId);
+      const foundSpec = product.specs.find((spec: Spec) => spec.id === specId);
       if (!foundSpec) {
         throw new BadRequestException(
           'Invalid expected product specifications ID ',
@@ -148,7 +148,7 @@ export class CartService {
         if (specIdList && specIdList.length > 0) {
           const containInvalidSpec: boolean = this.checkInvalidSpecification(
             specIdList,
-            product.spec,
+            product.specs,
           );
           if (containInvalidSpec) {
             throw new BadRequestException(
@@ -166,7 +166,7 @@ export class CartService {
 
       const containInvalidSpec: boolean = this.checkInvalidSpecification(
         specIdList,
-        product.spec,
+        product.specs,
       );
       if (containInvalidSpec) {
         throw new BadRequestException('Invalid expected product specification');
@@ -208,7 +208,7 @@ export class CartService {
       const specIdList: string[] = queryParts.slice(1);
       const specList: Spec[] = [];
       specIdList.forEach((specId: string) => {
-        const spec = product.spec.find((spec: Spec) => {
+        const spec = product.specs.find((spec: Spec) => {
           return spec.id === specId;
         });
         if (!spec) {

@@ -20,7 +20,8 @@ export class Spec {
 
   @ApiProperty({
     example: 'URL',
-    description: 'Specification type',
+    description:
+      'Specification type. Normal for key value pair and URL for URL value for reference',
     enum: SpecType,
   })
   @Prop({ type: String, enum: SpecType, default: SpecType.NORMAL })

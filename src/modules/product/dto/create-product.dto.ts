@@ -106,7 +106,7 @@ export class CreateProductDto {
   })
   @IsOptional()
   @IsArray()
-  spec?: Spec[];
+  specs?: Spec[];
 
   @ApiProperty({
     example: ProductStatus.AVAILABLE,

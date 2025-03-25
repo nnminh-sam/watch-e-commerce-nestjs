@@ -7,15 +7,12 @@ import {
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import {
-  DetailedProduct,
-  Product,
-  ProductDocument,
-} from '@root/models/product.model';
+import { Product, ProductDocument } from '@root/models/product.model';
 import { Model } from 'mongoose';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { BrandService } from '@root/modules/brand/brand.service';
 import { CategoryService } from '@root/modules/category/category.service';
+import { Spec } from '@root/models/spec.model';
 
 @Injectable()
 export class ProductService {
@@ -27,6 +24,128 @@ export class ProductService {
     private readonly brandService: BrandService,
     private readonly categoryService: CategoryService,
   ) {}
+
+  async findOneById(id: string): Promise<Product> {
+    const product = await this.productModel
+      .findOne(
+        { _id: id },
+        {
+          customerVisible: 1,
+          status: 1,
+          specs: 1,
+          assets: 1,
+          stock: 1,
+          name: 1,
+          code: 1,
+          price: 1,
+          brand: 1,
+          category: 1,
+        },
+      )
+      .lean();
+    if (!product) {
+      throw new BadRequestException('Product not found');
+    }
+
+    return product;
+  }
+
+  async find(findProductDto: FindProductDto): Promise<Product[]> {
+    const {
+      page,
+      size,
+      sortBy,
+      orderBy,
+      name,
+      code,
+      minPrice,
+      maxPrice,
+      brand,
+      brandId,
+      category,
+      categoryId,
+    } = findProductDto;
+    const skip: number = (page - 1) * size;
+    const textSearchFilter: any = name ? { $text: { $search: name } } : {};
+
+    const includeSearchFilter: any = code
+      ? { code: { $regex: code, $options: 'i' } }
+      : {};
+    const priceFilter = {
+      $and: [
+        { ...(minPrice && { price: { $gte: minPrice } }) },
+        { ...(maxPrice && { price: { $lte: maxPrice } }) },
+      ],
+    };
+    const brandFilter =
+      brand || brandId
+        ? {
+            $or: [
+              ...(brand
+                ? [{ 'brand.name': { $regex: brand, $options: 'i' } }]
+                : []),
+              ...(brandId ? [{ 'brand._id': brandId }] : []),
+            ],
+          }
+        : {};
+    const categoryFilter =
+      category || categoryId
+        ? {
+            $or: [
+              ...(category
+                ? [{ 'category.name': { $regex: category, $options: 'i' } }]
+                : []),
+              ...(categoryId ? [{ 'category._id': categoryId }] : []),
+            ],
+          }
+        : {};
+
+    const products = await this.productModel
+      .find(
+        {
+          ...textSearchFilter,
+          ...includeSearchFilter,
+          ...priceFilter,
+          ...brandFilter,
+          ...categoryFilter,
+          customerVisible: true,
+        },
+        {
+          customerVisible: 1,
+          status: 1,
+          specs: 1,
+          assets: 1,
+          stock: 1,
+          name: 1,
+          code: 1,
+          price: 1,
+          brand: 1,
+          category: 1,
+        },
+        { sort: { [sortBy]: orderBy } },
+      )
+      .skip(skip)
+      .limit(size)
+      .lean();
+
+    return products;
+  }
+
+  async findProductSpecifications(): Promise<Spec[]> {
+    const products: Product[] = await this.productModel
+      .find({ customerVisible: true }, { specs: 1 })
+      .lean();
+
+    const specificationSet: Record<string, Spec> = {};
+    products.forEach((product: Product) => {
+      product.specs.forEach((spec: Spec) => {
+        if (!specificationSet[spec.id]) {
+          specificationSet[spec.id] = spec;
+        }
+      });
+    });
+    return Object.values(specificationSet);
+  }
 
   private async validateUniqueField(
     field: string,
@@ -40,12 +159,12 @@ export class ProductService {
         ...(exceptId && { _id: exceptId }),
       })
       .lean();
-    if (!result) {
+    if (result) {
       throw new BadRequestException(message);
     }
   }
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto): Promise<Product> {
     await this.validateUniqueField(
       'name',
       createProductDto.name,
@@ -74,11 +193,25 @@ export class ProductService {
       createProductDto.category,
     );
 
+    const specs: Spec[] = createProductDto?.specs
+      ? await Promise.all(
+          createProductDto.specs.map(async (spec: Spec) => {
+            const existingSpec = await this.productModel.findOne(
+              { 'specs.key': spec.key, 'specs.value': spec.value },
+              { 'specs.$': 1 },
+            );
+
+            return existingSpec ? existingSpec.specs[0] : spec;
+          }),
+        )
+      : [];
+
     try {
       const productModel = new this.productModel({
         ...createProductDto,
-        brand: brand.id,
-        category: category.id,
+        specs,
+        brand,
+        category,
         customerVisible: true,
       });
       const savedProductDocument = await productModel.save();
@@ -94,98 +227,6 @@ export class ProductService {
           throw new InternalServerErrorException('Unable to create user');
       }
     }
-  }
-
-  async findDetailedProductById(id: string): Promise<DetailedProduct> {
-    const product = await this.productModel
-      .findOne(
-        { _id: id },
-        {
-          customerVisible: 1,
-          status: 1,
-          spec: 1,
-          assets: 1,
-          comments: 1,
-          totalComments: 1,
-        },
-      )
-      .populate('brand category')
-      .lean<DetailedProduct>();
-    if (!product) {
-      throw new BadRequestException('Product not found');
-    }
-
-    return product;
-  }
-
-  async findOneById(id: string): Promise<Product> {
-    const product = await this.productModel
-      .findOne(
-        { _id: id },
-        {
-          customerVisible: 1,
-          status: 1,
-          spec: 1,
-          assets: 1,
-          stock: 1,
-          name: 1,
-          code: 1,
-          price: 1,
-        },
-      )
-      .populate('brand category')
-      .lean();
-    if (!product) {
-      throw new BadRequestException('Product not found');
-    }
-
-    return product;
-  }
-
-  // TODO: Redesign this find product API with better filter and product details population
-  async find(findProductDto: FindProductDto): Promise<Product[]> {
-    const searchTerms: string[] = [];
-    if (findProductDto?.name) searchTerms.push(findProductDto.name);
-
-    const textSearchQuery =
-      searchTerms.length <= 0
-        ? {}
-        : { $text: { $search: searchTerms.join(' ') } };
-
-    const priceQuery = {
-      $and: [
-        {
-          ...(findProductDto?.minPrice && {
-            price: { $gte: findProductDto?.minPrice },
-          }),
-        },
-        {
-          ...(findProductDto?.maxPrice && {
-            price: { $lte: findProductDto?.maxPrice },
-          }),
-        },
-      ],
-    };
-
-    const products = this.productModel
-      .find(
-        {
-          ...textSearchQuery,
-          ...priceQuery,
-          ...(findProductDto?.code && { code: findProductDto.code }),
-          ...(findProductDto?.brand && { code: findProductDto.brand }),
-          ...(findProductDto?.category && { code: findProductDto.category }),
-        },
-        {
-          comments: 0,
-          totalComments: 0,
-          spec: 0,
-          description: 0,
-        },
-      )
-      .lean();
-
-    return products;
   }
 
   async update(

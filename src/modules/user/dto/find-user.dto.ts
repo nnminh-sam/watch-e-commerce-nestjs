@@ -3,9 +3,9 @@ import { Role } from '@root/models/enums/role.enum';
 import { Transform } from 'class-transformer';
 import { IsDate, IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseRequesetFilterDto } from '@root/commons/dtos/base-request-filter.dto';
+import { BaseRequestFilterDto } from '@root/commons/dtos/base-request-filter.dto';
 
-export class FindUserDto extends BaseRequesetFilterDto {
+export class FindUserDto extends BaseRequestFilterDto {
   @ApiProperty({
     example: 'John',
     description: 'User first name',

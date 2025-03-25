@@ -10,7 +10,12 @@ import { Comment } from '@root/models/comment.model';
 
 export type ProductDocument = Document & Product;
 
-@Schema({ timestamps: true, id: true, collection: 'products' })
+@Schema({
+  timestamps: true,
+  id: true,
+  collection: 'products',
+  autoIndex: false,
+})
 export class Product {
   @ApiProperty({
     example: '60d21b4667d0d8992e610c91',
@@ -22,7 +27,7 @@ export class Product {
     example: 'Luxury Watch',
     description: 'Product name',
   })
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   name: string;
 
   @ApiProperty({
@@ -47,23 +52,21 @@ export class Product {
   price: number;
 
   @ApiProperty({
-    example: '60d21b4667d0d8992e610c85',
-    description: 'Brand ID',
+    description: 'Brand',
+    type: Brand,
   })
   @Prop({
-    type: MongooseSchema.Types.ObjectId,
-    ref: Brand.name,
+    type: Brand,
     required: true,
   })
-  brand: string;
+  brand: Brand;
 
   @ApiProperty({
-    example: '60d21b4667d0d8992e610c86',
-    description: 'Category ID',
+    description: 'Category',
+    type: Category,
   })
   @Prop({
-    type: MongooseSchema.Types.ObjectId,
-    ref: Category.name,
+    type: Category,
     required: true,
   })
   category: string;
@@ -95,7 +98,7 @@ export class Product {
     type: 'array',
   })
   @Prop({ type: [SpecSchema], default: [] })
-  spec: Spec[];
+  specs: Spec[];
 
   @ApiProperty({
     example: ProductStatus.AVAILABLE,
@@ -130,69 +133,58 @@ export class Product {
   totalComments: number;
 }
 
-export type DetailedProduct = Product & {
-  brand: Brand;
-  category: Category;
+const transformDoc = (doc: any) => {
+  if (!doc) return;
+  if (doc._id) {
+    doc.id = doc._id.toString();
+    delete doc._id;
+  }
+
+  if (doc.brand) {
+    doc.brand.id = doc.brand._id.toString();
+    delete doc.brand._id;
+  }
+
+  if (doc.category) {
+    doc.category.id = doc.category._id.toString();
+    delete doc.category._id;
+  }
+
+  if (doc.specs) {
+    doc.specs = doc.specs.map((spec: any) => {
+      if (!spec._id) {
+        return spec;
+      }
+      spec.id = spec._id.toString();
+      delete spec._id;
+      return spec;
+    });
+  }
+
+  return doc;
 };
 
 const ProductSchema = SchemaFactory.createForClass(Product);
-
-ProductSchema.virtual('id').get(function () {
-  return this._id.toHexString();
-});
 
 ProductSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
     if (!ret) return;
-
-    ret.id = ret._id.toHexString();
-    ret.brand = ret.brand.toString();
-    ret.category = ret.category.toString();
-    delete ret._id;
-    return ret;
+    console.log('🚀 ~ ret:', ret);
+    return transformDoc(ret);
   },
 });
 
-ProductSchema.post('findOne', (doc: any) => {
-  if (!doc) {
-    return;
-  }
-
-  doc.id = doc._id.toHexString();
-
-  doc.brand.id = doc.brand._id.toString();
-  delete doc.brand._id;
-
-  doc.category.id = doc.category._id.toString();
-  delete doc.category._id;
-
-  doc.spec = doc.spec.map((spec: any) => {
-    spec.id = spec._id.toString();
-    delete spec._id;
-    return spec;
-  });
-
-  delete doc._id;
-  return doc;
-});
+ProductSchema.post('findOne', (doc: any) => transformDoc(doc));
 
 ProductSchema.post('find', (docs: any) => {
   if (!docs) return;
-
-  return docs.map((doc: any) => {
-    if (!doc) return;
-
-    doc.id = doc._id.toHexString();
-    doc.brand = doc.brand.toString();
-    doc.category = doc.category.toString();
-    delete doc._id;
-    return doc;
-  });
+  return docs.map((doc: any) => transformDoc(doc));
 });
 
-ProductSchema.index({ 'spec.key': 1, 'spec.value': 1 });
-ProductSchema.index({ name: 'text' });
+// TODO: [Low] Test performance with and without specs compound index
+ProductSchema.index({ 'specs.key': 1, 'specs.value': 1 });
+ProductSchema.index({ name: 'text' }, { unique: true });
 
 export { ProductSchema };

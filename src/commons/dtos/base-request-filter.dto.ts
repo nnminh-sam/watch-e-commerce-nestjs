@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { IsInt, IsOptional, IsString, Min, Max, IsIn } from 'class-validator';
 
-export class BaseRequesetFilterDto {
+export class BaseRequestFilterDto {
   @ApiProperty({
     example: 1,
     description: 'Current page number',
