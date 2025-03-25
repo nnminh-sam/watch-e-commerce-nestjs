@@ -1,4 +1,10 @@
-import { IsMongoId, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsMongoId,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { BaseRequestFilterDto } from '@root/commons/dtos/base-request-filter.dto';
 
@@ -82,4 +88,19 @@ export class FindProductDto extends BaseRequestFilterDto {
   @IsOptional()
   @IsMongoId({ message: 'Invalid category ID' })
   categoryId?: string;
+
+  @ApiProperty({
+    example: [
+      '60d21b4667d0d8992e610c86',
+      '60d21b4667d0d8992e610c86',
+      '60d21b4667d0d8992e610c86',
+    ],
+    description: 'Product specification ID list filter',
+    name: 'spec_ids',
+    required: false,
+    isArray: true,
+  })
+  @IsOptional()
+  @IsArray()
+  specIds: string[];
 }

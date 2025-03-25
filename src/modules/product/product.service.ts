@@ -64,6 +64,7 @@ export class ProductService {
       brandId,
       category,
       categoryId,
+      specIds,
     } = findProductDto;
     const skip: number = (page - 1) * size;
     const textSearchFilter: any = name ? { $text: { $search: name } } : {};
@@ -99,6 +100,15 @@ export class ProductService {
             ],
           }
         : {};
+    const specFilter = !specIds
+      ? {}
+      : {
+          $and: [
+            ...specIds.map((id: string) => {
+              return { 'specs._id': id };
+            }),
+          ],
+        };
 
     const products = await this.productModel
       .find(
@@ -108,6 +118,7 @@ export class ProductService {
           ...priceFilter,
           ...brandFilter,
           ...categoryFilter,
+          ...specFilter,
           customerVisible: true,
         },
         {

@@ -43,7 +43,6 @@ export class ProductController {
     status: 400,
     description: 'Invalid input data or missing required fields.',
   })
-  // TODO: still has error in role authentication
   @UseGuards(RoleGuard)
   @HasRoles([Role.ADMIN, Role.EMPLOYEE])
   @UseGuards(JwtGuard)
@@ -63,7 +62,6 @@ export class ProductController {
   })
   @Get('specifications')
   async findProductSpecifications() {
-    console.log('>>> Calling from finding product specifications');
     return await this.productService.findProductSpecifications();
   }
 
@@ -75,7 +73,7 @@ export class ProductController {
     isArray: true,
   })
   @Get()
-  async find(@Query() findProductDto: FindProductDto) {
+  async find(@Body() findProductDto: FindProductDto) {
     return await this.productService.find(findProductDto);
   }
 
