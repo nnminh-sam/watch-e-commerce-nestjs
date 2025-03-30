@@ -21,13 +21,21 @@ export class FindProductDto extends BaseRequestFilterDto {
 
   @ApiProperty({
     example: 'LW12345',
-    description: 'Search for products contain this code',
-    name: 'code',
+    description: 'Search for products contain this SPU',
     required: false,
   })
   @IsOptional()
   @IsString()
-  code?: string;
+  spu?: string;
+
+  @ApiProperty({
+    example: 'LW12345-44MM-LEATHER',
+    description: 'Search for products contain this SKU',
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  sku?: string;
 
   @ApiProperty({
     example: 1000,

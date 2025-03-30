@@ -15,6 +15,8 @@ export class BaseModel {
   version?: number;
 
   static transform(doc: any): any {
+    if (!doc) return;
+
     if (doc._id) {
       doc.id = doc._id.toString();
       delete doc._id;

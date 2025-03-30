@@ -1,20 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { BaseModel } from '@root/models';
 
 export type CategoryDocument = Category & Document;
 
 @Schema({
   collection: 'categories',
   timestamps: true,
-  id: true,
 })
-export class Category {
-  @ApiProperty({
-    example: '60d21b4667d0d8992e610c91',
-    description: 'Category ID',
-  })
-  id: string;
-
+export class Category extends BaseModel {
   @ApiProperty({
     example: 'Luxury Watches',
     description: 'Category name',
@@ -62,44 +56,27 @@ export class Category {
   })
   @Prop({ default: null })
   deletedAt: Date;
+
+  static transform(doc: any): any {
+    return BaseModel.transform(doc);
+  }
 }
 
 const CategorySchema = SchemaFactory.createForClass(Category);
 
-CategorySchema.index({
-  name: 'text',
-});
+CategorySchema.index({ name: 'text' });
 
-CategorySchema.post('findOne', (doc: any) => {
-  doc.id = doc._id.toString();
-  delete doc._id;
-  return doc;
-});
-
-CategorySchema.post('findOneAndUpdate', (doc: any) => {
-  doc.id = doc._id.toString();
-  delete doc._id;
-  return doc;
-});
-
+CategorySchema.post('findOne', (doc: any) => Category.transform(doc));
+CategorySchema.post('findOneAndUpdate', (doc: any) => Category.transform(doc));
 CategorySchema.post('find', (docs: any) => {
-  if (!docs || docs.lenght === 0) return docs;
-
-  return docs.map((doc: any) => {
-    doc.id = doc._id.toString();
-    delete doc._id;
-    return doc;
-  });
+  if (!docs || docs.lenght === 0) {
+    return docs;
+  }
+  return docs.map((doc: any) => Category.transform(doc));
 });
-
 CategorySchema.set('toJSON', {
   virtuals: true,
-  versionKey: false,
-  transform: (_, ret) => {
-    ret.id = ret._id.toString();
-    delete ret._id;
-    return ret;
-  },
+  transform: (_, ret) => Category.transform(ret),
 });
 
 export { CategorySchema };

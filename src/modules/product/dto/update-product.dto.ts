@@ -16,111 +16,107 @@ export class UpdateProductDto {
   @ApiProperty({
     example: 'Luxury Watch',
     description: 'Updated product name',
-    name: 'name',
     required: false,
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   name?: string;
 
   @ApiProperty({
     example: 'LW12345',
-    description: 'Updated product code',
-    name: 'code',
-    required: false,
+    description: 'Standard Product Unit',
   })
-  @IsString()
   @IsOptional()
-  code?: string;
+  @IsString()
+  spu: string;
+
+  @ApiProperty({
+    example: 'LW12345-44MM-LEATHER',
+    description: 'Stock Keeping Unit',
+  })
+  @IsOptional()
+  @IsString()
+  sku: string;
 
   @ApiProperty({
     example: 'A high-end luxury watch',
     description: 'Updated product description',
-    name: 'description',
     required: false,
   })
-  @IsString()
   @IsOptional()
+  @IsString()
   description?: string;
 
   @ApiProperty({
     example: '60d21b4667d0d8992e610c85',
     description: 'Updated brand ID',
-    name: 'brand',
+    name: 'brand_id',
   })
+  @IsOptional()
   @IsMongoId()
-  @IsString()
-  brand: string;
+  brandId: string;
 
   @ApiProperty({
     example: '60d21b4667d0d8992e610c86',
     description: 'Updated category ID',
-    name: 'category',
+    name: 'category_id',
   })
+  @IsOptional()
   @IsMongoId()
-  @IsString()
-  category: string;
+  categoryId: string;
 
   @ApiProperty({
     example: 80,
     description: 'Updated stock quantity',
-    name: 'stock',
   })
+  @IsOptional()
   @IsNumber()
-  @Min(0)
   stock: number;
 
   @ApiProperty({
     example: 4500,
     description: 'Updated product price',
-    name: 'price',
     required: false,
   })
-  @IsNumber()
-  @Min(0)
   @IsOptional()
+  @IsNumber()
   price: number;
 
   @ApiProperty({
     example: 55,
     description: 'Updated number of units sold',
-    name: 'sold',
     required: false,
   })
-  @IsNumber()
-  @Min(0)
   @IsOptional()
+  @IsNumber()
   sold?: number;
 
   @ApiProperty({
     example: ['new_image1.jpg', 'new_image2.jpg'],
     description: 'Updated asset list',
-    name: 'assets',
     required: false,
   })
-  @IsArray()
   @IsOptional()
+  @IsArray()
   assets?: string[];
 
   @ApiProperty({
     description: 'Updated product specifications',
-    name: 'spec',
-    required: false,
     type: [Spec],
+    required: false,
   })
-  @IsArray()
   @IsOptional()
+  @IsArray()
   spec?: Spec[];
 
   @ApiProperty({
     example: ProductStatus.AVAILABLE,
     enum: ProductStatus,
     description: 'Updated product status',
-    name: 'status',
     required: false,
   })
-  @IsEnum(ProductStatus)
   @IsOptional()
+  @IsEnum(ProductStatus)
   status?: ProductStatus;
 
   @ApiProperty({
@@ -129,7 +125,7 @@ export class UpdateProductDto {
     name: 'customer_visible',
     required: false,
   })
-  @IsBoolean()
   @IsOptional()
+  @IsBoolean()
   customerVisible?: boolean;
 }
