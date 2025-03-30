@@ -17,7 +17,7 @@ import { RevokeTokenPayload } from '@root/modules/auth/dtos/revoke-token-payload
 import { RequestedUser } from '@root/commons/decorators/request-user.decorator';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { TokenResponseDto } from '@root/modules/auth/dtos/tokens-response.dto';
+import { AuthenticatedResponseDto } from '@root/modules/auth/dtos/tokens-response.dto';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 import { ProtectedApi } from '@root/commons/decorators/protected-api.decorator';
@@ -29,8 +29,8 @@ export class AuthController {
 
   @ApiOperation({ summary: 'User sign-in' })
   @SuccessApiResponse({
-    model: TokenResponseDto,
-    key: 'tokens',
+    model: AuthenticatedResponseDto,
+    key: 'data',
     description: 'Successful sign-in',
   })
   @ClientErrorApiResponse({
@@ -45,8 +45,8 @@ export class AuthController {
 
   @ApiOperation({ summary: 'User registration' })
   @SuccessApiResponse({
-    model: TokenResponseDto,
-    key: 'tokens',
+    model: AuthenticatedResponseDto,
+    key: 'data',
     description: 'Successful sign-up',
   })
   @ClientErrorApiResponse({
@@ -73,8 +73,8 @@ export class AuthController {
 
   @ProtectedApi({ summary: 'Revoke tokens' })
   @SuccessApiResponse({
-    model: TokenResponseDto,
-    key: 'tokens',
+    model: AuthenticatedResponseDto,
+    key: 'data',
     description: 'Tokens revoked successfully',
   })
   @ClientErrorApiResponse({

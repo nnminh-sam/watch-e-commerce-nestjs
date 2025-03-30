@@ -2,9 +2,10 @@ import { BlackListTokenMessage } from './../../models/enums/black-list-token-mes
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { TokenBlackListService } from '@root/database/token-black-list.service';
 import { EnvironmentService } from '@root/environment/environment.service';
+import { User } from '@root/models/user.model';
 import { SignOutResponseDto } from '@root/modules/auth/dtos/sign-out-response.dto';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
-import { TokenResponseDto } from '@root/modules/auth/dtos/tokens-response.dto';
+import { AuthenticatedResponseDto } from '@root/modules/auth/dtos/tokens-response.dto';
 import { UpdatePasswordDto } from '@root/modules/auth/dtos/update-password.dto';
 import { UserAuthenticationDto } from '@root/modules/auth/dtos/user-authentication.dto';
 import { UserRegistrationDto } from '@root/modules/auth/dtos/user-registration.dto';
@@ -21,7 +22,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  private generateTokens(tokenPayload: TokenPayloadDto): TokenResponseDto {
+  private generateTokens(tokenPayload: TokenPayloadDto) {
     const accessToken: string = this.jwtManagerService.generateToken(
       tokenPayload,
       this.environmentService.jwtExpiresIn || '1h',
@@ -33,8 +34,11 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async signIn({ email, password }: UserAuthenticationDto) {
-    const user = await this.userService.validateUser(email, password);
+  async signIn({
+    email,
+    password,
+  }: UserAuthenticationDto): Promise<AuthenticatedResponseDto> {
+    const user: User = await this.userService.validateUser(email, password);
 
     const tokenPayload: TokenPayloadDto = {
       jit: uuidv4(),
@@ -43,11 +47,18 @@ export class AuthService {
       email,
       role: user.role,
     };
-    return this.generateTokens(tokenPayload);
+    const { accessToken, refreshToken } = this.generateTokens(tokenPayload);
+    return {
+      user,
+      accessToken,
+      refreshToken,
+    };
   }
 
-  async signUp(userRegistrationDto: UserRegistrationDto) {
-    const user = await this.userService.create(userRegistrationDto);
+  async signUp(
+    userRegistrationDto: UserRegistrationDto,
+  ): Promise<AuthenticatedResponseDto> {
+    const user: User = await this.userService.create(userRegistrationDto);
 
     const tokenPayload: TokenPayloadDto = {
       jit: uuidv4(),
@@ -56,7 +67,12 @@ export class AuthService {
       email: user.email,
       role: user.role,
     };
-    return this.generateTokens(tokenPayload);
+    const { accessToken, refreshToken } = this.generateTokens(tokenPayload);
+    return {
+      user,
+      accessToken,
+      refreshToken,
+    };
   }
 
   async signOut(token: string) {

@@ -32,7 +32,7 @@ export class User {
     name: 'password',
   })
   @Prop({ required: true })
-  password: string;
+  password?: string;
 
   @ApiProperty({
     example: 'John',

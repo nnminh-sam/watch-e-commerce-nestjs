@@ -1,6 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from '@root/models/user.model';
 
-export class TokenResponseDto {
+export class AuthenticatedResponseDto {
+  @ApiProperty({
+    description: 'Authorized user information',
+    type: User,
+  })
+  user: User;
+
   @ApiProperty({
     example: 'access-token-example',
     description: 'JWT Access Token',

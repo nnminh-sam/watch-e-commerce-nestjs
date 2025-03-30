@@ -120,22 +120,18 @@ export class UserService {
     }
   }
 
-  async validateUser(
-    email: string,
-    password: string,
-  ): Promise<UserCredentialsDto> {
+  async validateUser(email: string, password: string): Promise<User> {
     const user = await this.userModel
-      .findOne({ email }, 'password email id role')
+      .findOne({ email }, '-deliveryAddress -isActive')
       .lean<User>();
 
-    if (!user) throw new BadRequestException('User not found');
+    if (!user?.password) {
+      throw new BadRequestException('User not found');
+    }
     await this.validatePassword(password, user.password);
 
-    return {
-      id: user.id,
-      email: user.email,
-      role: user.role as Role,
-    };
+    delete user.password;
+    return user;
   }
 
   async create(userRegistrationDto: UserRegistrationDto): Promise<User> {
