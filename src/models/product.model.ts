@@ -7,6 +7,7 @@ import { Spec, SpecSchema } from '@root/models/spec.model';
 import { Schema as MongooseSchema } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Comment } from '@root/models/comment.model';
+import { BaseModel } from '@root/models';
 
 export type ProductDocument = Document & Product;
 
@@ -16,13 +17,7 @@ export type ProductDocument = Document & Product;
   collection: 'products',
   autoIndex: false,
 })
-export class Product {
-  @ApiProperty({
-    example: '60d21b4667d0d8992e610c91',
-    description: 'Product ID',
-  })
-  id: string;
-
+export class Product extends BaseModel {
   @ApiProperty({
     example: 'Luxury Watch',
     description: 'Product name',
@@ -51,37 +46,19 @@ export class Product {
   @Prop({ required: true })
   price: number;
 
-  @ApiProperty({
-    description: 'Brand',
-    type: Brand,
-  })
-  @Prop({
-    type: Brand,
-    required: true,
-  })
+  @ApiProperty({ description: 'Brand', type: Brand })
+  @Prop({ type: Brand, required: true })
   brand: Brand;
 
-  @ApiProperty({
-    description: 'Category',
-    type: Category,
-  })
-  @Prop({
-    type: Category,
-    required: true,
-  })
-  category: string;
+  @ApiProperty({ description: 'Category', type: Category })
+  @Prop({ type: Category, required: true })
+  category: Brand;
 
-  @ApiProperty({
-    example: 100,
-    description: 'Available stock quantity',
-  })
+  @ApiProperty({ example: 100, description: 'Available stock quantity' })
   @Prop({ default: 0 })
   stock: number;
 
-  @ApiProperty({
-    example: 50,
-    description: 'Number of units sold',
-  })
+  @ApiProperty({ example: 50, description: 'Number of units sold' })
   @Prop({ default: 0 })
   sold: number;
 
@@ -93,10 +70,7 @@ export class Product {
   @Prop({ default: [] })
   assets: string[];
 
-  @ApiProperty({
-    description: 'Product specifications',
-    type: 'array',
-  })
+  @ApiProperty({ description: 'Product specifications', type: 'array' })
   @Prop({ type: [SpecSchema], default: [] })
   specs: Spec[];
 

@@ -5,9 +5,8 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { InjectModel, raw } from '@nestjs/mongoose';
-import { CreateCartItemDto } from '@root/modules/cart/dto/create-cart-item.dto';
-import { CartItem } from '@root/models/cart-item.model';
+import { InjectModel } from '@nestjs/mongoose';
+import { CartDetail } from '@root/models/cart-detail.model';
 import { Cart, CartDocument } from '@root/models/cart.model';
 import { Model } from 'mongoose';
 import { ProductService } from '@root/modules/product/product.service';
@@ -17,11 +16,11 @@ import {
   OnEvent,
 } from '@nestjs/event-emitter';
 import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
-import { UpdateCartDto } from '@root/modules/cart/dto/update-cart.dto';
 import { Product } from '@root/models/product.model';
 import { Spec } from '@root/models/spec.model';
 import { ProductStatus } from '@root/models/enums/product-status.enum';
 import { RedisCartService } from '@root/database/redis-cart.service';
+import { CreateCartDetailDto } from '@root/modules/cart/dto/create-cart-detail.dto';
 
 @Injectable()
 export class CartService {
@@ -35,12 +34,12 @@ export class CartService {
   ) {}
 
   private checkInvalidSpecification(
-    checkingSpecIdList: string[],
-    correctSpecList: Spec[],
+    checkingSpecIds: string[],
+    correctSpecs: Spec[],
   ): boolean {
-    const result: number = checkingSpecIdList.findIndex(
+    const result: number = checkingSpecIds.findIndex(
       (checkingSpecId: string): boolean => {
-        const invalidSpecIndex: number = correctSpecList.findIndex(
+        const invalidSpecIndex: number = correctSpecs.findIndex(
           (spec: Spec): boolean => spec.id !== checkingSpecId,
         );
         return invalidSpecIndex === -1;
@@ -51,37 +50,58 @@ export class CartService {
 
   private retrieveSpecListFromSpecIdList(
     product: Product,
-    specIdList: string[],
+    specIds: string[],
   ): Spec[] {
-    const result: Spec[] = [];
-    specIdList.forEach((specId: string) => {
+    const specs: Spec[] = [];
+    specIds.forEach((specId: string) => {
       const foundSpec = product.specs.find((spec: Spec) => spec.id === specId);
       if (!foundSpec) {
         throw new BadRequestException(
           'Invalid expected product specifications ID ',
         );
       }
-      result.push(foundSpec);
+      specs.push(foundSpec);
     });
-    return result;
+    return specs;
   }
 
-  async findOne(id: string): Promise<Cart> {
-    const cart = await this.cartModel
-      .findOne({ _id: id }, 'items')
-      .lean<Cart>();
-    if (!cart) {
-      throw new NotFoundException('Cart not found');
+  async validateCartDetailDto(cartDetailDto: CreateCartDetailDto) {
+    const { productId, quantity, specIds } = cartDetailDto;
+    const product: Product = await this.productService.findOneById(productId);
+
+    if (quantity < 0 || quantity > product.stock) {
+      throw new BadRequestException('Invalid cart detail quantity');
     }
-    return cart;
+
+    const containsInvalidSpecId = this.checkInvalidSpecification(
+      specIds,
+      product.specs,
+    );
+    if (containsInvalidSpecId) {
+      throw new BadRequestException(
+        'Cart detail contains invalid specification ID',
+      );
+    }
+  }
+
+  async checkProductExistedInCart(userId: string, productId: string) {
+    const cart = await this.cartModel
+      .findOne({
+        userId,
+        'details.productId': productId,
+      })
+      .lean();
+    if (!cart) {
+      return undefined;
+    }
+
+    return cart.details.find(
+      (detail: CartDetail) => detail.productId === productId,
+    );
   }
 
   async findOneByUserId(userId: string): Promise<Cart> {
-    const cart = await this.cartModel
-      .findOne({
-        user: userId,
-      })
-      .lean();
+    const cart = await this.cartModel.findOne({ userId }).lean();
     if (!cart) {
       throw new NotFoundException('Cart not found');
     }
@@ -113,12 +133,37 @@ export class CartService {
     }
   }
 
+  async createCartDetail(
+    userId: string,
+    createCartDetailDto: CreateCartDetailDto,
+  ) {
+    const { productId, quantity, specIds } = createCartDetailDto;
+
+    const cart = await this.cartModel.findOne({ userId }).lean();
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
+    }
+    await this.validateCartDetailDto(createCartDetailDto);
+
+    const existedCartDetail = await this.checkProductExistedInCart(
+      userId,
+      productId,
+    );
+
+    try {
+      await cart.save();
+    } catch (error: any) {
+      this.logger.error(error.message);
+      throw new InternalServerErrorException('Cannot create cart detail');
+    }
+  }
+
   // TODO: Calculate total for this
   async updateCart(
     userId: string,
-    updateCartDto: UpdateCartDto,
+    CreateCartDetailDto: CreateCartDetailDto,
   ): Promise<Cart> {
-    const { productId, quantity, specIdList } = updateCartDto;
+    const { productId, quantity, specIds } = CreateCartDetailDto;
     if (quantity < 0) {
       throw new BadRequestException('Invalid quantity');
     }
@@ -133,21 +178,21 @@ export class CartService {
       throw new BadRequestException('Product is unavailable');
     }
 
-    const existedItemIndex: number = cart.items.findIndex(
-      (cartItem: CartItem) => cartItem.productId.toString() === productId,
+    const existedItemIndex: number = cart.details.findIndex(
+      (CartDetail: CartDetail) => CartDetail.productId.toString() === productId,
     );
     if (existedItemIndex !== -1) {
       if (quantity === 0) {
-        cart.items.splice(existedItemIndex, 1);
+        cart.details.splice(existedItemIndex, 1);
       } else if (quantity > product.stock) {
         throw new BadRequestException(
           'Expected product quantity is unavailable',
         );
       } else {
-        cart.items[existedItemIndex].quantity = quantity;
-        if (specIdList && specIdList.length > 0) {
+        cart.details[existedItemIndex].quantity = quantity;
+        if (specIds && specIds.length > 0) {
           const containInvalidSpec: boolean = this.checkInvalidSpecification(
-            specIdList,
+            specIds,
             product.specs,
           );
           if (containInvalidSpec) {
@@ -155,8 +200,8 @@ export class CartService {
               'Invalid expected product specification',
             );
           }
-          cart.items[existedItemIndex].specList =
-            this.retrieveSpecListFromSpecIdList(product, specIdList);
+          cart.details[existedItemIndex].specs =
+            this.retrieveSpecListFromSpecIdList(product, specIds);
         }
       }
     } else {
@@ -165,23 +210,23 @@ export class CartService {
       }
 
       const containInvalidSpec: boolean = this.checkInvalidSpecification(
-        specIdList,
+        specIds,
         product.specs,
       );
       if (containInvalidSpec) {
         throw new BadRequestException('Invalid expected product specification');
       }
 
-      const newItem: CartItem = {
+      const newItem = {
         productId,
         quantity,
-        specList: this.retrieveSpecListFromSpecIdList(product, specIdList),
+        specs: this.retrieveSpecListFromSpecIdList(product, specIds),
         name: product.name,
         price: product.price,
         asset: product.assets[0] || 'This is a fake URL',
         availability: true,
-      };
-      cart.items.push(newItem);
+      } as CartDetail;
+      cart.details.push(newItem);
     }
 
     try {
@@ -196,7 +241,7 @@ export class CartService {
   async parseRedisQueryResult(
     productId: string,
     queryResult: string,
-  ): Promise<CartItem> {
+  ): Promise<CartDetail> {
     const product: Product = await this.productService.findOneById(productId);
     const queryParts: string[] = queryResult.split('&');
     if (!queryParts || queryParts.length < 2) {
@@ -206,7 +251,7 @@ export class CartService {
     try {
       const quantity: number = parseInt(queryParts[0], 10);
       const specIdList: string[] = queryParts.slice(1);
-      const specList: Spec[] = [];
+      const specs: Spec[] = [];
       specIdList.forEach((specId: string) => {
         const spec = product.specs.find((spec: Spec) => {
           return spec.id === specId;
@@ -214,7 +259,7 @@ export class CartService {
         if (!spec) {
           throw new BadRequestException('Invalid product specifiaction ID');
         }
-        specList.push(spec);
+        specs.push(spec);
       });
 
       return {
@@ -223,9 +268,9 @@ export class CartService {
         price: product.price,
         quantity,
         asset: product.assets[0] || 'This should be a URL',
-        specList,
+        specs,
         availability: true,
-      };
+      } as CartDetail;
     } catch (error: any) {
       throw new BadRequestException(error.message);
     }
@@ -250,36 +295,42 @@ export class CartService {
       },
     );
     let total = 0;
-    const items: CartItem[] = await Promise.all(
+    const details: CartDetail[] = await Promise.all(
       productIds.map(async (productId: string) => {
-        const cartItem: CartItem = await this.parseRedisQueryResult(
+        const CartDetail: CartDetail = await this.parseRedisQueryResult(
           productId,
           queryResult[`product:${productId}`],
         );
-        total += cartItem.price * cartItem.quantity;
-        return cartItem;
+        total += CartDetail.price * CartDetail.quantity;
+        return CartDetail;
       }),
     );
     return {
       id: `cart:${userId}`,
-      user: userId,
+      userId,
       total,
-      items,
-    };
+      details,
+    } as Cart;
   }
 
   // TODO: add update cart dto validation
-  async redis_addProduct(userId: string, updateCartDto: UpdateCartDto) {
-    const { productId, quantity, specIdList } = updateCartDto;
-    const redisValue: string = this.buildRedisValue(quantity, specIdList);
+  async redis_addProduct(
+    userId: string,
+    CreateCartDetailDto: CreateCartDetailDto,
+  ) {
+    const { productId, quantity, specIds } = CreateCartDetailDto;
+    const redisValue: string = this.buildRedisValue(quantity, specIds);
     await this.redisCartService.addProduct(userId, productId, redisValue);
     return await this.redis_findCartByUserId(userId);
   }
 
   // TODO: add update cart dto validation
-  async redis_updateProduct(userId: string, updateCartDto: UpdateCartDto) {
-    const { productId, quantity, specIdList } = updateCartDto;
-    const redisValue: string = this.buildRedisValue(quantity, specIdList);
+  async redis_updateProduct(
+    userId: string,
+    CreateCartDetailDto: CreateCartDetailDto,
+  ) {
+    const { productId, quantity, specIds } = CreateCartDetailDto;
+    const redisValue: string = this.buildRedisValue(quantity, specIds);
     await this.redisCartService.updateProduct(userId, productId, redisValue);
     return await this.redis_findCartByUserId(userId);
   }

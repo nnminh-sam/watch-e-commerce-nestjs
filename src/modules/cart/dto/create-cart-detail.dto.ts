@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { array } from 'joi';
 
-export class UpdateCartDto {
+export class CreateCartDetailDto {
   @ApiProperty({
     example: '60d21b4667d0d8992e610c89',
     description: 'Product ID',
@@ -33,9 +33,9 @@ export class UpdateCartDto {
     description: 'User wanted product specification IDs',
     type: 'array',
     required: false,
-    name: 'spec_id_list',
+    name: 'spec_ids',
   })
   @IsOptional()
   @IsArray()
-  specIdList: string[];
+  specIds: string[];
 }

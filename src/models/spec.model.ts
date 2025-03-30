@@ -1,15 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SpecType } from '@root/models/enums/spec-type.enum';
 import { ApiProperty } from '@nestjs/swagger';
+import { BaseModel } from '@root/models';
 
 @Schema({ id: true })
-export class Spec {
-  @ApiProperty({
-    example: '60d21b4667d0d8992e610c91',
-    description: 'Specification ID',
-  })
-  id: string;
-
+export class Spec extends BaseModel {
   @ApiProperty({ example: 'Color', description: 'Specification key' })
   @Prop()
   key: string;
@@ -34,17 +29,21 @@ export class Spec {
   })
   @Prop()
   url?: string;
+
+  static transform(doc: any): any {
+    return BaseModel.transform(doc);
+  }
 }
 
 const SpecSchema = SchemaFactory.createForClass(Spec);
 
 SpecSchema.set('toJSON', {
   virtuals: true,
-  versionKey: false,
-  transform: (_, ret) => {
-    delete ret._id;
-    return ret;
-  },
+  transform: (_, ret) => Spec.transform(ret),
 });
+SpecSchema.post('find', (docs: any) =>
+  docs.map((doc: any) => Spec.transform(doc)),
+);
+SpecSchema.post('findOne', (doc: any) => Spec.transform(doc));
 
 export { SpecSchema };

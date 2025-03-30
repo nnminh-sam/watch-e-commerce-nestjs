@@ -23,7 +23,7 @@ import { Cart } from '@root/models/cart.model';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 import { RequestedUser } from '@root/commons/decorators/request-user.decorator';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
-import { UpdateCartDto } from '@root/modules/cart/dto/update-cart.dto';
+import { CreateCartDetailDto } from '@root/modules/cart/dto/create-cart-detail.dto';
 
 @ApiTags('Carts')
 @ApiBearerAuth()
@@ -64,79 +64,80 @@ export class CartController {
   @Patch()
   async update(
     @RequestedUser() claims: TokenPayloadDto,
-    @Body() updateCartDto: UpdateCartDto,
+    @Body() CreateCartDetailDto: CreateCartDetailDto,
   ): Promise<Cart> {
-    return this.cartService.updateCart(claims.sub, updateCartDto);
+    return this.cartService.updateCart(claims.sub, CreateCartDetailDto);
   }
 
-  @ApiOperation({
-    summary: 'Find user cart using Redis.',
-  })
-  @SuccessApiResponse({
-    model: Cart,
-    key: 'cart',
-    description: 'Successfully retrieve user cart data',
-  })
-  @Version('2')
-  @Get()
-  async getCartRedis(@RequestedUser() claims: TokenPayloadDto): Promise<Cart> {
-    return await this.cartService.redis_findCartByUserId(claims.sub);
-  }
+  // @ApiOperation({
+  //   summary: 'Find user cart using Redis.',
+  // })
+  // @SuccessApiResponse({
+  //   model: Cart,
+  //   key: 'cart',
+  //   description: 'Successfully retrieve user cart data',
+  // })
+  // @Version('2')
+  // @Get()
+  // async getCartRedis(@RequestedUser() claims: TokenPayloadDto): Promise<Cart> {
+  //   return await this.cartService.redis_findCartByUserId(claims.sub);
+  // }
 
-  @ApiOperation({
-    summary:
-      'Add product into user cart stored using Redis. This also create user cart if not existed',
-  })
-  @SuccessApiResponse({
-    model: Cart,
-    key: 'cart',
-    description: 'Successfully added new product into cart',
-  })
-  @Version('2')
-  @HttpCode(200)
-  @Post()
-  async addProduct(
-    @RequestedUser() claims: TokenPayloadDto,
-    @Body() updateCartDto: UpdateCartDto,
-  ): Promise<Cart> {
-    return await this.cartService.redis_addProduct(claims.sub, updateCartDto);
-  }
+  // @ApiOperation({
+  //   summary:
+  //     'Add product into user cart stored using Redis. This also create user cart if not existed',
+  // })
+  // @SuccessApiResponse({
+  //   model: Cart,
+  //   key: 'cart',
+  //   description: 'Successfully added new product into cart',
+  // })
+  // @Version('2')
+  // @HttpCode(200)
+  // @Post()
+  // async addProduct(
+  //   @RequestedUser() claims: TokenPayloadDto,
+  //   @Body() CreateCartDetailDto: CreateCartDetailDto,
+  // ): Promise<Cart> {
+  //   console.log('🚀 ~ CartController ~ CreateCartDetailDto:', CreateCartDetailDto);
+  //   return await this.cartService.redis_addProduct(claims.sub, CreateCartDetailDto);
+  // }
 
-  @ApiOperation({
-    summary:
-      'Update product inside user cart using Redis. This also create user cart if not existed',
-  })
-  @SuccessApiResponse({
-    model: Cart,
-    key: 'cart',
-    description: 'Successfully updated product in cart',
-  })
-  @Version('2')
-  @Patch()
-  async updateProduct(
-    @RequestedUser() claims: TokenPayloadDto,
-    @Body() updateCartDto: UpdateCartDto,
-  ): Promise<Cart> {
-    return await this.cartService.redis_updateProduct(
-      claims.sub,
-      updateCartDto,
-    );
-  }
+  // @ApiOperation({
+  //   summary:
+  //     'Update product inside user cart using Redis. This also create user cart if not existed',
+  // })
+  // @SuccessApiResponse({
+  //   model: Cart,
+  //   key: 'cart',
+  //   description: 'Successfully updated product in cart',
+  // })
+  // @Version('2')
+  // @Patch()
+  // async updateProduct(
+  //   @RequestedUser() claims: TokenPayloadDto,
+  //   @Body() CreateCartDetailDto: CreateCartDetailDto,
+  // ): Promise<Cart> {
+  //   return await this.cartService.redis_updateProduct(
+  //     claims.sub,
+  //     CreateCartDetailDto,
+  //   );
+  // }
 
-  @ApiOperation({
-    summary: 'Remove product out of user cart using Redis.',
-  })
-  @SuccessApiResponse({
-    model: Cart,
-    key: 'cart',
-    description: 'Successfully removed product out of user cart',
-  })
-  @Version('2')
-  @Delete('/:id')
-  async removeProduct(
-    @RequestedUser() claims: TokenPayloadDto,
-    @Param('id') id: string,
-  ): Promise<Cart> {
-    return await this.cartService.redis_removeProduct(claims.sub, id);
-  }
+  // @ApiOperation({
+  //   summary: 'Remove product out of user cart using Redis.',
+  // })
+  // @SuccessApiResponse({
+  //   model: Cart,
+  //   key: 'cart',
+  //   description: 'Successfully removed product out of user cart',
+  // })
+  // @Version('2')
+  // @Delete('/:id')
+  // async removeProduct(
+  //   @RequestedUser() claims: TokenPayloadDto,
+  //   @Param('id') id: string,
+  // ): Promise<Cart> {
+  //   return await this.cartService.redis_removeProduct(claims.sub, id);
+  // }
 }

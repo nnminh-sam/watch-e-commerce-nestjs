@@ -1,25 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Spec, SpecSchema } from '@root/models/spec.model';
-import { Schema as MongooseSchema } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
+import { BaseModel } from '@root/models';
 
-@Schema({ id: true })
-export class CartItem {
-  @ApiProperty({
-    example: '60d21b4667d0d8992e610c90',
-    description: 'Cart item ID',
-  })
-  id?: string;
-
+@Schema({ timestamps: true, id: true })
+export class CartDetail extends BaseModel {
   @ApiProperty({
     example: '60d21b4667d0d8992e610c90',
     description: 'Product ID',
     name: 'product_id',
   })
-  @Prop({
-    type: MongooseSchema.Types.ObjectId,
-    required: true,
-  })
+  @Prop({ required: true })
   productId: string;
 
   @ApiProperty({ example: 'Luxury Watch', description: 'Product name' })
@@ -37,10 +28,9 @@ export class CartItem {
   @ApiProperty({
     description: 'Product specifications',
     type: [Spec],
-    name: 'spec_list',
   })
   @Prop({ type: [SpecSchema], default: [] })
-  specList: Spec[];
+  specs: Spec[];
 
   @ApiProperty({
     example: 'image-url.jpg',
@@ -57,8 +47,25 @@ export class CartItem {
   })
   @Prop({ default: true })
   availability: boolean;
+
+  transform(doc: any): any {
+    doc = BaseModel.transform(doc);
+    if (doc.specs) {
+      doc.specs = doc.specs.map((spec: any) => Spec.transform(spec));
+    }
+    return doc;
+  }
 }
 
-const CartItemSchema = SchemaFactory.createForClass(CartItem);
+const CartDetailSchema = SchemaFactory.createForClass(CartDetail);
 
-export { CartItemSchema };
+CartDetailSchema.set('toJSON', {
+  virtuals: true,
+  transform: (_, ret) => CartDetail.transform(ret),
+});
+CartDetailSchema.post('findOne', (doc: any) => CartDetail.transform(doc));
+CartDetailSchema.post('find', (docs: any) =>
+  docs.map((doc: any) => CartDetail.transform(doc)),
+);
+
+export { CartDetailSchema };
