@@ -21,12 +21,8 @@ async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule);
   const environmentService: EnvironmentService = app.get(EnvironmentService);
   const port = environmentService.port;
-
   app.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type,Authorization',
-    credentials: true,
+    maxAge: 3600, // 🕒 Cache preflight for 1 hours
   });
   app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
 
