@@ -16,6 +16,7 @@ import { CategoryService } from '@root/modules/category/category.service';
 import { Spec } from '@root/models/spec.model';
 import { Brand } from '@root/models/brand.model';
 import { Category } from '@root/models/category.model';
+import { SpecOptionDto } from '@root/modules/product/dto/spec-option.dto';
 
 @Injectable()
 export class ProductService {
@@ -124,20 +125,30 @@ export class ProductService {
     return product;
   }
 
-  async findProductSpecifications(): Promise<Spec[]> {
+  async findProductSpecifications(): Promise<SpecOptionDto[]> {
     const products: Product[] = await this.productModel
       .find({ customerVisible: true }, { specs: 1 })
       .lean();
 
-    const specificationSet: Record<string, Spec> = {};
+    const specificationSet: Record<string, Spec[]> = {};
     products.forEach((product: Product) => {
       product.specs.forEach((spec: Spec) => {
-        if (!specificationSet[spec.id]) {
-          specificationSet[spec.id] = spec;
+        if (!specificationSet[spec.key]) {
+          specificationSet[spec.key] = [spec];
+        } else {
+          specificationSet[spec.key].push(spec);
         }
       });
     });
-    return Object.values(specificationSet);
+    const result: SpecOptionDto[] = [];
+    Object.keys(specificationSet).forEach((key: string) => {
+      result.push({
+        key,
+        options: specificationSet[key],
+      });
+    });
+
+    return result;
   }
 
   private async validateUniqueField(

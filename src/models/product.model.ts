@@ -143,7 +143,7 @@ export class Product extends BaseModel {
 const ProductSchema = SchemaFactory.createForClass(Product);
 
 // TODO: [Low] Test performance with and without specs compound index
-ProductSchema.index({ 'specs.key': 1, 'specs.value': 1 });
+ProductSchema.index({ 'specs.key': 1, 'specs.value': 1 }, { unique: true  });
 ProductSchema.index({ name: 'text' }, { unique: true });
 ProductSchema.set('toJSON', {
   virtuals: true,

@@ -5,11 +5,11 @@ import { BaseModel } from '@root/models';
 
 @Schema({ timestamps: true })
 export class Spec extends BaseModel {
-  @ApiProperty({ example: 'Color', description: 'Specification key' })
+  @ApiProperty({ example: 'SIZE', description: 'Specification key' })
   @Prop()
   key: string;
 
-  @ApiProperty({ example: 'Red', description: 'Specification value' })
+  @ApiProperty({ example: '44MM', description: 'Specification value' })
   @Prop()
   value: string;
 
