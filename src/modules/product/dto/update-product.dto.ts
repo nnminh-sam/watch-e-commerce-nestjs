@@ -28,7 +28,7 @@ export class UpdateProductDto {
   })
   @IsOptional()
   @IsString()
-  spu: string;
+  spu?: string;
 
   @ApiProperty({
     example: 'LW12345-44MM-LEATHER',
@@ -36,7 +36,7 @@ export class UpdateProductDto {
   })
   @IsOptional()
   @IsString()
-  sku: string;
+  sku?: string;
 
   @ApiProperty({
     example: 'A high-end luxury watch',
@@ -54,7 +54,7 @@ export class UpdateProductDto {
   })
   @IsOptional()
   @IsMongoId()
-  brandId: string;
+  brandId?: string;
 
   @ApiProperty({
     example: '60d21b4667d0d8992e610c86',
@@ -63,7 +63,7 @@ export class UpdateProductDto {
   })
   @IsOptional()
   @IsMongoId()
-  categoryId: string;
+  categoryId?: string;
 
   @ApiProperty({
     example: 80,
@@ -71,7 +71,7 @@ export class UpdateProductDto {
   })
   @IsOptional()
   @IsNumber()
-  stock: number;
+  stock?: number;
 
   @ApiProperty({
     example: 4500,
@@ -80,7 +80,7 @@ export class UpdateProductDto {
   })
   @IsOptional()
   @IsNumber()
-  price: number;
+  price?: number;
 
   @ApiProperty({
     example: 55,

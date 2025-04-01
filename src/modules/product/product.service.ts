@@ -124,7 +124,7 @@ export class ProductService {
       },
     ]);
 
-    const formatedResult: Product[] = result.products.map((product: any) =>
+    const formatedResult: Product[] = result.products.map((product: Product) =>
       Product.transform(product),
     );
 
@@ -280,28 +280,32 @@ export class ProductService {
       'Product SKU is already in use',
       id,
     );
-    if (updateProductDto.price < 0) {
-      throw new BadRequestException('Price cannot be negative number');
+    if (!updateProductDto?.price || updateProductDto.price < 0) {
+      throw new BadRequestException('Price must be a positive number');
     }
-    if (updateProductDto.stock < 0) {
-      throw new BadRequestException('Stock cannot be negative number');
+    if (!updateProductDto?.stock || updateProductDto.stock < 0) {
+      throw new BadRequestException('Stock must be a positive number');
     }
     if (updateProductDto?.sold && updateProductDto?.sold < 0) {
-      throw new BadRequestException('Product sold cannot be negative number');
+      throw new BadRequestException('Product sold must be a positive number');
     }
-    const brand: Brand = await this.brandService.findOneBy(
-      'id',
-      updateProductDto.brandId,
-    );
-    if (brand.id !== product.brand.id) {
-      product.brand = brand;
+    if (updateProductDto.brandId) {
+      const brand: Brand = await this.brandService.findOneBy(
+        'id',
+        updateProductDto.brandId,
+      );
+      if (brand.id !== product.brand.id) {
+        product.brand = brand;
+      }
     }
-    const category: Category = await this.categoryService.findOneBy(
-      'id',
-      updateProductDto.categoryId,
-    );
-    if (category.id !== product.category.id) {
-      product.category = category;
+    if (updateProductDto.categoryId) {
+      const category: Category = await this.categoryService.findOneBy(
+        'id',
+        updateProductDto.categoryId,
+      );
+      if (category.id !== product.category.id) {
+        product.category = category;
+      }
     }
 
     try {
