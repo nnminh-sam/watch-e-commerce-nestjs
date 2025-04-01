@@ -31,4 +31,15 @@ export class GenericApiResponseDto<T> {
   pagination?: PaginationResponseDto;
 
   errors?: Record<string, string>[];
+
+  constructor(data: T, pagination?: PaginationResponseDto) {
+    this.data = data;
+    if (pagination) {
+      this.pagination = pagination;
+    }
+    this.path = '';
+    this.timestamp = new Date();
+    this.message = '';
+    this.status = 'success';
+  }
 }

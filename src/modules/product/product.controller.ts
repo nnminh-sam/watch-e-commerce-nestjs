@@ -24,6 +24,7 @@ import { IsMongoId } from 'class-validator';
 import { MongoIdValidationPipe } from '@root/commons/pipes/mongo-id-validation.pipe';
 import { ProtectedApi } from '@root/commons/decorators/protected-api.decorator';
 import { Spec } from '@root/models/spec.model';
+import { SpecOptionDto } from '@root/modules/product/dto/spec-option.dto';
 
 @ApiTags('Products')
 @Controller('products')
@@ -55,7 +56,7 @@ export class ProductController {
     summary: 'Find all product specification for building product filter',
   })
   @SuccessApiResponse({
-    model: Spec,
+    model: SpecOptionDto,
     key: 'specs',
     description: 'Find a list of available product specification',
     isArray: true,

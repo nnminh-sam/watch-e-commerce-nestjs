@@ -1,17 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
+import { BaseModel } from '@root/models';
 
 export type BrandDocument = Brand & Document;
 
-@Schema({ timestamps: true, collection: 'brands', id: true })
-export class Brand {
-  @ApiProperty({
-    example: '60d21b4667d0d8992e610c91',
-    description: 'Brand ID',
-  })
-  id: string;
-
+@Schema({ timestamps: true, collection: 'brands' })
+export class Brand extends BaseModel {
   @ApiProperty({ example: 'Rolex', description: 'The name of the brand' })
   @Prop({
     required: true,
@@ -49,42 +44,27 @@ export class Brand {
   })
   @Prop({ default: null })
   deletedAt: Date;
+
+  static transform(doc: any): any {
+    return BaseModel.transform(doc);
+  }
 }
 
 const BrandSchema = SchemaFactory.createForClass(Brand);
 
 BrandSchema.index({ name: 'text' });
 
-BrandSchema.post('findOne', (doc: any) => {
-  doc.id = doc._id.toString();
-  delete doc._id;
-  return doc;
-});
-
-BrandSchema.post('findOneAndUpdate', (doc: any) => {
-  doc.id = doc._id.toString();
-  delete doc._id;
-  return doc;
-});
-
+BrandSchema.post('findOne', (doc: any) => Brand.transform(doc));
+BrandSchema.post('findOneAndUpdate', (doc: any) => Brand.transform(doc));
 BrandSchema.post('find', (docs: any) => {
-  if (!docs || docs.length === 0) return docs;
-
-  return docs.map((doc: any) => {
-    doc.id = doc._id.toString();
-    delete doc._id;
-    return doc;
-  });
+  if (!docs || docs.length === 0) {
+    return docs;
+  }
+  return docs.map((doc: any) => Brand.transform(doc));
 });
-
 BrandSchema.set('toJSON', {
   virtuals: true,
-  versionKey: false,
-  transform: (_, ret) => {
-    delete ret.deletedAt;
-    delete ret._id;
-    return ret;
-  },
+  transform: (_, ret) => Brand.transform(ret),
 });
 
 export { BrandSchema };
