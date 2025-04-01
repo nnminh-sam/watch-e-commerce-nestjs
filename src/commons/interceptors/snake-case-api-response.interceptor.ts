@@ -4,7 +4,14 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { isArray, isDate, isObject, isString } from 'class-validator';
+import {
+  isArray,
+  isBoolean,
+  isDate,
+  isNumber,
+  isObject,
+  isString,
+} from 'class-validator';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -22,7 +29,7 @@ const toSnakeCase = (str: string): string =>
   str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
 
 function convertToSnakeCase(data: any): any {
-  if (isString(data) || isDate(data)) {
+  if (isString(data) || isNumber(data) || isBoolean(data) || isDate(data)) {
     return data;
   }
 
@@ -44,11 +51,12 @@ function convertToSnakeCase(data: any): any {
         snakeCaseValues[index],
       ]),
     );
-
     return transformedObject;
   }
 
   if (isArray(data)) {
     return data.map((d: any) => convertToSnakeCase(d));
   }
+
+  return '';
 }

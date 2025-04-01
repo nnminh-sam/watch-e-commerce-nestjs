@@ -18,7 +18,6 @@ export class CamelCaseApiParamInterceptor implements NestInterceptor {
     if (request.query) {
       request.query = this.convertKeysToCamelCase(request.query);
     }
-
     return next.handle();
   }
 

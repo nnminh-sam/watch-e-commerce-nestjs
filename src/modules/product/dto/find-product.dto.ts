@@ -3,10 +3,12 @@ import {
   IsMongoId,
   IsNumber,
   IsOptional,
+  IsPositive,
   IsString,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { BaseRequestFilterDto } from '@root/commons/dtos/base-request-filter.dto';
+import { Transform } from 'class-transformer';
 
 export class FindProductDto extends BaseRequestFilterDto {
   @ApiProperty({
@@ -44,7 +46,9 @@ export class FindProductDto extends BaseRequestFilterDto {
     required: false,
   })
   @IsOptional()
-  @IsNumber()
+  @Transform(({ value }: any) => parseInt(value))
+  @IsNumber({}, { message: 'Min price must be a number' })
+  @IsPositive({ message: 'Min price must be a positive number' })
   minPrice?: number;
 
   @ApiProperty({
@@ -54,7 +58,9 @@ export class FindProductDto extends BaseRequestFilterDto {
     required: false,
   })
   @IsOptional()
-  @IsNumber()
+  @Transform(({ value }: any) => parseInt(value))
+  @IsNumber({}, { message: 'Max price must be a number' })
+  @IsPositive({ message: 'Max price must be a positive number' })
   maxPrice?: number;
 
   @ApiProperty({

@@ -1,3 +1,4 @@
+import { array } from 'joi';
 import { FindProductDto } from './dto/find-product.dto';
 import {
   BadRequestException,
@@ -17,6 +18,8 @@ import { Spec } from '@root/models/spec.model';
 import { Brand } from '@root/models/brand.model';
 import { Category } from '@root/models/category.model';
 import { SpecOptionDto } from '@root/modules/product/dto/spec-option.dto';
+import { PaginationResponseDto } from '@root/commons/dtos/pagination-response.dto';
+import { GenericApiResponseDto } from '@root/commons/dtos/generic-api-response.dto';
 
 @Injectable()
 export class ProductService {
@@ -73,7 +76,9 @@ export class ProductService {
       : {};
   }
 
-  async find(findProductDto: FindProductDto): Promise<Product[]> {
+  async find(
+    findProductDto: FindProductDto,
+  ): Promise<GenericApiResponseDto<Product[]>> {
     const {
       page,
       size,
@@ -104,13 +109,34 @@ export class ProductService {
       customerVisible: true,
     };
 
-    return await this.productModel
-      .find(filters)
-      .select('-comments -totalComment')
-      .sort({ [sortBy]: orderBy })
-      .skip(skip)
-      .limit(size)
-      .lean();
+    const [result] = await this.productModel.aggregate([
+      { $match: filters },
+      {
+        $facet: {
+          metadata: [{ $count: 'total' }],
+          products: [
+            { $sort: { [sortBy]: orderBy === 'asc' ? 1 : -1 } },
+            { $skip: skip },
+            { $limit: size },
+            { $project: { comments: 0, totalComment: 0 } },
+          ],
+        },
+      },
+    ]);
+
+    const formatedResult: Product[] = result.products.map((product: any) =>
+      Product.transform(product),
+    );
+
+    const total = result.metadata[0]?.total || 0;
+    const pagination: PaginationResponseDto = {
+      total,
+      page,
+      perPage: size,
+      totalPages: Math.ceil(total / size),
+    };
+
+    return new GenericApiResponseDto<Product[]>(formatedResult, pagination);
   }
 
   async findOneById(id: string): Promise<Product> {
