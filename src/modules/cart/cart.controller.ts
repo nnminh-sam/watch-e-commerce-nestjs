@@ -17,13 +17,19 @@ import { JwtGuard } from '@root/commons/guards/jwt.guard';
 import { RoleGuard } from '@root/commons/guards/role.guard';
 import { HasRoles } from '@root/commons/decorators/has-role.decorator';
 import { Role } from '@root/models/enums/role.enum';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { Cart } from '@root/models/cart.model';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 import { RequestedUser } from '@root/commons/decorators/request-user.decorator';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
 import { CreateCartDetailDto } from '@root/modules/cart/dto/create-cart-detail.dto';
+import { UpdateCartDetailDto } from '@root/modules/cart/dto/update-cart-detail.dto';
 
 @ApiTags('Carts')
 @ApiBearerAuth()
@@ -47,27 +53,107 @@ export class CartController {
     return await this.cartService.findOneByUserId(claims.sub);
   }
 
-  @ApiOperation({
-    summary: 'Update user cart (Add product, update quantity, remove product)',
-    description:
-      'This API support adding new product into cart, update product quantity and removing product out of cart by set the quantity to 0',
-  })
+  @ApiOperation({ summary: 'Create new detail in user cart' })
   @SuccessApiResponse({
     model: Cart,
     key: 'cart',
-    description: 'Cart updated successfully',
+    description: 'New product added to cart successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Cart not found',
   })
   @ClientErrorApiResponse({
     status: 400,
-    description: 'Product not found',
+    description: 'Invalid quantity, specification ID',
   })
-  @Patch()
-  async update(
+  @Post('details')
+  async createDetail(
     @RequestedUser() claims: TokenPayloadDto,
-    @Body() CreateCartDetailDto: CreateCartDetailDto,
-  ): Promise<Cart> {
-    return this.cartService.updateCart(claims.sub, CreateCartDetailDto);
+    @Body() createCartDetailDto: CreateCartDetailDto,
+  ) {
+    return await this.cartService.createCartDetail(
+      claims.sub,
+      createCartDetailDto,
+    );
   }
+
+  @ApiOperation({ summary: 'Update cart detail in user cart' })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Cart detail updated successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Cart not found, Cart detail not found',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Invalid quantity, specification ID',
+  })
+  @ApiParam({
+    name: 'detail-id',
+    type: 'string',
+    description: 'ID of the updating cart detail',
+  })
+  @Patch('details/:id')
+  async updateDetail(
+    @RequestedUser() claims: TokenPayloadDto,
+    @Param('id') detailId: string,
+    @Body() updateCartDetailDto: UpdateCartDetailDto,
+  ) {
+    return await this.cartService.updateCartDetail(
+      claims.sub,
+      detailId,
+      updateCartDetailDto,
+    );
+  }
+
+  @ApiOperation({ summary: 'Delete cart detail in user cart' })
+  @SuccessApiResponse({
+    model: Cart,
+    key: 'cart',
+    description: 'Cart detail deleted successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 404,
+    description: 'Cart not found, Cart detail not found',
+  })
+  @ApiParam({
+    name: 'detail-id',
+    type: 'string',
+    description: 'ID of the updating cart detail',
+  })
+  @Delete('details/:id')
+  async deleteDetail(
+    @RequestedUser() claims: TokenPayloadDto,
+    @Param('id') detailId: string,
+  ) {
+    return await this.cartService.deleteCartDetail(claims.sub, detailId);
+  }
+
+  // @ApiOperation({
+  //   summary: 'Update user cart (Add product, update quantity, remove product)',
+  //   description:
+  //     'This API support adding new product into cart, update product quantity and removing product out of cart by set the quantity to 0',
+  // })
+  // @SuccessApiResponse({
+  //   model: Cart,
+  //   key: 'cart',
+  //   description: 'Cart updated successfully',
+  // })
+  // @ClientErrorApiResponse({
+  //   status: 400,
+  //   description: 'Product not found',
+  // })
+  // @Patch()
+  // async update(
+  //   @RequestedUser() claims: TokenPayloadDto,
+  //   @Body() CreateCartDetailDto: CreateCartDetailDto,
+  // ): Promise<Cart> {
+  //   return this.cartService.updateCart(claims.sub, CreateCartDetailDto);
+  // }
 
   // @ApiOperation({
   //   summary: 'Find user cart using Redis.',

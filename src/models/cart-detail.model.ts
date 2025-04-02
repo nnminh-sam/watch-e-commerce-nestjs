@@ -48,7 +48,7 @@ export class CartDetail extends BaseModel {
   @Prop({ default: true })
   availability: boolean;
 
-  transform(doc: any): any {
+  static transform(doc: any): any {
     doc = BaseModel.transform(doc);
     if (doc.specs) {
       doc.specs = doc.specs.map((spec: any) => Spec.transform(spec));

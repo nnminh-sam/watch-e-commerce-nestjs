@@ -35,7 +35,7 @@ export class Cart extends BaseModel {
   @Prop({ type: [CartDetailSchema], default: [] })
   details: CartDetail[];
 
-  transform(doc: any): any {
+  static transform(doc: any): any {
     doc = BaseModel.transform(doc);
     if (doc.details) {
       doc.details = doc.details.map((detail: any) =>
