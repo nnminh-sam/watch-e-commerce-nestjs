@@ -36,7 +36,7 @@ export class BaseRequestFilterDto {
   })
   @IsOptional()
   @IsString()
-  sortBy: string = '_id';
+  sortBy: string = 'createdAt';
 
   @ApiProperty({
     example: 'asc',

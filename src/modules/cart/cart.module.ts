@@ -5,6 +5,7 @@ import { Cart, CartSchema } from '@root/models/cart.model';
 import { DatabaseModule } from '@root/database/database.module';
 import { CartController } from './cart.controller';
 import { ProductModule } from '@root/modules/product/product.module';
+import { CartRepository } from '@root/modules/cart/cart.repository';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { ProductModule } from '@root/modules/product/product.module';
     DatabaseModule,
     ProductModule,
   ],
-  providers: [CartService],
+  providers: [CartService, CartRepository],
   exports: [CartService],
   controllers: [CartController],
 })
