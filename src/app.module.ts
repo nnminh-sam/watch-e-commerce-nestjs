@@ -10,6 +10,7 @@ import { UserModule } from '@root/modules/user/user.module';
 import { EnvironmentModule } from '@root/environment/environment.module';
 import { JwtManagerModule } from './modules/jwt-manager/jwt-manager.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { OrderModule } from '@root/modules/order/order.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     AuthModule,
     DatabaseModule,
     CartModule,
+    OrderModule,
     JwtManagerModule,
     EventEmitterModule.forRoot(),
   ],

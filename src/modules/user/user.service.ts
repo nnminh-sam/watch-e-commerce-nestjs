@@ -22,6 +22,8 @@ import {
 
 import { UserEventsEnum } from '@root/models/enums/user-events.enum';
 import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
+import { CreateDeliveryInformationDto } from '@root/modules/user/dto/create-delivery-information.dto';
+import { DeliveryInformation } from '@root/models/delivery-information.model';
 
 @Injectable()
 export class UserService {
@@ -244,6 +246,25 @@ export class UserService {
         default:
           throw new InternalServerErrorException('Unable to create user');
       }
+    }
+  }
+
+  async createDeliveryInformation(
+    id: string,
+    createDeliveryInformationDto: CreateDeliveryInformationDto,
+  ) {
+    const deliveryInformation = {
+      ...createDeliveryInformationDto,
+    } as DeliveryInformation;
+    const user = await this.userModel.findOne({ _id: id });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+    try {
+      user.deliveryAddress.push(deliveryInformation);
+      await user.save();
+    } catch (error: any) {
+      throw new BadRequestException('Cannot add new delivery information');
     }
   }
 }

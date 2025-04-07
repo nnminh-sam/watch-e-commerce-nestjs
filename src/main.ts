@@ -22,7 +22,7 @@ async function bootstrap() {
   const environmentService: EnvironmentService = app.get(EnvironmentService);
   const port = environmentService.port;
   app.enableCors({
-    maxAge: 3600, // 🕒 Cache preflight for 1 hours
+    maxAge: 3600,
   });
   app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
 

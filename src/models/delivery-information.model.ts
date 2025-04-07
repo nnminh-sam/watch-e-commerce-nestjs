@@ -1,23 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
+import { BaseModel } from '@root/models';
 
 export type DeliveryInformationDocument = DeliveryInformation & Document;
 
-@Schema({
-  timestamps: true,
-  collection: 'delivery-information',
-  id: true,
-})
-export class DeliveryInformation {
+@Schema({ timestamps: true })
+export class DeliveryInformation extends BaseModel {
   @ApiProperty({
     example: '60d21b4667d0d8992e610c85',
     description: 'Delivery information ID',
     name: 'id',
-  })
-  @Prop({
-    type: MongooseSchema.Types.ObjectId,
-    auto: true,
   })
   id: string;
 
@@ -72,16 +65,19 @@ export class DeliveryInformation {
   })
   @Prop({ default: false })
   isDefault: boolean;
+
+  static transform(doc: any) {
+    doc = BaseModel.transform(doc);
+    return doc;
+  }
 }
 
 const DeliveryInformationSchema =
   SchemaFactory.createForClass(DeliveryInformation);
 
 DeliveryInformationSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
   transform: function (_, ret) {
-    delete ret._id;
+    return DeliveryInformation.transform(ret);
   },
 });
 

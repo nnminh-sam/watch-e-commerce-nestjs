@@ -322,4 +322,20 @@ export class ProductService {
       }
     }
   }
+
+  async increaseProductSold(id: string, amount: number) {
+    const result = await this.productModel
+      .findByIdAndUpdate(
+        id,
+        {
+          $inc: { sold: amount },
+        },
+        { new: true },
+      )
+      .lean();
+    if (!result) {
+      throw new NotFoundException('Product not found');
+    }
+    return true;
+  }
 }
