@@ -63,6 +63,10 @@ export const SuccessApiResponse = <TModel extends Type<any>>({
                 pagination: {
                   $ref: getSchemaPath(PaginationResponseDto),
                 },
+                count: {
+                  description: 'Total number of item that match the filter',
+                  type: 'number',
+                },
               }),
               ...(messageKeyExample && {
                 message: {

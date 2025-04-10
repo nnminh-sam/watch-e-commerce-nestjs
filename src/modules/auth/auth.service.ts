@@ -1,9 +1,13 @@
 import { BlackListTokenMessage } from './../../models/enums/black-list-token-message.enum';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  LoggerService,
+} from '@nestjs/common';
 import { TokenBlackListService } from '@root/database/token-black-list.service';
 import { EnvironmentService } from '@root/environment/environment.service';
 import { User } from '@root/models/user.model';
-import { SignOutResponseDto } from '@root/modules/auth/dtos/sign-out-response.dto';
 import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
 import { AuthenticatedResponseDto } from '@root/modules/auth/dtos/tokens-response.dto';
 import { UpdatePasswordDto } from '@root/modules/auth/dtos/update-password.dto';
@@ -11,6 +15,7 @@ import { UserAuthenticationDto } from '@root/modules/auth/dtos/user-authenticati
 import { UserRegistrationDto } from '@root/modules/auth/dtos/user-registration.dto';
 import { JwtManagerService } from '@root/modules/jwt-manager/jwt-manager.service';
 import { UserService } from '@root/modules/user/user.service';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -20,6 +25,8 @@ export class AuthService {
     private readonly jwtManagerService: JwtManagerService,
     private readonly environmentService: EnvironmentService,
     private readonly userService: UserService,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: LoggerService,
   ) {}
 
   private generateTokens(tokenPayload: TokenPayloadDto) {
@@ -48,6 +55,9 @@ export class AuthService {
       role: user.role,
     };
     const { accessToken, refreshToken } = this.generateTokens(tokenPayload);
+    this.logger.log({
+      message: 'User signed in',
+    });
     return {
       user,
       accessToken,

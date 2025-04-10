@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class PaginationResponseDto {
   @ApiProperty({
-    description: 'Number of returned items',
+    description: 'Number of item that match the filter',
     example: '5',
   })
   total: number;

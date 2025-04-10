@@ -11,6 +11,7 @@ import { EnvironmentModule } from '@root/environment/environment.module';
 import { JwtManagerModule } from './modules/jwt-manager/jwt-manager.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { OrderModule } from '@root/modules/order/order.module';
+import { LoggerModule } from '@root/modules/logger/logger.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { OrderModule } from '@root/modules/order/order.module';
     CartModule,
     OrderModule,
     JwtManagerModule,
+    LoggerModule,
     EventEmitterModule.forRoot(),
   ],
   controllers: [],

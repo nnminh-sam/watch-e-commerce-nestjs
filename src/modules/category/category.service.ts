@@ -1,6 +1,7 @@
 import { FindCategoryDto } from './dto/find-category.dto';
 import {
   BadRequestException,
+  Inject,
   Injectable,
   Logger,
   NotFoundException,
@@ -11,14 +12,18 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Category, CategoryDocument } from '@root/models/category.model';
 import { Model } from 'mongoose';
 import { generateSlug } from '@root/utils';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { PaginationResponseDto } from '@root/commons/dtos/pagination-response.dto';
+import { GenericApiResponseDto } from '@root/commons/dtos/generic-api-response.dto';
 
 @Injectable()
 export class CategoryService {
-  private logger: Logger = new Logger(CategoryService.name);
-
   constructor(
     @InjectModel(Category.name)
     private readonly categoryModel: Model<CategoryDocument>,
+
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: Logger,
   ) {}
 
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
@@ -57,7 +62,9 @@ export class CategoryService {
     return category;
   }
 
-  async find(findCategoryDto: FindCategoryDto): Promise<Category[]> {
+  async find(
+    findCategoryDto: FindCategoryDto,
+  ): Promise<GenericApiResponseDto<Category[]>> {
     const { name, page, size, sortBy, orderBy } = findCategoryDto;
     const skip: number = (page - 1) * size;
     const filter: any = { deletedAt: null };
@@ -65,13 +72,33 @@ export class CategoryService {
       filter.$text = { $search: name };
     }
 
-    const categories = await this.categoryModel
-      .find(filter, { deletedAt: 0 }, { sort: { [sortBy]: orderBy } })
-      .skip(skip)
-      .limit(size)
-      .lean();
+    const [result] = await this.categoryModel.aggregate([
+      { $match: filter },
+      {
+        $facet: {
+          metadata: [{ $count: 'total' }],
+          categories: [
+            { $sort: { [sortBy]: orderBy === 'asc' ? 1 : -1 } },
+            { $skip: skip },
+            { $limit: size },
+          ],
+        },
+      },
+    ]);
 
-    return categories;
+    const categories: Category[] = result.categories.map((category: any) =>
+      Category.transform(category),
+    );
+
+    const total = result.metadata[0]?.total || 0;
+    const pagination: PaginationResponseDto = {
+      total,
+      page,
+      perPage: size,
+      totalPages: Math.ceil(total / size),
+    };
+
+    return new GenericApiResponseDto<Category[]>(categories, pagination);
   }
 
   async update(
