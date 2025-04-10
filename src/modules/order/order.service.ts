@@ -1,13 +1,14 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { CartDetail } from '@root/models/cart-detail.model';
 import { Cart } from '@root/models/cart.model';
 import { DeliveryInformation } from '@root/models/delivery-information.model';
 import { OrderStatusEnum } from '@root/models/enums/order-status.enum';
+import { TransactionStatus } from '@root/models/enums/transaction-status.enum';
 import { OrderDetail } from '@root/models/order-detail.model';
 import { Order, OrderDocument } from '@root/models/order.model';
 import { CartService } from '@root/modules/cart/cart.service';
@@ -15,10 +16,9 @@ import { CreateOrderDto } from '@root/modules/order/dto/create-order.dto';
 import { FindOrderDto } from '@root/modules/order/dto/find-order.dto';
 import { OrderRepository } from '@root/modules/order/order.repository';
 import { ProductService } from '@root/modules/product/product.service';
+import { TransactionService } from '@root/modules/transaction/transaction.service';
 import { CreateDeliveryInformationDto } from '@root/modules/user/dto/create-delivery-information.dto';
 import { UserService } from '@root/modules/user/user.service';
-import { date } from 'joi';
-import { Model } from 'mongoose';
 
 @Injectable()
 export class OrderService {
@@ -27,6 +27,7 @@ export class OrderService {
     private readonly cartService: CartService,
     private readonly userService: UserService,
     private readonly productService: ProductService,
+    private readonly transactionService: TransactionService,
   ) {}
 
   private createOrderDetails(cart: Cart, cartDetailIds: string[]) {
@@ -176,6 +177,20 @@ export class OrderService {
       status: OrderStatusEnum.PENDING,
     } as Order);
     const result = await this.orderRepository.save(orderDocument);
+
+    // TODO: extract this code block to a separate create transaction function
+    const transaction = await this.transactionService.create({
+      orderId: result.id,
+      status: TransactionStatus.PENDING,
+      amount: result.total,
+      paymentMethod: result.paymentMethod,
+    });
+    if (!transaction) {
+      await this.orderRepository.deleteOne({ _id: result.id });
+      throw new InternalServerErrorException(
+        'Cannot create order due to failure in transaction creation process',
+      );
+    }
 
     await this.removeCartDetails(userId, cartDetailIds);
 

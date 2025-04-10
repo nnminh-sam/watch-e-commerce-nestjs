@@ -6,7 +6,7 @@ import {
 import { Cart } from '@root/models/cart.model';
 import { ProductService } from '@root/modules/product/product.service';
 import { OnEvent } from '@nestjs/event-emitter';
-import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
+import { CartEvent } from '@root/models/enums/cart-events.enum';
 import { Product } from '@root/models/product.model';
 import { Spec } from '@root/models/spec.model';
 import { CreateCartDetailDto } from '@root/modules/cart/dto/create-cart-detail.dto';
@@ -64,7 +64,7 @@ export class CartService {
     return cart;
   }
 
-  @OnEvent(CartEventsEnum.CART_CREATED, { async: true, promisify: true })
+  @OnEvent(CartEvent.CART_CREATED, { async: true, promisify: true })
   async createCart(userId: string): Promise<Cart> {
     return await this.cartRepository.create(userId);
   }

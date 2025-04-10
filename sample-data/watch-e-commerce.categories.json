@@ -1,0 +1,274 @@
+[
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d624"
+    },
+    "name": "Luxury Watches",
+    "description": "High-end watches category",
+    "slug": "luxury-watches",
+    "assets": ["luxury1.jpg"],
+    "isFeatured": true,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d625"
+    },
+    "name": "Smart Watches",
+    "description": "Smart and fitness watches category",
+    "slug": "smart-watches",
+    "assets": ["smart1.jpg"],
+    "isFeatured": true,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d626"
+    },
+    "name": "Diving Watches",
+    "description": "Water-resistant watches for divers",
+    "slug": "diving-watches",
+    "assets": ["diving1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d627"
+    },
+    "name": "Casual Watches",
+    "description": "Everyday wear watches",
+    "slug": "casual-watches",
+    "assets": ["casual1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d628"
+    },
+    "name": "Vintage Watches",
+    "description": "Classic and collectible watches",
+    "slug": "vintage-watches",
+    "assets": ["vintage1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d629"
+    },
+    "name": "Sports Watches",
+    "description": "Durable and functional watches for sports",
+    "slug": "sports-watches",
+    "assets": ["sports1.jpg"],
+    "isFeatured": true,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d62a"
+    },
+    "name": "Mechanical Watches",
+    "description": "Traditional mechanical movement watches",
+    "slug": "mechanical-watches",
+    "assets": ["mechanical1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d62b"
+    },
+    "name": "Fashion Watches",
+    "description": "Stylish watches for fashion-conscious wearers",
+    "slug": "fashion-watches",
+    "assets": ["fashion1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d62c"
+    },
+    "name": "Pilot Watches",
+    "description": "Watches designed for aviation enthusiasts",
+    "slug": "pilot-watches",
+    "assets": ["pilot1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d62d"
+    },
+    "name": "Military Watches",
+    "description": "Rugged watches for tactical use",
+    "slug": "military-watches",
+    "assets": ["military1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d62e"
+    },
+    "name": "Minimalist Watches",
+    "description": "Simple and elegant watch designs",
+    "slug": "minimalist-watches",
+    "assets": ["minimalist1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d62f"
+    },
+    "name": "Hybrid Watches",
+    "description": "Combination of analog and smart features",
+    "slug": "hybrid-watches",
+    "assets": ["hybrid1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d630"
+    },
+    "name": "Titanium Watches",
+    "description": "Lightweight and durable titanium watches",
+    "slug": "titanium-watches",
+    "assets": ["titanium1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d631"
+    },
+    "name": "Gold Watches",
+    "description": "Luxury gold-plated watches",
+    "slug": "gold-watches",
+    "assets": ["gold1.jpg"],
+    "isFeatured": true,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9673b5dc8286dcc52d632"
+    },
+    "name": "Silver Watches",
+    "description": "Elegant silver watches",
+    "slug": "silver-watches",
+    "assets": ["silver1.jpg"],
+    "isFeatured": false,
+    "createdAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T08:45:31.333Z"
+    },
+    "deletedAt": null
+  },
+  {
+    "_id": {
+      "$oid": "67e9674af1ffee2557b95d46"
+    },
+    "name": "Limited Edition",
+    "slug": "limited-edition",
+    "assets": [],
+    "isFeatured": false,
+    "deletedAt": null,
+    "createdAt": {
+      "$date": "2025-03-30T15:46:18.579Z"
+    },
+    "updatedAt": {
+      "$date": "2025-03-30T15:46:18.579Z"
+    },
+    "__v": 0
+  }
+]

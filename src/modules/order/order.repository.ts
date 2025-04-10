@@ -57,4 +57,16 @@ export class OrderRepository
       logSystem: this.logger,
     });
   }
+
+  deleteOne(
+    filter: FilterQuery<Order>,
+    options?: QueryOptions<Order> | undefined,
+  ): Promise<boolean> {
+    return executeWithErrorHandling({
+      fn: async () => {
+        return await this.orderModel.findOneAndDelete(filter, options);
+      },
+      logSystem: this.logger,
+    });
+  }
 }

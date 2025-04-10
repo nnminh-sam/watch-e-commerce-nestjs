@@ -1,0 +1,541 @@
+[{
+  "_id": {
+    "$oid": "67ec9d0b5617f682fd69867b"
+  },
+  "email": "admin@gmail.com",
+  "password": "$2b$10$ZyjrDbnSg/HVnh5tpIlfM.bQm.Iw1Y4absKTnVkNoMZcJAU0uOTm6",
+  "firstName": "Emory",
+  "lastName": "Goodwin",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-10-09T12:04:23.000Z"
+  },
+  "phoneNumber": "802-690-8750",
+  "role": "ADMIN",
+  "deliveryAddress": [
+    {
+      "fullName": "Nguyen Nhat Minh",
+      "phoneNumber": "0704098399",
+      "city": "TP. Thu Duc",
+      "district": "TP Thu Duc",
+      "street": "691 Le Van Viet",
+      "specificAddress": "691 Le Van Viet, P. Tan Phu, TP. Thu Duc",
+      "isDefault": false,
+      "_id": {
+        "$oid": "67f214433f3f3f830c19efa1"
+      },
+      "createdAt": {
+        "$date": "2025-04-06T05:42:27.273Z"
+      },
+      "updatedAt": {
+        "$date": "2025-04-06T05:42:27.273Z"
+      }
+    },
+    {
+      "fullName": "Nguyen Nhat Minh",
+      "phoneNumber": "0704098399",
+      "city": "TP. Thu Duc",
+      "district": "TP Thu Duc",
+      "street": "691 Le Van Viet",
+      "specificAddress": "691 Le Van Viet, P. Tan Phu, TP. Thu Duc",
+      "isDefault": false,
+      "_id": {
+        "$oid": "67f2177b043ab1df14bdbbe2"
+      },
+      "createdAt": {
+        "$date": "2025-04-06T05:56:11.115Z"
+      },
+      "updatedAt": {
+        "$date": "2025-04-06T05:56:11.115Z"
+      }
+    }
+  ],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:12:27.680Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-06T05:56:11.115Z"
+  },
+  "__v": 2
+},
+{
+  "_id": {
+    "$oid": "67ec9d6a5617f682fd698687"
+  },
+  "email": "nnminh@gmail.com",
+  "password": "$2b$10$9nzxRJATGj4m.NbhuIiXSe3M9c9qia2xZAZxdhk8IUITpJRJKyar6",
+  "firstName": "Judy",
+  "lastName": "Graham",
+  "gender": "MALE",
+  "dateOfBirth": {
+    "$date": "2024-08-12T03:55:01.000Z"
+  },
+  "phoneNumber": "708-874-8084",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:02.853Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:02.853Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9d7e5617f682fd69868d"
+  },
+  "email": "anne@gmail.com",
+  "password": "$2b$10$bgcCb22/lkvZSAPd0BwPTu36HXVcnCoJpppRmHe1Pb8TGgUiE3W1O",
+  "firstName": "Valentine",
+  "lastName": "Wiza",
+  "gender": "FEMALE",
+  "dateOfBirth": {
+    "$date": "2025-03-22T21:00:22.000Z"
+  },
+  "phoneNumber": "401-780-5564",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:22.436Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:22.436Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9d9b5617f682fd698693"
+  },
+  "email": "Scottie.Haag@yahoo.com",
+  "password": "$2b$10$Hiw9s5L7PX2jHi43pQs1GOnIlNf8OqyWsKyoE7QHQfuQodn1mPHjK",
+  "firstName": "Breanne",
+  "lastName": "Feeney",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-04-06T00:11:30.000Z"
+  },
+  "phoneNumber": "692-528-5107",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:51.812Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:51.812Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9d9c5617f682fd698699"
+  },
+  "email": "Ashton_Crooks2@yahoo.com",
+  "password": "$2b$10$0TkANETa3TmI6Jb0lGu9o.SjEE3GRQaiMyy58.fFpDea3ZGYJGzTC",
+  "firstName": "Katelyn",
+  "lastName": "Jaskolski",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-06-29T05:30:52.000Z"
+  },
+  "phoneNumber": "274-816-3416",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:52.618Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:52.618Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9d9d5617f682fd69869f"
+  },
+  "email": "Ana62@yahoo.com",
+  "password": "$2b$10$bS0Azxla.iAAOMEal9bwVO4pVi1e7oHsDQbUkuSmkUdAFZmPQVB6.",
+  "firstName": "Orrin",
+  "lastName": "Welch",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-06-24T03:57:38.000Z"
+  },
+  "phoneNumber": "724-824-2666",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:53.357Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:53.357Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9d9d5617f682fd6986a5"
+  },
+  "email": "Richie.Glover@yahoo.com",
+  "password": "$2b$10$YZmEm2KniSte.wAXk8imxO4BUae5JOhF/iU.Dq9bYbO7t8qYSWebG",
+  "firstName": "Omari",
+  "lastName": "Runolfsdottir",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-09-01T21:54:57.000Z"
+  },
+  "phoneNumber": "340-733-9999",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:53.993Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:53.993Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9d9e5617f682fd6986ab"
+  },
+  "email": "Vallie67@yahoo.com",
+  "password": "$2b$10$NOIFdDoSMI.t8dRRkn23KuJTqigE.0LpJcQRW.vrPallMSLVmUDMm",
+  "firstName": "Deron",
+  "lastName": "Jenkins",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2025-03-05T21:10:50.000Z"
+  },
+  "phoneNumber": "677-882-5346",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:54.647Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:54.647Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9d9f5617f682fd6986b1"
+  },
+  "email": "Margaretta.Kshlerin@hotmail.com",
+  "password": "$2b$10$6X4esLxQJ8kWrItGBA2tjuqR6I89CECc2ZNsxG/o7sTZStiZToHO2",
+  "firstName": "Anthony",
+  "lastName": "Heller",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2025-03-24T11:57:52.000Z"
+  },
+  "phoneNumber": "409-234-5007",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:55.327Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:55.327Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9da05617f682fd6986b7"
+  },
+  "email": "Osbaldo_Towne40@yahoo.com",
+  "password": "$2b$10$dsjIYJG2.yny/KilFBRJNOs1.NC0FFPj.FwmLdiqRZc.grrqV.eQ6",
+  "firstName": "Lucio",
+  "lastName": "Weimann",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-11-12T20:48:06.000Z"
+  },
+  "phoneNumber": "422-316-1197",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:56.078Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:56.078Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9da05617f682fd6986bd"
+  },
+  "email": "Ruby77@yahoo.com",
+  "password": "$2b$10$0snnF7wx0W4Er2ob8mmrfObpaZmHTw5/vZmKpLuj9nOferqnEat0O",
+  "firstName": "Christophe",
+  "lastName": "Hoeger",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-09-01T21:30:21.000Z"
+  },
+  "phoneNumber": "601-823-7145",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:56.766Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:56.766Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9da15617f682fd6986c3"
+  },
+  "email": "Ford_Roberts@hotmail.com",
+  "password": "$2b$10$6vQevYZh6n8q/2uOjyjz2.wYeq.2nQoApLDYfnilXOxAf.7hcbgam",
+  "firstName": "Samara",
+  "lastName": "Pfeffer",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2025-01-03T05:03:13.000Z"
+  },
+  "phoneNumber": "948-434-2444",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:57.305Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:57.305Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9da15617f682fd6986c9"
+  },
+  "email": "Kylie.Wilderman@yahoo.com",
+  "password": "$2b$10$edOLxkXja1jD75Sk5GqR1u6qElAzbN/eQq/32NBITpWSAa7pyoTKm",
+  "firstName": "Dimitri",
+  "lastName": "Stanton",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-07-03T21:17:52.000Z"
+  },
+  "phoneNumber": "549-439-6548",
+  "role": "CUSTOMER",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:14:57.954Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:14:57.954Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9db15617f682fd6986cf"
+  },
+  "email": "employee@gmail.com",
+  "password": "$2b$10$IzxNwfdm2tI656FvQaXw9eIHdYrl7CPePDukI337IQb8TXcSmiv9a",
+  "firstName": "Joanny",
+  "lastName": "Hegmann",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-06-16T13:15:58.000Z"
+  },
+  "phoneNumber": "745-648-2753",
+  "role": "EMPLOYEE",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:15:13.272Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:15:13.272Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9db55617f682fd6986d5"
+  },
+  "email": "Pearline.Schaden@hotmail.com",
+  "password": "$2b$10$qtcU96zHdrsuuQS4ATYyPO6MO9887tbVFc9lBPMg0ZDT.hdbsBOpG",
+  "firstName": "Clint",
+  "lastName": "Kemmer",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-10-31T09:12:25.000Z"
+  },
+  "phoneNumber": "239-623-4155",
+  "role": "EMPLOYEE",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:15:17.793Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:15:17.793Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9db65617f682fd6986db"
+  },
+  "email": "Dorothea.Wiegand9@yahoo.com",
+  "password": "$2b$10$w5zY2RGu1FEE3luIGsMMDO2ydjzFKV8mJz15umuzsXiAoAHVX4R2m",
+  "firstName": "Brandon",
+  "lastName": "Kuhic",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-05-16T17:30:44.000Z"
+  },
+  "phoneNumber": "516-952-6302",
+  "role": "EMPLOYEE",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:15:18.262Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:15:18.262Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9db65617f682fd6986e1"
+  },
+  "email": "Madonna.Klocko0@yahoo.com",
+  "password": "$2b$10$N4OzmXKMgjMVOl1ZnMtiXuJ/PoFj7tPOT4Ff2YTwppcrDWXT9MB7O",
+  "firstName": "Antonia",
+  "lastName": "Fisher",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-06-25T16:04:01.000Z"
+  },
+  "phoneNumber": "211-921-3404",
+  "role": "EMPLOYEE",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:15:18.919Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:15:18.919Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9db75617f682fd6986e7"
+  },
+  "email": "Tania.Larson96@gmail.com",
+  "password": "$2b$10$.oZgh0iS1W8JFZPUxxpBYu6f2m1D0dC0AVUzasN6UfcQcz/BVZHBK",
+  "firstName": "Jack",
+  "lastName": "Reichel",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-05-11T19:02:30.000Z"
+  },
+  "phoneNumber": "764-318-4958",
+  "role": "EMPLOYEE",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:15:19.387Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:15:19.387Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9db75617f682fd6986ed"
+  },
+  "email": "Tevin_Lakin9@yahoo.com",
+  "password": "$2b$10$sAOTr7felXV6MrFuqZz4Zu0rP.FqC9mKX7U8PpcJVVy7UHk.EW21i",
+  "firstName": "Danial",
+  "lastName": "Conroy",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2024-07-23T16:27:48.000Z"
+  },
+  "phoneNumber": "440-773-7685",
+  "role": "EMPLOYEE",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:15:19.957Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:15:19.957Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ec9dbf5617f682fd6986f3"
+  },
+  "email": "Ocie_Lueilwitz@yahoo.com",
+  "password": "$2b$10$K9Uc952vAF3MbYNQJtYJrOkn2vh6Ng1j1Xzohg2Irs/O4PKDEdz86",
+  "firstName": "Elmer",
+  "lastName": "Murphy",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2025-02-20T16:17:01.000Z"
+  },
+  "phoneNumber": "593-457-7013",
+  "role": "EMPLOYEE",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-02T02:15:27.532Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T02:15:27.532Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67f092673955c6df7dba683b"
+  },
+  "email": "Lori68@gmail.com",
+  "password": "$2b$10$mR7e1jKpuaUZxDiDOxXqFuSc1Ttfge88ZloOGwtfL7yTIpKj2LJeu",
+  "firstName": "Geovanni",
+  "lastName": "Swift",
+  "gender": "OTHER",
+  "dateOfBirth": {
+    "$date": "2025-02-26T18:47:02.000Z"
+  },
+  "phoneNumber": "548-381-8024",
+  "role": "EMPLOYEE",
+  "deliveryAddress": [],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-04-05T02:16:07.269Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-05T02:16:07.269Z"
+  },
+  "__v": 0
+}]

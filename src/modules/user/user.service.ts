@@ -21,7 +21,7 @@ import {
 } from '@nestjs/event-emitter';
 
 import { UserEventsEnum } from '@root/models/enums/user-events.enum';
-import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
+import { CartEvent } from '@root/models/enums/cart-events.enum';
 import { CreateDeliveryInformationDto } from '@root/modules/user/dto/create-delivery-information.dto';
 import { DeliveryInformation } from '@root/models/delivery-information.model';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
@@ -163,7 +163,7 @@ export class UserService {
 
       await this.eventEmitterReadinessWatcher.waitUntilReady();
       const cartCreationResult = await this.eventEmitter.emitAsync(
-        CartEventsEnum.CART_CREATED,
+        CartEvent.CART_CREATED,
         user.id,
       );
       if (

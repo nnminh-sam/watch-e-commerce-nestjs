@@ -1,111 +1,89 @@
 [
   {
     "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d60"
+      "$oid": "67e96c5cf1ffee2557b95d4f"
     },
-    "name": "Rolex Submariner Date",
-    "spu": "SUB-001",
-    "sku": "SUB-001-BLK",
-    "description": "Iconic diving watch with date function, water resistant to 300 meters",
-    "price": 14999.99,
+    "name": "Watch name",
+    "spu": "WN",
+    "sku": "WN",
+    "description": "This is a product description",
+    "price": 667.73,
     "brand": {
-      "_id": {
-        "$oid": "67e9609ff1ffee2557b95d05"
-      },
       "name": "Rolex",
       "slug": "rolex",
-      "assets": []
-    },
-    "category": {
+      "assets": [],
+      "deletedAt": null,
       "_id": {
-        "$oid": "67e9673b5dc8286dcc52d626"
+        "$oid": "67e96c5cf1ffee2557b95d50"
       },
-      "name": "Diving Watches",
-      "slug": "diving-watches"
-    },
-    "stock": 50,
-    "sold": 0,
-    "assets": ["submariner-1.jpg", "submariner-2.jpg", "submariner-3.jpg"],
-    "specs": [
-      {
-        "key": "Case Material",
-        "value": "904L Stainless Steel",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d61"
-        }
+      "createdAt": {
+        "$date": "2025-03-30T15:17:51.735Z"
       },
-      {
-        "key": "Movement",
-        "value": "Automatic",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d62"
-        }
-      },
-      {
-        "key": "Water Resistance",
-        "value": "300m",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d63"
-        }
+      "updatedAt": {
+        "$date": "2025-03-30T15:17:51.735Z"
       }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d64"
-    },
-    "name": "Patek Philippe Nautilus",
-    "spu": "NAU-001",
-    "sku": "NAU-001-BLUE",
-    "description": "Luxury sports watch with iconic porthole design",
-    "price": 34995.0,
-    "brand": {
-      "_id": {
-        "$oid": "67e9618ef1ffee2557b95d07"
-      },
-      "name": "Patek Philippe",
-      "slug": "patek-philippe",
-      "assets": []
     },
     "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d624"
-      },
       "name": "Luxury Watches",
-      "slug": "luxury-watches"
+      "description": "High-end watches category",
+      "slug": "luxury-watches",
+      "assets": ["luxury1.jpg"],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "67e96c5cf1ffee2557b95d51"
+      },
+      "createdAt": {
+        "$date": "2025-03-30T08:45:31.333Z"
+      },
+      "updatedAt": {
+        "$date": "2025-03-30T08:45:31.333Z"
+      }
     },
-    "stock": 15,
+    "stock": 12102002,
     "sold": 0,
-    "assets": ["nautilus-1.jpg", "nautilus-2.jpg"],
+    "assets": ["url.com", "url.com", "url.com", "url.com"],
     "specs": [
       {
-        "key": "Case Material",
-        "value": "Stainless Steel",
+        "key": "Key 1",
+        "value": "Value 1",
         "type": "NORMAL",
         "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d65"
+          "$oid": "67e96c5cf1ffee2557b95d52"
+        },
+        "createdAt": {
+          "$date": "2025-03-30T16:07:56.061Z"
+        },
+        "updatedAt": {
+          "$date": "2025-03-30T16:07:56.061Z"
         }
       },
       {
-        "key": "Dial",
-        "value": "Blue",
+        "key": "Key 2",
+        "value": "Value 2",
         "type": "NORMAL",
         "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d66"
+          "$oid": "67e96c5cf1ffee2557b95d53"
+        },
+        "createdAt": {
+          "$date": "2025-03-30T16:07:56.061Z"
+        },
+        "updatedAt": {
+          "$date": "2025-03-30T16:07:56.061Z"
+        }
+      },
+      {
+        "key": "Key 3",
+        "value": "value 3",
+        "type": "NORMAL",
+        "_id": {
+          "$oid": "67e96c5cf1ffee2557b95d54"
+        },
+        "createdAt": {
+          "$date": "2025-03-30T16:07:56.061Z"
+        },
+        "updatedAt": {
+          "$date": "2025-03-30T16:07:56.061Z"
         }
       }
     ],
@@ -114,645 +92,10 @@
     "totalComments": 0,
     "comments": [],
     "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
+      "$date": "2025-03-30T16:07:56.061Z"
     },
     "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d67"
-    },
-    "name": "Apple Watch Series 9",
-    "spu": "AWS9",
-    "sku": "AWS9-45MM",
-    "description": "Latest smartwatch with health monitoring and fitness tracking",
-    "price": 499.99,
-    "brand": {
-      "_id": {
-        "$oid": "67e96269f1ffee2557b95d39"
-      },
-      "name": "Apple",
-      "slug": "apple",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d625"
-      },
-      "name": "Smart Watches",
-      "slug": "smart-watches"
-    },
-    "stock": 200,
-    "sold": 0,
-    "assets": ["apple-watch-1.jpg", "apple-watch-2.jpg"],
-    "specs": [
-      {
-        "key": "Display",
-        "value": "Retina LTPO OLED",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d68"
-        }
-      },
-      {
-        "key": "Size",
-        "value": "45mm",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d69"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d70"
-    },
-    "name": "Audemars Piguet Royal Oak",
-    "spu": "RO-001",
-    "sku": "RO-001-SS",
-    "description": "Iconic luxury sports watch with octagonal bezel and tapisserie dial",
-    "price": 45000.0,
-    "brand": {
-      "_id": {
-        "$oid": "67e96198f1ffee2557b95d09"
-      },
-      "name": "Audemars Piguet",
-      "slug": "audemars-piguet",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d624"
-      },
-      "name": "Luxury Watches",
-      "slug": "luxury-watches"
-    },
-    "stock": 10,
-    "sold": 0,
-    "assets": ["royal-oak-1.jpg", "royal-oak-2.jpg"],
-    "specs": [
-      {
-        "key": "Case Material",
-        "value": "Stainless Steel",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d65"
-        }
-      },
-      {
-        "key": "Dial",
-        "value": "Blue Tapisserie",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d72"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d73"
-    },
-    "name": "Omega Speedmaster Professional",
-    "spu": "SPM-001",
-    "sku": "SPM-001-BLK",
-    "description": "The first watch worn on the moon, featuring chronograph functionality",
-    "price": 6799.99,
-    "brand": {
-      "_id": {
-        "$oid": "67e961c7f1ffee2557b95d0f"
-      },
-      "name": "Omega",
-      "slug": "omega",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d62c"
-      },
-      "name": "Pilot Watches",
-      "slug": "pilot-watches"
-    },
-    "stock": 75,
-    "sold": 0,
-    "assets": ["speedmaster-1.jpg", "speedmaster-2.jpg"],
-    "specs": [
-      {
-        "key": "Movement",
-        "value": "Manual-winding chronograph",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d74"
-        }
-      },
-      {
-        "key": "Crystal",
-        "value": "Hesalite",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d75"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d76"
-    },
-    "name": "TAG Heuer Carrera Chronograph",
-    "spu": "CAR-001",
-    "sku": "CAR-001-BLK",
-    "description": "Classic chronograph watch with racing heritage",
-    "price": 5999.99,
-    "brand": {
-      "_id": {
-        "$oid": "67e96215f1ffee2557b95d19"
-      },
-      "name": "TAG Heuer",
-      "slug": "tag-heuer",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d629"
-      },
-      "name": "Sports Watches",
-      "slug": "sports-watches"
-    },
-    "stock": 85,
-    "sold": 0,
-    "assets": ["carrera-1.jpg", "carrera-2.jpg"],
-    "specs": [
-      {
-        "key": "Movement",
-        "value": "Automatic Chronograph",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d77"
-        }
-      },
-      {
-        "key": "Case Size",
-        "value": "44mm",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d78"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d79"
-    },
-    "name": "Cartier Tank Must",
-    "spu": "TNK-001",
-    "sku": "TNK-001-SLV",
-    "description": "Iconic rectangular dress watch with timeless elegance",
-    "price": 3750.0,
-    "brand": {
-      "_id": {
-        "$oid": "67e961d8f1ffee2557b95d13"
-      },
-      "name": "Cartier",
-      "slug": "cartier",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d62e"
-      },
-      "name": "Minimalist Watches",
-      "slug": "minimalist-watches"
-    },
-    "stock": 60,
-    "sold": 0,
-    "assets": ["tank-1.jpg", "tank-2.jpg"],
-    "specs": [
-      {
-        "key": "Movement",
-        "value": "Quartz",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d7a"
-        }
-      },
-      {
-        "key": "Case Material",
-        "value": "Stainless Steel",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d65"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d7c"
-    },
-    "name": "Seiko Prospex Diver",
-    "spu": "PRO-001",
-    "sku": "PRO-001-BLU",
-    "description": "Professional diving watch with automatic movement",
-    "price": 899.99,
-    "brand": {
-      "_id": {
-        "$oid": "67e9624df1ffee2557b95d2d"
-      },
-      "name": "Seiko",
-      "slug": "seiko",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d626"
-      },
-      "name": "Diving Watches",
-      "slug": "diving-watches"
-    },
-    "stock": 150,
-    "sold": 0,
-    "assets": ["prospex-1.jpg", "prospex-2.jpg"],
-    "specs": [
-      {
-        "key": "Water Resistance",
-        "value": "200m",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d7d"
-        }
-      },
-      {
-        "key": "Bezel",
-        "value": "Unidirectional",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d7e"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d7f"
-    },
-    "name": "IWC Pilot's Watch Chronograph",
-    "spu": "PIW-001",
-    "sku": "PIW-001-BLK",
-    "description": "Professional pilot's chronograph with day-date display",
-    "price": 7950.0,
-    "brand": {
-      "_id": {
-        "$oid": "67e961def1ffee2557b95d15"
-      },
-      "name": "IWC Schaffhausen",
-      "slug": "iwc-schaffhausen",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d62c"
-      },
-      "name": "Pilot Watches",
-      "slug": "pilot-watches"
-    },
-    "stock": 45,
-    "sold": 0,
-    "assets": ["iwc-pilot-1.jpg", "iwc-pilot-2.jpg"],
-    "specs": [
-      {
-        "key": "Movement",
-        "value": "Automatic Chronograph",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d77"
-        }
-      },
-      {
-        "key": "Case Size",
-        "value": "43mm",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d81"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d82"
-    },
-    "name": "Casio G-Shock GMW-B5000",
-    "spu": "GSH-001",
-    "sku": "GSH-001-SS",
-    "description": "Premium metal G-Shock with Bluetooth connectivity",
-    "price": 550.0,
-    "brand": {
-      "_id": {
-        "$oid": "67e96256f1ffee2557b95d31"
-      },
-      "name": "Casio",
-      "slug": "casio",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d62f"
-      },
-      "name": "Hybrid Watches",
-      "slug": "hybrid-watches"
-    },
-    "stock": 200,
-    "sold": 0,
-    "assets": ["gshock-1.jpg", "gshock-2.jpg"],
-    "specs": [
-      {
-        "key": "Water Resistance",
-        "value": "200m",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d7d"
-        }
-      },
-      {
-        "key": "Features",
-        "value": "Solar Powered, Bluetooth",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d84"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d85"
-    },
-    "name": "Rolex Submariner Date Green",
-    "spu": "SUB-001",
-    "sku": "SUB-001-GRN",
-    "description": "Iconic diving watch with date function and green bezel, water resistant to 300 meters",
-    "price": 15999.99,
-    "brand": {
-      "_id": {
-        "$oid": "67e9609ff1ffee2557b95d05"
-      },
-      "name": "Rolex",
-      "slug": "rolex",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d626"
-      },
-      "name": "Diving Watches",
-      "slug": "diving-watches"
-    },
-    "stock": 25,
-    "sold": 0,
-    "assets": ["submariner-green-1.jpg", "submariner-green-2.jpg"],
-    "specs": [
-      {
-        "key": "Case Material",
-        "value": "904L Stainless Steel",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d61"
-        }
-      },
-      {
-        "key": "Bezel",
-        "value": "Green Cerachrom",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d87"
-        }
-      },
-      {
-        "key": "Water Resistance",
-        "value": "300m",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d63"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d89"
-    },
-    "name": "Apple Watch Series 9 41mm",
-    "spu": "AWS9",
-    "sku": "AWS9-41MM",
-    "description": "Latest smartwatch with health monitoring and fitness tracking, 41mm size",
-    "price": 399.99,
-    "brand": {
-      "_id": {
-        "$oid": "67e96269f1ffee2557b95d39"
-      },
-      "name": "Apple",
-      "slug": "apple",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d625"
-      },
-      "name": "Smart Watches",
-      "slug": "smart-watches"
-    },
-    "stock": 250,
-    "sold": 0,
-    "assets": ["apple-watch-41-1.jpg", "apple-watch-41-2.jpg"],
-    "specs": [
-      {
-        "key": "Display",
-        "value": "Retina LTPO OLED",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d68"
-        }
-      },
-      {
-        "key": "Size",
-        "value": "41mm",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d8b"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96c5cf1ffee2557b95d8c"
-    },
-    "name": "TAG Heuer Carrera Chronograph Blue",
-    "spu": "CAR-001",
-    "sku": "CAR-001-BLU",
-    "description": "Classic chronograph watch with racing heritage, blue dial variant",
-    "price": 6299.99,
-    "brand": {
-      "_id": {
-        "$oid": "67e96215f1ffee2557b95d19"
-      },
-      "name": "TAG Heuer",
-      "slug": "tag-heuer",
-      "assets": []
-    },
-    "category": {
-      "_id": {
-        "$oid": "67e9673b5dc8286dcc52d629"
-      },
-      "name": "Sports Watches",
-      "slug": "sports-watches"
-    },
-    "stock": 65,
-    "sold": 0,
-    "assets": ["carrera-blue-1.jpg", "carrera-blue-2.jpg"],
-    "specs": [
-      {
-        "key": "Movement",
-        "value": "Automatic Chronograph",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d77"
-        }
-      },
-      {
-        "key": "Dial Color",
-        "value": "Blue",
-        "type": "NORMAL",
-        "_id": {
-          "$oid": "67e96c5cf1ffee2557b95d8e"
-        }
-      }
-    ],
-    "status": "available",
-    "customerVisible": true,
-    "totalComments": 0,
-    "comments": [],
-    "createdAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
-    },
-    "updatedAt": {
-      "$date": "2024-03-30T16:07:56.061Z"
+      "$date": "2025-03-30T16:07:56.061Z"
     },
     "__v": 0
   }

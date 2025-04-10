@@ -1,7 +1,14 @@
-import { FilterQuery, ProjectionType, QueryOptions } from 'mongoose';
+import {
+  Aggregate,
+  AggregateOptions,
+  FilterQuery,
+  PipelineStage,
+  ProjectionType,
+  QueryOptions,
+} from 'mongoose';
 
 export interface IGenericMongoRepository<Model, ModelDocument> {
-  find(
+  find?(
     filters?: FilterQuery<Model>,
     projection?: ProjectionType<Model>,
     options?: QueryOptions<Model>,
@@ -17,4 +24,14 @@ export interface IGenericMongoRepository<Model, ModelDocument> {
     document: ModelDocument,
     options?: QueryOptions<Model>,
   ): Promise<ModelDocument>;
+
+  aggregate?(
+    pipeline: PipelineStage[],
+    options?: AggregateOptions,
+  ): Promise<Aggregate<any[]>>;
+
+  deleteOne?(
+    filter: FilterQuery<Model>,
+    options?: QueryOptions<Model>,
+  ): Promise<boolean>;
 }
