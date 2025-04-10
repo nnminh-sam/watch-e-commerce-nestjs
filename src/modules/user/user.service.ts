@@ -1,17 +1,17 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   InternalServerErrorException,
   Logger,
+  LoggerService,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Role } from '@root/models/enums/role.enum';
 import { User, UserDocument } from '@root/models/user.model';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { UserRegistrationDto } from '@root/modules/auth/dtos/user-registration.dto';
-import { UserCredentialsDto } from '@root/modules/auth/dtos/user-credential.dto';
 import { FindUserDto } from '@root/modules/user/dto/find-user.dto';
 import { UpdateUserDto } from '@root/modules/user/dto/update-user.dto';
 import {
@@ -24,16 +24,17 @@ import { UserEventsEnum } from '@root/models/enums/user-events.enum';
 import { CartEventsEnum } from '@root/models/enums/cart-events.enum';
 import { CreateDeliveryInformationDto } from '@root/modules/user/dto/create-delivery-information.dto';
 import { DeliveryInformation } from '@root/models/delivery-information.model';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 @Injectable()
 export class UserService {
-  private logger: Logger = new Logger(UserService.name);
-
   constructor(
     @InjectModel(User.name)
     private readonly userModel: Model<UserDocument>,
     private readonly eventEmitter: EventEmitter2,
     private readonly eventEmitterReadinessWatcher: EventEmitterReadinessWatcher,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: Logger,
   ) {}
 
   private async validateUniqueField(
@@ -78,6 +79,10 @@ export class UserService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
+    this.logger.log(
+      'User is found',
+      `${UserService.name}.${this.findOneById.name}`,
+    );
 
     return user;
   }

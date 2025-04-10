@@ -7,9 +7,16 @@ import { JwtStrategy } from '@root/modules/auth/strategies/jwt.strategy';
 import { UserModule } from '@root/modules/user/user.module';
 import { EnvironmentModule } from '@root/environment/environment.module';
 import { JwtManagerModule } from '@root/modules/jwt-manager/jwt-manager.module';
+import { LoggerModule } from '@root/modules/logger/logger.module';
 
 @Module({
-  imports: [EnvironmentModule, DatabaseModule, UserModule, JwtManagerModule],
+  imports: [
+    EnvironmentModule,
+    DatabaseModule,
+    UserModule,
+    JwtManagerModule,
+    LoggerModule,
+  ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy],
 })

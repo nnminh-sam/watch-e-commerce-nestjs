@@ -1,10 +1,12 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { GenericApiResponseDto } from '@root/commons/dtos/generic-api-response.dto';
 import { PaginationResponseDto } from '@root/commons/dtos/pagination-response.dto';
 import { Brand, BrandDocument } from '@root/models/brand.model';
 import { CreateBrandDto } from '@root/modules/brand/dto/create-brand.dto';
@@ -12,14 +14,15 @@ import { FindBrandDto } from '@root/modules/brand/dto/find-brand.dto';
 import { UpdateBrandDto } from '@root/modules/brand/dto/update-brand.dto';
 import { generateSlug } from '@root/utils';
 import { Model } from 'mongoose';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 @Injectable()
 export class BrandService {
-  private logger = new Logger(BrandService.name);
-
   constructor(
     @InjectModel(Brand.name)
     private readonly brandModel: Model<BrandDocument>,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: Logger,
   ) {}
 
   async create(createBrandDto: CreateBrandDto): Promise<Brand> {
@@ -53,7 +56,9 @@ export class BrandService {
     return brand;
   }
 
-  async find(findBrandDto: FindBrandDto): Promise<Brand[]> {
+  async find(
+    findBrandDto: FindBrandDto,
+  ): Promise<GenericApiResponseDto<Brand[]>> {
     const { name, page, size, orderBy, sortBy } = findBrandDto;
     const skip: number = (page - 1) * size;
     const filter: any = { deletedAt: null };
@@ -61,24 +66,32 @@ export class BrandService {
       filter.$text = { $search: name };
     }
 
-    // const total: number = name
-    //   ? await this.brandModel.countDocuments(filter).lean()
-    //   : await this.brandModel.estimatedDocumentCount().lean();
+    const [result] = await this.brandModel.aggregate([
+      { $match: filter },
+      {
+        $facet: {
+          metadata: [{ $count: 'total' }],
+          brands: [
+            { $sort: { [sortBy]: orderBy === 'asc' ? 1 : -1 } },
+            { $skip: skip },
+            { $limit: size },
+          ],
+        },
+      },
+    ]);
+    const formattedResult: Brand[] = result.brands.map((brand: any) =>
+      Brand.transform(brand),
+    );
 
-    const brands = await this.brandModel
-      .find(filter, { deletedAt: 0 }, { sort: { [sortBy]: orderBy } })
-      .skip(skip)
-      .limit(size)
-      .lean();
+    const total = result.metadata[0]?.total || 0;
+    const pagination: PaginationResponseDto = {
+      total,
+      page,
+      perPage: size,
+      totalPages: Math.ceil(total / size),
+    };
 
-    // const pagination: PaginationResponseDto = {
-    //   page,
-    //   perPage: size,
-    //   total: brands.length,
-    //   totalPages: Math.ceil(total / size),
-    // };
-
-    return brands;
+    return new GenericApiResponseDto<Brand[]>(formattedResult, pagination);
   }
 
   async update(id: string, updateBrandDto: UpdateBrandDto): Promise<Brand> {

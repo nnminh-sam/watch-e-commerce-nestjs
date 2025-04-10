@@ -32,6 +32,8 @@ export class GenericApiResponseDto<T> {
 
   errors?: Record<string, string>[];
 
+  count?: number;
+
   constructor(data: T, pagination?: PaginationResponseDto) {
     this.data = data;
     if (pagination) {

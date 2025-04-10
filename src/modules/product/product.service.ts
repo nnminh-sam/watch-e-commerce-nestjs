@@ -124,7 +124,7 @@ export class ProductService {
       },
     ]);
 
-    const formatedResult: Product[] = result.products.map((product: Product) =>
+    const formatedResult: Product[] = result.products.map((product: any) =>
       Product.transform(product),
     );
 

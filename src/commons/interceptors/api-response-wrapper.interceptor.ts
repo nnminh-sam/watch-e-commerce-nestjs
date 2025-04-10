@@ -33,9 +33,7 @@ const wrapResponse = ({ key, data, context }: any) => {
     }
     response['timestamp'] = new Date().toISOString();
     response['path'] = context.switchToHttp().getRequest().path;
-    if (isArray(data.data)) {
-      response['count'] = data?.data.length;
-    }
+    response['count'] = data.pagination?.total;
     return response;
   }
 
@@ -43,9 +41,5 @@ const wrapResponse = ({ key, data, context }: any) => {
   metadata[key] = data;
   metadata['timestamp'] = new Date().toISOString();
   metadata['path'] = context.switchToHttp().getRequest().path;
-
-  if (isArray(data)) {
-    metadata['count'] = data.length;
-  }
   return metadata;
 };

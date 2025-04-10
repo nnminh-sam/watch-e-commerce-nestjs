@@ -14,18 +14,26 @@ import { SnakeCaseApiResponseInterceptor } from '@root/commons/interceptors/snak
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CamelCaseApiRequestInterceptor } from '@root/commons/interceptors/camel-case-api-request.interceptor';
 import { CamelCaseApiParamInterceptor } from '@root/commons/interceptors/camel-case-api-param.interceptor';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { LoggingInterceptor } from '@root/commons/interceptors/logging.interceptor';
 
 async function bootstrap() {
   const logger: Logger = new Logger('API Service');
 
-  const app: INestApplication = await NestFactory.create(AppModule);
+  const app: INestApplication = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
   const environmentService: EnvironmentService = app.get(EnvironmentService);
   const port = environmentService.port;
   app.enableCors({
     maxAge: 3600,
   });
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
 
+  app.useGlobalInterceptors(
+    new LoggingInterceptor(app.get(WINSTON_MODULE_NEST_PROVIDER)),
+  );
   app.useGlobalInterceptors(new CamelCaseApiParamInterceptor());
   app.useGlobalInterceptors(new CamelCaseApiRequestInterceptor());
   app.useGlobalInterceptors(new SnakeCaseApiResponseInterceptor());
