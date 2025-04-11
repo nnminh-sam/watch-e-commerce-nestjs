@@ -85,6 +85,15 @@ export class Order extends BaseModel {
   static transform(doc: any) {
     doc = BaseModel.transform(doc);
 
+    if (doc.userId) {
+      doc.userId = doc.userId.toString();
+    }
+
+    if (doc.deliveryInformation) {
+      doc.deliveryInformation.id = doc.deliveryInformation._id.toString();
+      delete doc.deliveryInformation._id;
+    }
+
     if (doc.details && doc.details.length > 0) {
       doc.details = doc.details.map((detail: any) =>
         OrderDetail.transform(detail),
@@ -102,9 +111,13 @@ OrderSchema.index({ orderNumber: 'text' }, { unique: true });
 OrderSchema.set('toJSON', {
   transform: (_, ret) => Order.transform(ret),
 });
-OrderSchema.post('findOne', (doc: any) => Order.transform(doc));
+OrderSchema.post('findOne', (doc: any) => {
+  console.log('Called order.findOne post');
+  return Order.transform(doc);
+});
 OrderSchema.post('find', (docs: any) => {
-  if (docs || docs.length === 0) {
+  console.log('Called order.find post');
+  if (!docs || docs.length === 0) {
     return docs;
   }
   return docs.map((doc: any) => Order.transform(doc));

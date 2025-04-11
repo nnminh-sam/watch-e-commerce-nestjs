@@ -61,6 +61,10 @@ export class OrderDetail extends BaseModel {
   static transform(doc: any) {
     doc = BaseModel.transform(doc);
 
+    if (doc.productId) {
+      doc.productId = doc.productId.toString();
+    }
+
     if (doc.specs) {
       doc.specs = doc.specs.map((spec: any) => Spec.transform(spec));
     }

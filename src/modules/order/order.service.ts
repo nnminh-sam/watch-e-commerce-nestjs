@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -8,9 +9,11 @@ import { CartDetail } from '@root/models/cart-detail.model';
 import { Cart } from '@root/models/cart.model';
 import { DeliveryInformation } from '@root/models/delivery-information.model';
 import { OrderStatusEnum } from '@root/models/enums/order-status.enum';
+import { Role } from '@root/models/enums/role.enum';
 import { TransactionStatus } from '@root/models/enums/transaction-status.enum';
 import { OrderDetail } from '@root/models/order-detail.model';
 import { Order, OrderDocument } from '@root/models/order.model';
+import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
 import { CartService } from '@root/modules/cart/cart.service';
 import { CreateOrderDto } from '@root/modules/order/dto/create-order.dto';
 import { FindOrderDto } from '@root/modules/order/dto/find-order.dto';
@@ -107,20 +110,27 @@ export class OrderService {
     return true;
   }
 
-  async findOneById(userId: string, id: string) {
+  async findOneById(id: string, claims: TokenPayloadDto) {
+    const { role, sub } = claims;
     const order = await this.orderRepository.findOne(
-      { _id: id, userId },
+      { _id: id },
       {},
       { lean: true },
     );
     if (!order) {
       throw new NotFoundException('Order not found');
     }
+    if (role === Role.CUSTOMER && order.userId !== sub) {
+      throw new ForbiddenException('Customer only find their own orders');
+    }
+
     return order;
   }
 
-  async find(findOrderDto: FindOrderDto, userId: string) {
+  async find(findOrderDto: FindOrderDto, requestUserClaims: TokenPayloadDto) {
+    const { role, sub } = requestUserClaims;
     const {
+      userId,
       orderNumber,
       fromDate,
       toDate,
@@ -131,6 +141,10 @@ export class OrderService {
       sortBy,
       orderBy,
     } = findOrderDto;
+
+    if (role === Role.CUSTOMER && sub !== userId) {
+      throw new ForbiddenException('Customer only find their own orders');
+    }
 
     const textFilter: any = orderNumber
       ? { $text: { $search: orderNumber } }
@@ -204,21 +218,43 @@ export class OrderService {
     return result as Order;
   }
 
-  async cancelOrder(userId: string, orderId: string): Promise<Order> {
-    const order = await this.findOneById(userId, orderId);
-    if (order.status !== OrderStatusEnum.PENDING) {
-      throw new BadRequestException('Only pending orders can be cancelled');
+  async cancelOrder(orderId: string, claims: TokenPayloadDto): Promise<Order> {
+    const order = await this.findOneById(orderId, claims);
+    const cancelableOrderStatus: OrderStatusEnum[] = [
+      OrderStatusEnum.PENDING,
+      OrderStatusEnum.PROCESSING,
+    ];
+    if (cancelableOrderStatus.findIndex((s) => s === order.status) !== -1) {
+      throw new BadRequestException('Order cannot be canceled');
     }
     order.status = OrderStatusEnum.CANCELED;
-    return this.orderRepository.save(order as OrderDocument);
+    return this.orderRepository.save(order);
+  }
+
+  async requestRefund(orderId: string, claims: TokenPayloadDto) {
+    const order = await this.findOneById(orderId, claims);
+    if (order.status !== OrderStatusEnum.COMPLETED) {
+      throw new BadRequestException('Order must be completed to get refund');
+    }
+    order.status = OrderStatusEnum.REFUNDED;
+    // TODO: perform other logic for customer refunding process
+    return this.orderRepository.save(order);
   }
 
   async updateOrderStatus(
-    userId: string,
     orderId: string,
     status: OrderStatusEnum,
+    claims: TokenPayloadDto,
   ): Promise<Order> {
-    const order = await this.findOneById(userId, orderId);
+    if (status === OrderStatusEnum.CANCELED) {
+      return await this.cancelOrder(orderId, claims);
+    }
+
+    if (status === OrderStatusEnum.REFUNDED) {
+      return await this.requestRefund(orderId, claims);
+    }
+
+    const order = await this.findOneById(orderId, claims);
     order.status = status;
     return this.orderRepository.save(order as OrderDocument);
   }
