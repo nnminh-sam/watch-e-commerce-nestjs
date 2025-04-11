@@ -19,6 +19,7 @@ import { CreateOrderDto } from '@root/modules/order/dto/create-order.dto';
 import { FindOrderDto } from '@root/modules/order/dto/find-order.dto';
 import { OrderRepository } from '@root/modules/order/order.repository';
 import { ProductService } from '@root/modules/product/product.service';
+import { UpdateTransactionDto } from '@root/modules/transaction/dto/update-transaction.dto';
 import { TransactionService } from '@root/modules/transaction/transaction.service';
 import { CreateDeliveryInformationDto } from '@root/modules/user/dto/create-delivery-information.dto';
 import { UserService } from '@root/modules/user/user.service';
@@ -228,6 +229,13 @@ export class OrderService {
       throw new BadRequestException('Order cannot be canceled');
     }
     order.status = OrderStatusEnum.CANCELED;
+
+    await this.transactionService.update(orderId, {
+      status: TransactionStatus.CANCELED,
+    } as UpdateTransactionDto);
+
+    // TODO: perform other cancel order logic
+
     return this.orderRepository.save(order);
   }
 
@@ -237,6 +245,11 @@ export class OrderService {
       throw new BadRequestException('Order must be completed to get refund');
     }
     order.status = OrderStatusEnum.REFUNDED;
+
+    await this.transactionService.update(orderId, {
+      status: TransactionStatus.REFUNDED,
+    } as UpdateTransactionDto);
+
     // TODO: perform other logic for customer refunding process
     return this.orderRepository.save(order);
   }

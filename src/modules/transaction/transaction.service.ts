@@ -3,6 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { GenericApiResponseDto } from '@root/commons/dtos/generic-api-response.dto';
 import { PaginationResponseDto } from '@root/commons/dtos/pagination-response.dto';
 import { Transaction } from '@root/models/transaction.model';
+import { TokenPayloadDto } from '@root/modules/auth/dtos/token-payload.dto';
 import { CreateTransactionDto } from '@root/modules/transaction/dto/create-transaction.dto';
 import { UpdateTransactionDto } from '@root/modules/transaction/dto/update-transaction.dto';
 import { TransactionRepository } from '@root/modules/transaction/transaction.repository';
@@ -20,7 +21,7 @@ export class TransactionService {
     return await this.transactionRepository.save(document);
   }
 
-  async findOne(id: string): Promise<Transaction> {
+  async findOneById(id: string): Promise<Transaction> {
     const transaction = await this.transactionRepository.findOne(
       { _id: id },
       {},
@@ -30,6 +31,14 @@ export class TransactionService {
       throw new NotFoundException('Transaction not found');
     }
 
+    return transaction;
+  }
+
+  async findOneByOrderId(orderId: string) {
+    const transaction = await this.transactionRepository.findOne({ orderId });
+    if (!transaction) {
+      throw new NotFoundException('Transaction not found');
+    }
     return transaction;
   }
 
@@ -88,15 +97,11 @@ export class TransactionService {
   }
 
   async update(
-    userId: string,
-    id: string,
+    orderId: string,
     updateTransactionDto: UpdateTransactionDto,
   ): Promise<Transaction> {
     const { status, paymentMethod } = updateTransactionDto;
-    const transaction = await this.transactionRepository.findOne({
-      'order.userId': userId,
-      _id: id,
-    });
+    const transaction = await this.transactionRepository.findOne({ orderId });
     if (!transaction) {
       throw new NotFoundException('Transaction not found');
     }

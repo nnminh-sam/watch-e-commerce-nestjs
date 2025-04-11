@@ -40,7 +40,7 @@ export class TransactionController {
   })
   @Get('/{id}')
   async findOne(@Param('id') id: string) {
-    return await this.transactionService.findOne(id);
+    return await this.transactionService.findOneById(id);
   }
 
   @ProtectedApi({
