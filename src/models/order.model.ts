@@ -112,11 +112,9 @@ OrderSchema.set('toJSON', {
   transform: (_, ret) => Order.transform(ret),
 });
 OrderSchema.post('findOne', (doc: any) => {
-  console.log('Called order.findOne post');
   return Order.transform(doc);
 });
 OrderSchema.post('find', (docs: any) => {
-  console.log('Called order.find post');
   if (!docs || docs.length === 0) {
     return docs;
   }

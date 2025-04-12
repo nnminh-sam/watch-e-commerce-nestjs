@@ -112,11 +112,11 @@ export class OrderController {
   })
   @HasRoles([Role.ADMIN, Role.EMPLOYEE])
   @UseGuards(RoleGuard)
-  @Patch(':id/status')
+  @Patch(':id')
   async updateStatus(
     @RequestedUser() claims: TokenPayloadDto,
     @Param('id') id: string,
-    @Body('status') status: OrderStatusEnum,
+    @Query('status') status: OrderStatusEnum,
   ) {
     return this.orderService.updateOrderStatus(id, status, claims);
   }

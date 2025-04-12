@@ -220,7 +220,14 @@ export class OrderService {
   }
 
   async cancelOrder(orderId: string, claims: TokenPayloadDto): Promise<Order> {
-    const order = await this.findOneById(orderId, claims);
+    const order = await this.orderRepository.findOne({ _id: orderId });
+    if (claims.role === Role.CUSTOMER && order?.userId !== claims.sub) {
+      throw new ForbiddenException('Customer only find their own orders');
+    }
+    if (!order) {
+      throw new NotFoundException('Order not found');
+    }
+
     const cancelableOrderStatus: OrderStatusEnum[] = [
       OrderStatusEnum.PENDING,
       OrderStatusEnum.PROCESSING,
@@ -228,6 +235,7 @@ export class OrderService {
     if (cancelableOrderStatus.findIndex((s) => s === order.status) !== -1) {
       throw new BadRequestException('Order cannot be canceled');
     }
+
     order.status = OrderStatusEnum.CANCELED;
 
     await this.transactionService.update(orderId, {
@@ -236,7 +244,7 @@ export class OrderService {
 
     // TODO: perform other cancel order logic
 
-    return this.orderRepository.save(order);
+    return await this.orderRepository.save(order);
   }
 
   async requestRefund(orderId: string, claims: TokenPayloadDto) {
@@ -267,8 +275,15 @@ export class OrderService {
       return await this.requestRefund(orderId, claims);
     }
 
-    const order = await this.findOneById(orderId, claims);
+    const order = await this.orderRepository.findOne({ _id: orderId });
+    if (claims.role === Role.CUSTOMER && order?.userId !== claims.sub) {
+      throw new ForbiddenException('Customer only find their own orders');
+    }
+    if (!order) {
+      throw new NotFoundException('Order not found');
+    }
+
     order.status = status;
-    return this.orderRepository.save(order as OrderDocument);
+    return this.orderRepository.save(order);
   }
 }
