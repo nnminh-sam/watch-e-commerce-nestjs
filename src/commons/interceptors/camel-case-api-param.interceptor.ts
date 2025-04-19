@@ -16,7 +16,10 @@ export class CamelCaseApiParamInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     const request: Request = context.switchToHttp().getRequest();
     if (request.query) {
-      request.query = this.convertKeysToCamelCase(request.query);
+      const camelCaseQuery = this.convertKeysToCamelCase(request.query);
+      Object.keys(camelCaseQuery).forEach((key) => {
+        request.query[key] = camelCaseQuery[key];
+      });
     }
     return next.handle();
   }

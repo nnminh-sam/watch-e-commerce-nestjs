@@ -20,26 +20,8 @@ import mongoose from 'mongoose';
         logger.log(`MongoDB Debug: ${environmentService.databaseDebug}`);
         mongoose.set('debug', environmentService.databaseDebug);
 
-        const useMongoCluster = environmentService.useMongoCluster;
-        if (useMongoCluster) {
-          logger.log('Using Mongo cluster with 3 nodes');
-          logger.log(
-            `Connection URI: ${environmentService.databaseClusterUrl}`,
-          );
-          logger.log(`Database name: ${environmentService.databaseName}`);
-          logger.log(`Database 1 port: ${environmentService.database1Port}`);
-          logger.log(`Database 2 port: ${environmentService.database2Port}`);
-          logger.log(`Database 3 port: ${environmentService.database3Port}`);
-
-          return {
-            uri: environmentService.databaseClusterUrl,
-            dbName: environmentService.databaseName,
-          };
-        }
-
-        logger.log('Using single Mongo database');
         if (environmentService?.databaseUrl) {
-          logger.log(`Connection URI: ${environmentService.databaseUrl}`);
+          logger.log('Connected to database using provided URL');
           logger.log(`Database name: ${environmentService.databaseName}`);
 
           return {
@@ -49,6 +31,7 @@ import mongoose from 'mongoose';
           };
         }
 
+        logger.log('Connected to database using provided properties');
         const host = environmentService.databaseHost;
         const port = environmentService.databasePort;
         const dbName = environmentService.databaseName;
@@ -61,7 +44,6 @@ import mongoose from 'mongoose';
         logger.log(`Database port: ${environmentService.databasePort}`);
         logger.log(`Database name: ${environmentService.databaseName}`);
         logger.log(`Database username: ${environmentService.databaseUsername}`);
-        logger.log(`Database password: ${environmentService.databasePassword}`);
 
         return {
           uri,

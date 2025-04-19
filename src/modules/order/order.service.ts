@@ -158,7 +158,7 @@ export class OrderService {
       };
     }
     const filters = {
-      userId,
+      ...(userId && { userId }),
       ...(status && { status }),
       ...(paymentMethod && { paymentMethod }),
       ...textFilter,

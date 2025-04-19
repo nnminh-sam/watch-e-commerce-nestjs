@@ -30,25 +30,6 @@ class EnvironmentModel {
   @IsString()
   REFRESH_TOKEN_EXPIRES_IN: string;
 
-  @IsBoolean()
-  USE_MONGO_CLUSTER: boolean = false;
-
-  @IsOptional()
-  @IsString()
-  DATABASE_CLUSTER_URL: string;
-
-  @IsOptional()
-  @IsNumber()
-  DATABASE_1_PORT: number;
-
-  @IsOptional()
-  @IsNumber()
-  DATABASE_2_PORT: number;
-
-  @IsOptional()
-  @IsNumber()
-  DATABASE_3_PORT: number;
-
   @IsOptional()
   @IsString()
   DATABASE_URL?: string;
