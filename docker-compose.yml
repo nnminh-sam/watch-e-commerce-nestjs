@@ -1,94 +1,45 @@
 services:
-  mongo-1:
-    image: mongo:8.0.5
-    container_name: mongo-1
-    networks:
-      - mongo-replica-network
-    ports:
-      - '${DATABASE_1_PORT}:27017'
-    command: ['--replSet', 'rs0', '--bind_ip_all', '--port', '27017']
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
-    healthcheck:
-      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'${DATABASE_1_HOST}:${DATABASE_1_PORT}',priority:1},{_id:1,host:'${DATABASE_2_HOST}:${DATABASE_2_PORT}',priority:0.5},{_id:2,host:'${DATABASE_3_HOST}:${DATABASE_3_PORT}',priority:0.5}]}) }" | mongosh --port ${DATABASE_1_PORT} --quiet
-      interval: 5s
-      timeout: 30s
-      start_period: 0s
-      start_interval: 1s
-      retries: 30
-    volumes:
-      - ./docker-volumes/mongo-1/data:/data/db
-      - ./docker-volumes/mongo-1/config:/data/configdb
-    environment:
-      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+  # mongodb:
+  #   container_name: watch-e-commerce-mongodb-single-node
+  #   image: mongo:8.0.5
+  #   ports:
+  #     - '${DATABASE_PORT}:27017'
+  #   environment:
+  #     - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+  #   volumes:
+  #     - ./docker-volumes/mongodb:/data/db
 
-  mongo-2:
-    image: mongo:8.0.5
-    container_name: mongo-2
-    networks:
-      - mongo-replica-network
+  app:
+    container_name: watch-e-commerce-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
     ports:
-      - '${DATABASE_2_PORT}:27018'
-    command: ['--replSet', 'rs0', '--bind_ip_all', '--port', '27018']
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
-    volumes:
-      - ./docker-volumes/mongo-2/data:/data/db
-      - ./docker-volumes/mongo-2/config:/data/configdb
-    environment:
-      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
-
-  mongo-3:
-    image: mongo:8.0.5
-    container_name: mongo-3
+      - '${PORT}:3000'
+    env_file:
+      - .env
+    depends_on:
+      - redis
     networks:
-      - mongo-replica-network
-    ports:
-      - '${DATABASE_3_PORT}:27019'
-    command: ['--replSet', 'rs0', '--bind_ip_all', '--port', '27019']
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
-    volumes:
-      - ./docker-volumes/mongo-3/data:/data/db
-      - ./docker-volumes/mongo-3/config:/data/configdb
-    environment:
-      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+      - watch-network
 
   redis:
     container_name: watch-e-commerce-redis
     image: redis:8.0-M02-alpine
     ports:
       - '${REDIS_PORT}:6379'
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    env_file:
+      - .env
     volumes:
       - ./docker-volumes/redis:/data/db
-
-  # backend:
-  #   container_name: watch-e-commerce-backend
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '3000:3000'
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - mongodb
-  #     - redis
-  #   volumes:
-  #     - .:/usr/src/app
-  #   networks:
-  #     - watch-e-commerce-network
-
-volumes:
-  redis-data:
-  mongo-1-data:
-  mongo-2-data:
-  mongo-3-data:
-  mongo-1-config:
-  mongo-2-config:
-  mongo-3-config:
+    networks:
+      - watch-network
 
 networks:
-  mongo-replica-network:
+  watch-network:
+    driver: bridge
+
+volumes:
+  mongodb-data:
+  redis-data:
