@@ -6,8 +6,23 @@
 
 ## Use case diagram
 
-![File upload use case](../assets/imgs/use-case-file-upload.png)
+```mermaid
+flowchart LR
+    actor((User))
+    subgraph fileUploadService
+        validateFileProperties([Validate file properties])
+        uploadFileToCloud([Upload file to cloud])
+        saveFileUrl([Save file URL])
+        validateFileSize([Validate file size])
+        valdaiteFileExtension([Validate file extension])
+    end
 
+    actor --> validateFileProperties
+    validateFileProperties -.<< include >>..-> validateFileSize
+    validateFileProperties -.<< include >>..-> valdaiteFileExtension
+    actor --> uploadFileToCloud
+    actor --> saveFileUrl
+```
 
 ## Component class diagram
 
