@@ -57,6 +57,10 @@ export class EnvironmentService {
     return this.configService.get<number>('REDIS_PORT');
   }
 
+  get redisUsername() {
+    return this.configService.get<string>('REDIS_USERNAME');
+  }
+
   get redisPassword() {
     return this.configService.get<string>('REDIS_PASSWORD');
   }

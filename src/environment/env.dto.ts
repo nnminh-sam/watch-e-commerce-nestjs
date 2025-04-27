@@ -64,6 +64,12 @@ class EnvironmentModel {
   @IsNumber()
   REDIS_PORT: number;
 
+  @IsString()
+  REDIS_USERNAME: string;
+
+  @IsString()
+  REDIS_PASSWORD: string;
+
   @IsNumber()
   REDIS_DB_JWT_BLACKLIST: number;
 
