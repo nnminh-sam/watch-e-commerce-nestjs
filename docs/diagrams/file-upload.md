@@ -1,6 +1,6 @@
 # Cloud file upload use case
 
-> This is a file upload use case to the Cloudinary service
+> This is a general file upload use case to the Cloudinary service. There will be specific API that follow this file upload use case. Therefore, duplicated diagrams are not necessary.
 
 ---
 
