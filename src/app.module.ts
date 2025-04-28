@@ -12,6 +12,7 @@ import { JwtManagerModule } from './modules/jwt-manager/jwt-manager.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { OrderModule } from '@root/modules/order/order.module';
 import { LoggerModule } from '@root/modules/logger/logger.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { LoggerModule } from '@root/modules/logger/logger.module';
     JwtManagerModule,
     LoggerModule,
     EventEmitterModule.forRoot(),
+    CloudinaryModule,
   ],
   controllers: [],
   providers: [],

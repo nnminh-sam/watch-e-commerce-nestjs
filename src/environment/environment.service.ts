@@ -76,4 +76,16 @@ export class EnvironmentService {
   get redisDbRpc() {
     return this.configService.get<number>('REDIS_DB_RPC');
   }
+
+  get cloudinaryName() {
+    return this.configService.get<string>('CLOUDINARY_NAME');
+  }
+
+  get cloudinaryApiKey() {
+    return this.configService.get<string>('CLOUDINARY_API_KEY');
+  }
+
+  get cloudinarySecret() {
+    return this.configService.get<string>('CLOUDINARY_SECRET');
+  }
 }

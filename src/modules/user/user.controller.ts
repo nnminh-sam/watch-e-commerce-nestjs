@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Patch, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Query,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { UserService } from './user.service';
@@ -12,6 +21,7 @@ import { FindUserDto } from '@root/modules/user/dto/find-user.dto';
 import { UpdateUserDto } from '@root/modules/user/dto/update-user.dto';
 import { User } from '@root/models/user.model';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -69,5 +79,15 @@ export class UserController {
     updateUserDto: UpdateUserDto,
   ) {
     return this.userService.update(claims.sub, updateUserDto);
+  }
+
+  @UseInterceptors(FileInterceptor('file'))
+  @Patch('/avatar')
+  async updateAvatar(
+    @RequestedUser() claims: TokenPayloadDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const { sub } = claims;
+    return await this.userService.uploadAvatar(sub, file);
   }
 }

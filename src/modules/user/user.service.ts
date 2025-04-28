@@ -4,7 +4,6 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
-  LoggerService,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -25,6 +24,7 @@ import { CartEvent } from '@root/models/enums/cart-events.enum';
 import { CreateDeliveryInformationDto } from '@root/modules/user/dto/create-delivery-information.dto';
 import { DeliveryInformation } from '@root/models/delivery-information.model';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { CloudinaryService } from '@root/modules/cloudinary/cloudinary.service';
 
 @Injectable()
 export class UserService {
@@ -33,6 +33,7 @@ export class UserService {
     private readonly userModel: Model<UserDocument>,
     private readonly eventEmitter: EventEmitter2,
     private readonly eventEmitterReadinessWatcher: EventEmitterReadinessWatcher,
+    private readonly cloudinaryService: CloudinaryService,
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: Logger,
   ) {}
@@ -271,5 +272,11 @@ export class UserService {
     } catch (error: any) {
       throw new BadRequestException('Cannot add new delivery information');
     }
+  }
+
+  async uploadAvatar(id: string, file: Express.Multer.File) {
+    console.log('🚀 ~ UserService ~ uploadAvatar ~ id:', id);
+    const result = await this.cloudinaryService.uploadFile(file);
+    return result;
   }
 }

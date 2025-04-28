@@ -78,6 +78,15 @@ class EnvironmentModel {
 
   @IsNumber()
   REDIS_DB_RPC: number;
+
+  @IsString()
+  CLOUDINARY_NAME: string;
+
+  @IsString()
+  CLOUDINARY_API_KEY: string;
+
+  @IsString()
+  CLOUDINARY_SECRET: string;
 }
 
 export function validate(
