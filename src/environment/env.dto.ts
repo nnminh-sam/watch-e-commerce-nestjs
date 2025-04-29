@@ -79,6 +79,9 @@ class EnvironmentModel {
   @IsNumber()
   REDIS_DB_RPC: number;
 
+  @IsNumber()
+  REDOS_DB_UPLOAD_MQ: number;
+
   @IsString()
   CLOUDINARY_NAME: string;
 

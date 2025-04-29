@@ -1,9 +1,7 @@
-import { JobProgress } from 'bullmq';
-
 export class FileUploadDto {
+  jobId: string;
+
   name: string;
 
-  uploadStatus: JobProgress;
-
-  message: string;
+  state: string;
 }

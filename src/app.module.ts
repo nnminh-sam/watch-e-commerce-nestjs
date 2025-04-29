@@ -39,7 +39,7 @@ import { EnvironmentService } from '@root/environment/environment.service';
           port: environmentService.redisPort,
           username: environmentService.redisUsername,
           password: environmentService.redisPassword,
-          db: 0,
+          db: environmentService.redisDbUploadMq,
         },
         defaultJobOptions: {
           attempts: 3,

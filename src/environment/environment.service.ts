@@ -66,15 +66,19 @@ export class EnvironmentService {
   }
 
   get redisDbJwtBlacklist() {
-    return this.configService.get<number>('REDIS_DB_JWT_BLACKLIST');
+    return this.configService.get<number>('REDIS_DB_JWT_BLACKLIST', 0);
   }
 
   get redisDbCart() {
-    return this.configService.get<number>('REDIS_DB_CART');
+    return this.configService.get<number>('REDIS_DB_CART', 1);
   }
 
   get redisDbRpc() {
-    return this.configService.get<number>('REDIS_DB_RPC');
+    return this.configService.get<number>('REDIS_DB_RPC', 2);
+  }
+
+  get redisDbUploadMq() {
+    return this.configService.get<number>('REDOS_DB_UPLOAD_MQ', 3);
   }
 
   get cloudinaryName() {

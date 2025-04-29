@@ -11,7 +11,7 @@ import { QueueNameEnum } from '@root/message-queue';
       defaultJobOptions: {
         priority: 0,
         attempts: 3,
-        removeOnComplete: true,
+        removeOnComplete: false,
         removeOnFail: false,
       },
     }),

@@ -1,5 +1,7 @@
 import {
   Controller,
+  Get,
+  Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -27,6 +29,11 @@ export class CloudinaryController {
     }),
   )
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return await this.cloudinaryService.enqueueFile(file);
+    return await this.cloudinaryService.uploadFile(file);
+  }
+
+  @Get('/status/:id')
+  async findJobStatus(@Param('id') id: string) {
+    return await this.cloudinaryService.findJobStatus(id);
   }
 }

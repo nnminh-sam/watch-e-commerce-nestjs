@@ -1,4 +1,4 @@
-import { Processor, WorkerHost } from '@nestjs/bullmq';
+import { OnWorkerEvent, Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { CloudinaryJob } from '../jobs/cloudinary.job';
 import { Logger } from '@nestjs/common';
@@ -20,19 +20,9 @@ export class CloudinaryProcessor extends WorkerHost {
 
   async process(job: Job<CloudinaryJob>) {
     try {
-      this.logger.log(
-        `Starting upload for job ${job.id}`,
-        CloudinaryProcessor.name,
-      );
-
       const result = await this.cloudinary.uploader.upload(job.data.filePath, {
         resource_type: 'auto',
       });
-
-      this.logger.log(
-        `Upload completed for job ${job.id}`,
-        CloudinaryProcessor.name,
-      );
 
       return {
         publicId: result.public_id,
@@ -45,5 +35,21 @@ export class CloudinaryProcessor extends WorkerHost {
       );
       throw error;
     }
+  }
+
+  @OnWorkerEvent('active')
+  onAdded(job: Job) {
+    this.logger.log(
+      `Starting upload for job ${job.id}`,
+      CloudinaryProcessor.name,
+    );
+  }
+
+  @OnWorkerEvent('completed')
+  onCompleted(job: Job) {
+    this.logger.log(
+      `Upload completed for job ${job.id}`,
+      CloudinaryProcessor.name,
+    );
   }
 }
