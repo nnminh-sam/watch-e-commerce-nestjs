@@ -275,8 +275,11 @@ export class UserService {
   }
 
   async uploadAvatar(id: string, file: Express.Multer.File) {
+    console.log('🚀 ~ UserService ~ uploadAvatar ~ file:', file);
     console.log('🚀 ~ UserService ~ uploadAvatar ~ id:', id);
-    const result = await this.cloudinaryService.uploadFile(file);
-    return result;
+    // await this.cloudinaryService.enqueueFile(file.path);
+    // return {
+    //   message: 'File uploaded successfully. Processing in background.',
+    // };
   }
 }
