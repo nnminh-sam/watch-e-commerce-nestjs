@@ -130,18 +130,18 @@ export class CategoryService {
   @OnEvent(EventEnum.UPLOAD_CATEGOTRY_ASSET_COMPLETED)
   private async presistAsset(payload: any) {
     const { resourceType, objectId, publicId, url } = payload;
-    if (resourceType !== ResourceTypeEnum.BRAND_ASSET) {
+    if (resourceType !== ResourceTypeEnum.CATEGORY_ASSET) {
       return;
     }
 
-    const brand = await this.categoryModel.findOne({ _id: objectId });
-    if (!brand) {
+    const category = await this.categoryModel.findOne({ _id: objectId });
+    if (!category) {
       throw new NotFoundException('Category not found');
     }
 
-    brand.assets = url;
+    category.assets = url;
     try {
-      await brand.save();
+      await category.save();
     } catch (error: any) {
       this.logger.fatal(error.message, CategoryService.name);
       throw new InternalServerErrorException(
@@ -154,7 +154,7 @@ export class CategoryService {
   async updateAssets(id: string, image: Express.Multer.File) {
     await this.cloudinaryService.uploadFile(
       image,
-      ResourceTypeEnum.BRAND_ASSET,
+      ResourceTypeEnum.CATEGORY_ASSET,
       id,
     );
 
