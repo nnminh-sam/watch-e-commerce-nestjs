@@ -11,7 +11,13 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { EventEnum } from '@root/modules/cloudinary/enums/event.enum';
 import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
 
-@Processor(QueueNameEnum.UPLOAD, { concurrency: 2 })
+@Processor(QueueNameEnum.UPLOAD, {
+  concurrency: 3,
+  limiter: {
+    max: 3,
+    duration: 1000,
+  },
+})
 export class CloudinaryProcessor extends WorkerHost {
   constructor(
     @Inject(WINSTON_MODULE_NEST_PROVIDER) private readonly logger: Logger,
@@ -63,7 +69,7 @@ export class CloudinaryProcessor extends WorkerHost {
           });
           break;
         default:
-          this.logger.error('Invalid resource type', CloudinaryProcessor.name);
+          this.logger.warn('Processing test file', CloudinaryProcessor.name);
       }
 
       this.logger.log(

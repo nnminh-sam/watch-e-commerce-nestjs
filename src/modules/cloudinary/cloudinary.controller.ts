@@ -3,11 +3,12 @@ import {
   Get,
   Param,
   Post,
-  UploadedFile,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
+  UseFilters,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from './cloudinary.service';
 import { diskStorage } from 'multer';
 import { v4 as uuid } from 'uuid';
@@ -21,10 +22,12 @@ import { RoleGuard } from '@root/commons/guards/role.guard';
 import { HasRoles } from '@root/commons/decorators/has-role.decorator';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
 import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
+import { MulterExceptionFilter } from '@root/commons/filters/multer-exception.filter';
 
 @ApiTags('Files')
 @ApiBearerAuth()
 @Controller('files')
+@UseFilters(MulterExceptionFilter)
 export class CloudinaryController {
   constructor(private readonly cloudinaryService: CloudinaryService) {}
 
@@ -34,29 +37,30 @@ export class CloudinaryController {
     roles: [Role.ADMIN, Role.EMPLOYEE],
   })
   @SuccessApiResponse({
-    model: FileUploadResponseDto,
-    key: 'upload',
     description: 'File successfully uploaded',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
-    description: 'Image file',
+    description: 'Multiple image files (maximum 3 files allowed)',
     schema: {
       type: 'object',
       properties: {
-        image: {
-          type: 'string',
-          format: 'binary',
+        images: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'binary',
+          },
+          maxItems: 3,
         },
       },
-      required: ['image'],
     },
   })
   @UseGuards(RoleGuard)
   @HasRoles([Role.ADMIN, Role.EMPLOYEE])
   @UseGuards(JwtGuard)
   @UseInterceptors(
-    FileInterceptor('file', {
+    FilesInterceptor('images', 3, {
       storage: diskStorage({
         destination: './uploads',
         filename: (_, file, cb) => {
@@ -64,14 +68,32 @@ export class CloudinaryController {
           cb(null, uniqueSuffix);
         },
       }),
+      limits: {
+        files: 3,
+      },
+      fileFilter: (req, _, callback) => {
+        const fileCount = req.files
+          ? (req.files as Express.Multer.File[]).length
+          : 0;
+        if (fileCount > 3) {
+          return callback(new Error('Maximum of 3 files are allowed'), false);
+        }
+        callback(null, true);
+      },
     }),
   )
-  async uploadFile(@UploadedFile() image: Express.Multer.File) {
-    return await this.cloudinaryService.uploadFile(
-      image,
-      ResourceTypeEnum.TEST,
-      '',
+  async uploadFile(@UploadedFiles() images: Express.Multer.File[]) {
+    await Promise.all(
+      images.map(async (image: Express.Multer.File) => {
+        await this.cloudinaryService.uploadFile(
+          image,
+          ResourceTypeEnum.TEST,
+          '',
+        );
+      }),
     );
+
+    return 'Files upload success';
   }
 
   @ProtectedApi({

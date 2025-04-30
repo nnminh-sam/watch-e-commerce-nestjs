@@ -8,6 +8,7 @@ import { QueueNameEnum } from '@root/message-queue';
     EnvironmentModule,
     BullModule.registerQueue({
       name: QueueNameEnum.UPLOAD,
+
       defaultJobOptions: {
         priority: 0,
         attempts: 3,
