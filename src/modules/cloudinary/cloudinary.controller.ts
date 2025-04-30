@@ -14,7 +14,7 @@ import { v4 as uuid } from 'uuid';
 import { extname } from 'path';
 import { ProtectedApi } from '@root/commons/decorators/protected-api.decorator';
 import { Role } from '@root/models/enums/role.enum';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { FileUploadResponseDto } from '@root/modules/cloudinary/dtos/file-upload-response.dto';
 import { RoleGuard } from '@root/commons/guards/role.guard';
@@ -28,6 +28,7 @@ import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.e
 export class CloudinaryController {
   constructor(private readonly cloudinaryService: CloudinaryService) {}
 
+  @Post()
   @ProtectedApi({
     summary: 'Upload file for testing',
     roles: [Role.ADMIN, Role.EMPLOYEE],
@@ -37,10 +38,23 @@ export class CloudinaryController {
     key: 'upload',
     description: 'File successfully uploaded',
   })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Image file',
+    schema: {
+      type: 'object',
+      properties: {
+        image: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+      required: ['image'],
+    },
+  })
   @UseGuards(RoleGuard)
   @HasRoles([Role.ADMIN, Role.EMPLOYEE])
   @UseGuards(JwtGuard)
-  @Post()
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
@@ -52,9 +66,9 @@ export class CloudinaryController {
       }),
     }),
   )
-  async uploadFile(@UploadedFile() file: Express.Multer.File) {
+  async uploadFile(@UploadedFile() image: Express.Multer.File) {
     return await this.cloudinaryService.uploadFile(
-      file,
+      image,
       ResourceTypeEnum.TEST,
       '',
     );

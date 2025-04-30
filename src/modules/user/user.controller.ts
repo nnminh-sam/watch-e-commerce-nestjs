@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  FileTypeValidator,
   Get,
+  MaxFileSizeValidator,
+  ParseFilePipe,
   Patch,
   Query,
   UploadedFile,
@@ -100,11 +103,16 @@ export class UserController {
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
-    description: 'Avatar image file',
     schema: {
       type: 'object',
-      properties: { file: { type: 'string', format: 'binary' } },
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
     },
+    description: 'Image File',
   })
   @UseInterceptors(
     FileInterceptor('file', {
@@ -120,7 +128,15 @@ export class UserController {
   @Patch('/avatar')
   async updateAvatar(
     @RequestedUser() claims: TokenPayloadDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+          new FileTypeValidator({ fileType: '.(png|jpg|jpeg)' }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
   ) {
     const { sub } = claims;
     return await this.userService.uploadAvatar(sub, file);

@@ -24,33 +24,11 @@ export class CloudinaryService {
     private readonly logger: Logger,
   ) {}
 
-  private validate(file: Express.Multer.File) {
-    if (
-      !['png', 'jpg', 'jpeg'].includes(
-        file.mimetype.toLowerCase().split('/')[1],
-      )
-    ) {
-      console.log(
-        '🚀 ~ CloudinaryService ~ validate ~ file.mimetype.toLowerCase():',
-        file.mimetype.toLowerCase(),
-      );
-      throw new BadRequestException('Invalid file extension');
-    }
-
-    if (file.size > 10 * 1024 * 1024) {
-      throw new BadRequestException('File too large');
-    }
-
-    return true;
-  }
-
   async uploadFile(
     file: Express.Multer.File,
     resourceType: ResourceTypeEnum,
     objectId: string,
   ) {
-    this.validate(file);
-
     const jobId: string = uuid();
     const jobData: CloudinaryJob = {
       filePath: file.path,

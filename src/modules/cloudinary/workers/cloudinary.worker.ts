@@ -9,6 +9,7 @@ import { v2 as CloudinaryType } from 'cloudinary';
 import { QueueNameEnum } from '@root/message-queue';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { EventEnum } from '@root/modules/cloudinary/enums/event.enum';
+import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
 
 @Processor(QueueNameEnum.UPLOAD, { concurrency: 2 })
 export class CloudinaryProcessor extends WorkerHost {
@@ -28,12 +29,42 @@ export class CloudinaryProcessor extends WorkerHost {
         resource_type: 'auto',
       });
 
-      this.eventEmitter.emit(EventEnum.UPLOAD_AVATAR_COMPLETED, {
-        resourceType,
-        objectId,
-        url: result.secure_url,
-        publicId: result.public_id,
-      });
+      switch (resourceType) {
+        case ResourceTypeEnum.USER_AVATAR:
+          this.eventEmitter.emit(EventEnum.UPLOAD_AVATAR_COMPLETED, {
+            resourceType,
+            objectId,
+            url: result.secure_url,
+            publicId: result.public_id,
+          });
+          break;
+        case ResourceTypeEnum.BRAND_ASSET:
+          this.eventEmitter.emit(EventEnum.UPLOAD_BRAND_ASSET_COMPLETED, {
+            resourceType,
+            objectId,
+            url: result.secure_url,
+            publicId: result.public_id,
+          });
+          break;
+        case ResourceTypeEnum.CATEGORY_ASSET:
+          this.eventEmitter.emit(EventEnum.UPLOAD_CATEGOTRY_ASSET_COMPLETED, {
+            resourceType,
+            objectId,
+            url: result.secure_url,
+            publicId: result.public_id,
+          });
+          break;
+        case ResourceTypeEnum.PRODUCT_ASSET:
+          this.eventEmitter.emit(EventEnum.UPLOAD_PRODUCT_ASSET_COMPLETED, {
+            resourceType,
+            objectId,
+            url: result.secure_url,
+            publicId: result.public_id,
+          });
+          break;
+        default:
+          this.logger.error('Invalid resource type', CloudinaryProcessor.name);
+      }
 
       this.logger.log(
         `Upload completed for job ${job.id}`,
