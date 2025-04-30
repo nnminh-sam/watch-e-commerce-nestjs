@@ -8,7 +8,13 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiBody,
+} from '@nestjs/swagger';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { UserService } from './user.service';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
@@ -22,6 +28,9 @@ import { UpdateUserDto } from '@root/modules/user/dto/update-user.dto';
 import { User } from '@root/models/user.model';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { v4 as uuid } from 'uuid';
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -81,7 +90,33 @@ export class UserController {
     return this.userService.update(claims.sub, updateUserDto);
   }
 
-  @UseInterceptors(FileInterceptor('file'))
+  @ApiOperation({ summary: 'Update user avatar' })
+  @SuccessApiResponse({
+    description: 'User avatar updated successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Cannot update user avatar',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Avatar image file',
+    schema: {
+      type: 'object',
+      properties: { file: { type: 'string', format: 'binary' } },
+    },
+  })
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (_, file, cb) => {
+          const uniqueSuffix = `${uuid()}${extname(file.originalname)}`;
+          cb(null, uniqueSuffix);
+        },
+      }),
+    }),
+  )
   @Patch('/avatar')
   async updateAvatar(
     @RequestedUser() claims: TokenPayloadDto,

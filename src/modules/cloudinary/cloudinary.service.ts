@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -9,9 +10,11 @@ import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { Job, Queue } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
 import { QueueNameEnum } from '@root/message-queue';
-import { CloudinaryJob } from '@root/modules/cloudinary/jobs/cloudinary.job';
-import { FileUploadDto } from '@root/modules/cloudinary/dtos/file-upload.dto';
+import { CloudinaryJob } from '@root/modules/cloudinary/interfaces/cloudinary-job.interface';
+
 import { v4 as uuid } from 'uuid';
+import { FileUploadResponseDto } from '@root/modules/cloudinary/dtos/file-upload-response.dto';
+import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
 
 @Injectable()
 export class CloudinaryService {
@@ -21,29 +24,55 @@ export class CloudinaryService {
     private readonly logger: Logger,
   ) {}
 
-  async uploadFile(file: Express.Multer.File) {
+  private validate(file: Express.Multer.File) {
+    if (
+      !['png', 'jpg', 'jpeg'].includes(
+        file.mimetype.toLowerCase().split('/')[1],
+      )
+    ) {
+      console.log(
+        '🚀 ~ CloudinaryService ~ validate ~ file.mimetype.toLowerCase():',
+        file.mimetype.toLowerCase(),
+      );
+      throw new BadRequestException('Invalid file extension');
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      throw new BadRequestException('File too large');
+    }
+
+    return true;
+  }
+
+  async uploadFile(
+    file: Express.Multer.File,
+    resourceType: ResourceTypeEnum,
+    objectId: string,
+  ) {
+    this.validate(file);
+
     const jobId: string = uuid();
-    const jobData: CloudinaryJob = { filePath: file.path };
+    const jobData: CloudinaryJob = {
+      filePath: file.path,
+      resourceType,
+      objectId,
+    };
     try {
       const job: Job = await this.uploadQueue.add('uploadFile', jobData, {
         jobId,
       });
 
       this.logger.log(
-        `File ${file.originalname} added to ${QueueNameEnum.UPLOAD} queue successfully`,
-        CloudinaryService.name,
-      );
-      this.logger.log(
-        `Added job ${job.id} to ${QueueNameEnum.UPLOAD} queue`,
+        `Job [${job.id}]: Processing file ${file.originalname} in ${QueueNameEnum.UPLOAD} queue`,
         CloudinaryService.name,
       );
 
       const state = await job.getState();
 
-      const response: FileUploadDto = {
-        jobId,
-        name: file.filename,
+      const response: FileUploadResponseDto = {
+        trackingId: jobId,
         state: state.toString(),
+        message: `File ${file.filename} is waiting for upload. Tracking upload process using the tracking ID`,
       };
       return response;
     } catch (error: any) {
@@ -62,10 +91,10 @@ export class CloudinaryService {
     }
 
     const state = await job.getState();
-    const response: FileUploadDto = {
-      jobId,
-      name: job.data.originalname,
+    const response: FileUploadResponseDto = {
+      trackingId: jobId,
       state: state.toString(),
+      message: 'Upload process found',
     };
     return response;
   }

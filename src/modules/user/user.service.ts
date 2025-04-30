@@ -25,6 +25,8 @@ import { CreateDeliveryInformationDto } from '@root/modules/user/dto/create-deli
 import { DeliveryInformation } from '@root/models/delivery-information.model';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { CloudinaryService } from '@root/modules/cloudinary/cloudinary.service';
+import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
+import { EventEnum } from '@root/modules/cloudinary/enums/event.enum';
 
 @Injectable()
 export class UserService {
@@ -275,11 +277,36 @@ export class UserService {
   }
 
   async uploadAvatar(id: string, file: Express.Multer.File) {
-    console.log('🚀 ~ UserService ~ uploadAvatar ~ file:', file);
-    console.log('🚀 ~ UserService ~ uploadAvatar ~ id:', id);
-    // await this.cloudinaryService.enqueueFile(file.path);
-    // return {
-    //   message: 'File uploaded successfully. Processing in background.',
-    // };
+    await this.cloudinaryService.uploadFile(
+      file,
+      ResourceTypeEnum.USER_AVATAR,
+      id,
+    );
+
+    return 'User avatar uploaded';
+  }
+
+  @OnEvent(EventEnum.UPLOAD_AVATAR_COMPLETED)
+  private async persitUserAvatar(payload: any) {
+    const { resourceType, objectId, publicId, url } = payload;
+    if (resourceType !== ResourceTypeEnum.USER_AVATAR) {
+      return;
+    }
+
+    const user = await this.userModel.findOne({ _id: objectId });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    user.avatar = url;
+    try {
+      await user.save();
+    } catch (error: any) {
+      this.logger.fatal(error.message, UserService.name);
+      throw new InternalServerErrorException(
+        'Cannot update user avatar',
+        error.message,
+      );
+    }
   }
 }

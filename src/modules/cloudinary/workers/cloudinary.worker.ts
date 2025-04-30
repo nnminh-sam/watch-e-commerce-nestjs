@@ -1,28 +1,44 @@
 import { OnWorkerEvent, Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
-import { CloudinaryJob } from '../jobs/cloudinary.job';
+import { CloudinaryJob } from '../interfaces/cloudinary-job.interface';
 import { Logger } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { Inject } from '@nestjs/common';
 import { APP_CLOUDINARY_PROVIDER } from '../index';
 import { v2 as CloudinaryType } from 'cloudinary';
 import { QueueNameEnum } from '@root/message-queue';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { EventEnum } from '@root/modules/cloudinary/enums/event.enum';
 
-@Processor(QueueNameEnum.UPLOAD)
+@Processor(QueueNameEnum.UPLOAD, { concurrency: 2 })
 export class CloudinaryProcessor extends WorkerHost {
   constructor(
     @Inject(WINSTON_MODULE_NEST_PROVIDER) private readonly logger: Logger,
     @Inject(APP_CLOUDINARY_PROVIDER)
     private readonly cloudinary: typeof CloudinaryType,
+    private readonly eventEmitter: EventEmitter2,
   ) {
     super();
   }
 
   async process(job: Job<CloudinaryJob>) {
+    const { filePath, resourceType, objectId } = job.data;
     try {
-      const result = await this.cloudinary.uploader.upload(job.data.filePath, {
+      const result = await this.cloudinary.uploader.upload(filePath, {
         resource_type: 'auto',
       });
+
+      this.eventEmitter.emit(EventEnum.UPLOAD_AVATAR_COMPLETED, {
+        resourceType,
+        objectId,
+        url: result.secure_url,
+        publicId: result.public_id,
+      });
+
+      this.logger.log(
+        `Upload completed for job ${job.id}`,
+        CloudinaryProcessor.name,
+      );
 
       return {
         publicId: result.public_id,
@@ -38,17 +54,9 @@ export class CloudinaryProcessor extends WorkerHost {
   }
 
   @OnWorkerEvent('active')
-  onAdded(job: Job) {
+  onAdded(job: Job<CloudinaryJob>) {
     this.logger.log(
       `Starting upload for job ${job.id}`,
-      CloudinaryProcessor.name,
-    );
-  }
-
-  @OnWorkerEvent('completed')
-  onCompleted(job: Job) {
-    this.logger.log(
-      `Upload completed for job ${job.id}`,
       CloudinaryProcessor.name,
     );
   }
