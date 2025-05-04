@@ -64,6 +64,12 @@ class EnvironmentModel {
   @IsNumber()
   REDIS_PORT: number;
 
+  @IsString()
+  REDIS_USERNAME: string;
+
+  @IsString()
+  REDIS_PASSWORD: string;
+
   @IsNumber()
   REDIS_DB_JWT_BLACKLIST: number;
 
@@ -72,6 +78,18 @@ class EnvironmentModel {
 
   @IsNumber()
   REDIS_DB_RPC: number;
+
+  @IsNumber()
+  REDOS_DB_UPLOAD_MQ: number;
+
+  @IsString()
+  CLOUDINARY_NAME: string;
+
+  @IsString()
+  CLOUDINARY_API_KEY: string;
+
+  @IsString()
+  CLOUDINARY_SECRET: string;
 }
 
 export function validate(

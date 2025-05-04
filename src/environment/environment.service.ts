@@ -57,19 +57,39 @@ export class EnvironmentService {
     return this.configService.get<number>('REDIS_PORT');
   }
 
+  get redisUsername() {
+    return this.configService.get<string>('REDIS_USERNAME');
+  }
+
   get redisPassword() {
     return this.configService.get<string>('REDIS_PASSWORD');
   }
 
   get redisDbJwtBlacklist() {
-    return this.configService.get<number>('REDIS_DB_JWT_BLACKLIST');
+    return this.configService.get<number>('REDIS_DB_JWT_BLACKLIST', 0);
   }
 
   get redisDbCart() {
-    return this.configService.get<number>('REDIS_DB_CART');
+    return this.configService.get<number>('REDIS_DB_CART', 1);
   }
 
   get redisDbRpc() {
-    return this.configService.get<number>('REDIS_DB_RPC');
+    return this.configService.get<number>('REDIS_DB_RPC', 2);
+  }
+
+  get redisDbUploadMq() {
+    return this.configService.get<number>('REDOS_DB_UPLOAD_MQ', 3);
+  }
+
+  get cloudinaryName() {
+    return this.configService.get<string>('CLOUDINARY_NAME');
+  }
+
+  get cloudinaryApiKey() {
+    return this.configService.get<string>('CLOUDINARY_API_KEY');
+  }
+
+  get cloudinarySecret() {
+    return this.configService.get<string>('CLOUDINARY_SECRET');
   }
 }

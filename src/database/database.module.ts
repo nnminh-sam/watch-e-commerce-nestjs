@@ -52,7 +52,7 @@ import mongoose from 'mongoose';
       },
     }),
   ],
-  providers: [TokenBlackListService, RedisCartService],
-  exports: [TokenBlackListService, RedisCartService],
+  providers: [TokenBlackListService],
+  exports: [TokenBlackListService],
 })
 export class DatabaseModule {}

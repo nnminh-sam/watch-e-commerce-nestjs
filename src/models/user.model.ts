@@ -103,7 +103,11 @@ export class User {
   @Prop({ default: true })
   isActive: boolean;
 
-  v: number;
+  @ApiProperty({
+    description: 'User avatar url',
+  })
+  @Prop({})
+  avatar: string;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);

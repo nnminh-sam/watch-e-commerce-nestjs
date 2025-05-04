@@ -2,13 +2,18 @@ import {
   Body,
   Controller,
   Delete,
+  FileTypeValidator,
   Get,
   HttpCode,
+  MaxFileSizeValidator,
   Param,
+  ParseFilePipe,
   Patch,
   Post,
   Query,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { BrandService } from './brand.service';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
@@ -18,11 +23,15 @@ import { Role } from '@root/models/enums/role.enum';
 import { CreateBrandDto } from '@root/modules/brand/dto/create-brand.dto';
 import { UpdateBrandDto } from '@root/modules/brand/dto/update-brand.dto';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
 import { Brand } from '@root/models/brand.model';
 import { FindBrandDto } from '@root/modules/brand/dto/find-brand.dto';
 import { ProtectedApi } from '@root/commons/decorators/protected-api.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { v4 as uuid } from 'uuid';
 
 @ApiTags('Brands')
 @Controller('brands')
@@ -122,6 +131,57 @@ export class BrandController {
     @Body() updateBrandDto: UpdateBrandDto,
   ) {
     return await this.brandService.update(id, updateBrandDto);
+  }
+
+  @ApiOperation({ summary: 'Update brand asset' })
+  @SuccessApiResponse({
+    description: 'Brand asset updated successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Cannot update brand asset',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        asset: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+    description: 'Image File',
+  })
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (_, file, cb) => {
+          const uniqueSuffix = `${uuid()}${extname(file.originalname)}`;
+          cb(null, uniqueSuffix);
+        },
+      }),
+    }),
+  )
+  @UseGuards(RoleGuard)
+  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  @UseGuards(JwtGuard)
+  @Patch('/assets/:id')
+  async updateAsset(
+    @Param('id') id: string,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+          new FileTypeValidator({ fileType: '.(png|jpg|jpeg)' }),
+        ],
+      }),
+    )
+    asset: Express.Multer.File,
+  ) {
+    return await this.brandService.updateAsset(id, asset);
   }
 
   @ProtectedApi({

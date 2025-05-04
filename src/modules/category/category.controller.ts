@@ -8,10 +8,15 @@ import {
   Delete,
   UseGuards,
   Query,
+  UseInterceptors,
+  UploadedFile,
+  ParseFilePipe,
+  MaxFileSizeValidator,
+  FileTypeValidator,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { JwtGuard } from '@root/commons/guards/jwt.guard';
@@ -22,6 +27,10 @@ import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-ap
 import { Category } from '@root/models/category.model';
 import { FindCategoryDto } from '@root/modules/category/dto/find-category.dto';
 import { ProtectedApi } from '@root/commons/decorators/protected-api.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { v4 as uuid } from 'uuid';
 
 @ApiTags('Categories')
 @Controller('categories')
@@ -125,6 +134,57 @@ export class CategoryController {
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
     return await this.categoryService.update(id, updateCategoryDto);
+  }
+
+  @ApiOperation({ summary: 'Update category asset' })
+  @SuccessApiResponse({
+    description: 'Category asset updated successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'Cannot update category asset',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        asset: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+    description: 'Image File',
+  })
+  @UseInterceptors(
+    FileInterceptor('asset', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (_, file, cb) => {
+          const uniqueSuffix = `${uuid()}${extname(file.originalname)}`;
+          cb(null, uniqueSuffix);
+        },
+      }),
+    }),
+  )
+  @UseGuards(RoleGuard)
+  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  @UseGuards(JwtGuard)
+  @Patch('/assets/:id')
+  async updateAsset(
+    @Param('id') id: string,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+          new FileTypeValidator({ fileType: '.(png|jpg|jpeg)' }),
+        ],
+      }),
+    )
+    asset: Express.Multer.File,
+  ) {
+    return await this.categoryService.updateAssets(id, asset);
   }
 
   @ProtectedApi({

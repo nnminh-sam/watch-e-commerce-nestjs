@@ -3,6 +3,7 @@ import { BrandService } from './brand.service';
 import { BrandController } from './brand.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Brand, BrandSchema } from '@root/models/brand.model';
+import { CloudinaryModule } from '@root/modules/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { Brand, BrandSchema } from '@root/models/brand.model';
         schema: BrandSchema,
       },
     ]),
+    CloudinaryModule,
   ],
   controllers: [BrandController],
   providers: [BrandService],

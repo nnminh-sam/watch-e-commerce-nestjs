@@ -1,10 +1,11 @@
 import { FindCategoryDto } from './dto/find-category.dto';
 import {
-  BadRequestException,
+  Logger,
   Inject,
   Injectable,
-  Logger,
   NotFoundException,
+  BadRequestException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -15,13 +16,17 @@ import { generateSlug } from '@root/utils';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { PaginationResponseDto } from '@root/commons/dtos/pagination-response.dto';
 import { GenericApiResponseDto } from '@root/commons/dtos/generic-api-response.dto';
+import { CloudinaryService } from '@root/modules/cloudinary/cloudinary.service';
+import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
+import { OnEvent } from '@nestjs/event-emitter';
+import { EventEnum } from '@root/modules/cloudinary/enums/event.enum';
 
 @Injectable()
 export class CategoryService {
   constructor(
     @InjectModel(Category.name)
     private readonly categoryModel: Model<CategoryDocument>,
-
+    private readonly cloudinaryService: CloudinaryService,
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: Logger,
   ) {}
@@ -120,6 +125,40 @@ export class CategoryService {
       this.logger.error(error.message);
       throw new BadRequestException('Cannot update category');
     }
+  }
+
+  @OnEvent(EventEnum.UPLOAD_CATEGOTRY_ASSET_COMPLETED)
+  private async presistAsset(payload: any) {
+    const { resourceType, objectId, publicId, url } = payload;
+    if (resourceType !== ResourceTypeEnum.CATEGORY_ASSET) {
+      return;
+    }
+
+    const category = await this.categoryModel.findOne({ _id: objectId });
+    if (!category) {
+      throw new NotFoundException('Category not found');
+    }
+
+    category.assets = url;
+    try {
+      await category.save();
+    } catch (error: any) {
+      this.logger.fatal(error.message, CategoryService.name);
+      throw new InternalServerErrorException(
+        'Cannot update category asset',
+        error.message,
+      );
+    }
+  }
+
+  async updateAssets(id: string, image: Express.Multer.File) {
+    await this.cloudinaryService.uploadFile(
+      image,
+      ResourceTypeEnum.CATEGORY_ASSET,
+      id,
+    );
+
+    return { message: 'Category asset uploaded successfully' };
   }
 
   async remove(id: string): Promise<Category> {
