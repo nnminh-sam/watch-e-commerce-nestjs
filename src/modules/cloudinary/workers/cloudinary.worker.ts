@@ -6,10 +6,11 @@ import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { Inject } from '@nestjs/common';
 import { APP_CLOUDINARY_PROVIDER } from '../index';
 import { v2 as CloudinaryType } from 'cloudinary';
-import { QueueNameEnum } from '@root/message-queue';
+
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { EventEnum } from '@root/modules/cloudinary/enums/event.enum';
 import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
+import { QueueNameEnum } from '@root/modules/queue';
 
 @Processor(QueueNameEnum.UPLOAD, {
   concurrency: 3,
@@ -20,12 +21,14 @@ import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.e
 })
 export class CloudinaryProcessor extends WorkerHost {
   constructor(
-    @Inject(WINSTON_MODULE_NEST_PROVIDER) private readonly logger: Logger,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: Logger,
     @Inject(APP_CLOUDINARY_PROVIDER)
     private readonly cloudinary: typeof CloudinaryType,
     private readonly eventEmitter: EventEmitter2,
   ) {
     super();
+    this.logger.log('Cloudinary worker started');
   }
 
   async process(job: Job<CloudinaryJob>) {

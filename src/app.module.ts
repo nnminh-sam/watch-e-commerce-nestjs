@@ -12,9 +12,10 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { OrderModule } from '@root/modules/order/order.module';
 import { LoggerModule } from '@root/modules/logger/logger.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
-import { QueueModule } from './message-queue/message-queue.module';
 import { BullModule } from '@nestjs/bullmq';
 import { EnvironmentService } from '@root/environment/environment.service';
+import { MailingModule } from './modules/mailing/mailing.module';
+import { QueueModule } from '@root/modules/queue/queue.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { EnvironmentService } from '@root/environment/environment.service';
     }),
     CloudinaryModule,
     QueueModule,
+    MailingModule,
   ],
   controllers: [],
   providers: [],

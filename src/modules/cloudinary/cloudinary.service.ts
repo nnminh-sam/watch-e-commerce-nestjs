@@ -9,12 +9,12 @@ import {
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { Job, Queue } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
-import { QueueNameEnum } from '@root/message-queue';
 import { CloudinaryJob } from '@root/modules/cloudinary/interfaces/cloudinary-job.interface';
 
 import { v4 as uuid } from 'uuid';
 import { FileUploadResponseDto } from '@root/modules/cloudinary/dtos/file-upload-response.dto';
 import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
+import { QueueNameEnum } from '@root/modules/queue';
 
 @Injectable()
 export class CloudinaryService {
@@ -54,7 +54,7 @@ export class CloudinaryService {
       };
       return response;
     } catch (error: any) {
-      this.logger.error(
+      this.logger.fatal(
         `Failed to add file ${file.originalname} to ${QueueNameEnum.UPLOAD} queue: ${error.message}`,
         CloudinaryService.name,
       );
