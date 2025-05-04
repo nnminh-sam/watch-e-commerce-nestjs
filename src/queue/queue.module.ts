@@ -1,7 +1,7 @@
 import { BullModule } from '@nestjs/bullmq';
 import { Module } from '@nestjs/common';
 import { EnvironmentModule } from '@root/environment/environment.module';
-import { QueueNameEnum } from '@root/message-queue';
+import { QueueNameEnum } from '@root/queue';
 
 @Module({
   imports: [
@@ -18,4 +18,4 @@ import { QueueNameEnum } from '@root/message-queue';
   ],
   exports: [BullModule],
 })
-export class MessageQueueModule {}
+export class QueueModule {}
