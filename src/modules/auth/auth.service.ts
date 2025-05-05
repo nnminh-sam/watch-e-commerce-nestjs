@@ -1,3 +1,4 @@
+import { MailingService } from '@root/modules/mailing/mailing.service';
 import { BlackListTokenMessage } from './../../models/enums/black-list-token-message.enum';
 import {
   BadRequestException,
@@ -17,6 +18,7 @@ import { JwtManagerService } from '@root/modules/jwt-manager/jwt-manager.service
 import { UserService } from '@root/modules/user/user.service';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { v4 as uuidv4 } from 'uuid';
+import { welcomeContext } from '@root/modules/mailing';
 
 @Injectable()
 export class AuthService {
@@ -25,6 +27,7 @@ export class AuthService {
     private readonly jwtManagerService: JwtManagerService,
     private readonly environmentService: EnvironmentService,
     private readonly userService: UserService,
+    private readonly mailingService: MailingService,
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: LoggerService,
   ) {}
@@ -78,6 +81,14 @@ export class AuthService {
       role: user.role,
     };
     const { accessToken, refreshToken } = this.generateTokens(tokenPayload);
+    this.mailingService.sendMail({
+      to: user.email,
+      subject: welcomeContext.subject,
+      template: welcomeContext.template,
+      context: {
+        [welcomeContext.context.name]: `${user.firstName} ${user.lastName}`,
+      },
+    });
     return {
       user,
       accessToken,

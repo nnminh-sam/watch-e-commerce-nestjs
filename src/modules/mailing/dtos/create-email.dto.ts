@@ -29,5 +29,12 @@ export class CreateEmailDto {
   })
   @IsNotEmpty()
   @IsString()
-  html: string;
+  template: string;
+
+  @ApiProperty({
+    description: 'Context for the email template',
+    required: false,
+  })
+  @IsOptional()
+  context?: Record<string, any>;
 }
