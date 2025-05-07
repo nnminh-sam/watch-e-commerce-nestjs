@@ -2,6 +2,8 @@ services:
   mongodb:
     container_name: watch-e-commerce-mongodb
     image: mongo:8.0.5
+    env_file:
+      - .env.production
     ports:
       - '${DATABASE_PORT}:27017'
     environment:
@@ -18,7 +20,7 @@ services:
     ports:
       - '${PORT}:3000'
     env_file:
-      - .env
+      - .env.production
     depends_on:
       - redis
     networks:
@@ -27,10 +29,10 @@ services:
   redis:
     container_name: watch-e-commerce-redis
     image: redis:8.0-M02-alpine
+    env_file:
+      - .env.production
     ports:
       - '${REDIS_PORT}:6379'
-    env_file:
-      - .env
     volumes:
       - ./docker-volumes/redis:/data/db
     networks:
