@@ -1,0 +1,45 @@
+services:
+  mongodb:
+    container_name: watch-e-commerce-mongodb
+    image: mongo:8.0.5
+    ports:
+      - '${DATABASE_PORT}:27017'
+    environment:
+      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+    volumes:
+      - ./docker-volumes/mongodb:/data/db
+
+  app:
+    container_name: watch-e-commerce-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - '${PORT}:3000'
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    networks:
+      - watch-network
+
+  redis:
+    container_name: watch-e-commerce-redis
+    image: redis:8.0-M02-alpine
+    ports:
+      - '${REDIS_PORT}:6379'
+    env_file:
+      - .env
+    volumes:
+      - ./docker-volumes/redis:/data/db
+    networks:
+      - watch-network
+
+networks:
+  watch-network:
+    driver: bridge
+
+volumes:
+  mongodb-data:
+  redis-data:
