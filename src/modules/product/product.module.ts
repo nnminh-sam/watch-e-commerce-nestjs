@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Product, ProductSchema } from '@root/models/product.model';
 import { BrandModule } from '@root/modules/brand/brand.module';
 import { CategoryModule } from '@root/modules/category/category.module';
+import { CloudinaryModule } from '@root/modules/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CategoryModule } from '@root/modules/category/category.module';
         schema: ProductSchema,
       },
     ]),
+    CloudinaryModule,
   ],
   controllers: [ProductController],
   providers: [ProductService],

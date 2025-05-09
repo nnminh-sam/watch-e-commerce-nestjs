@@ -18,6 +18,8 @@ export class RedisCartService implements OnModuleInit {
       host: this.environmentService.redisHost,
       port: this.environmentService.redisPort,
       db: this.environmentService.redisDbCart,
+      username: this.environmentService.redisUsername,
+      password: this.environmentService.redisPassword,
     });
   }
 

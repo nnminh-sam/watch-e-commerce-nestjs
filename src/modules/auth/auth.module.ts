@@ -8,6 +8,7 @@ import { UserModule } from '@root/modules/user/user.module';
 import { EnvironmentModule } from '@root/environment/environment.module';
 import { JwtManagerModule } from '@root/modules/jwt-manager/jwt-manager.module';
 import { LoggerModule } from '@root/modules/logger/logger.module';
+import { MailingModule } from '@root/modules/mailing/mailing.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { LoggerModule } from '@root/modules/logger/logger.module';
     UserModule,
     JwtManagerModule,
     LoggerModule,
+    MailingModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy],
