@@ -1,25 +1,15 @@
 import { plainToInstance } from 'class-transformer';
 import {
   IsBoolean,
-  IsEnum,
   IsNumber,
   IsOptional,
   IsString,
   validateSync,
 } from 'class-validator';
 
-enum Environment {
-  DEVELOPMENT = 'development',
-  PRODUCTION = 'production',
-  TEST = 'test',
-}
-
 class EnvironmentModel {
-  @IsEnum(Environment)
-  NODE_ENV: Environment = Environment.DEVELOPMENT;
-
   @IsNumber()
-  PORT: number = 3000;
+  PORT: number;
 
   @IsString()
   JWT_SECRET: string;
@@ -64,6 +54,12 @@ class EnvironmentModel {
   @IsNumber()
   REDIS_PORT: number;
 
+  @IsString()
+  REDIS_USERNAME: string;
+
+  @IsString()
+  REDIS_PASSWORD: string;
+
   @IsNumber()
   REDIS_DB_JWT_BLACKLIST: number;
 
@@ -72,10 +68,40 @@ class EnvironmentModel {
 
   @IsNumber()
   REDIS_DB_RPC: number;
+
+  @IsNumber()
+  REDOS_DB_UPLOAD_MQ: number;
+
+  @IsString()
+  CLOUDINARY_NAME: string;
+
+  @IsString()
+  CLOUDINARY_API_KEY: string;
+
+  @IsString()
+  CLOUDINARY_SECRET: string;
+
+  @IsString()
+  MAIL_HOST: string;
+
+  @IsNumber()
+  MAIL_PORT: number;
+
+  @IsNumber()
+  MAIL_SECURE: number;
+
+  @IsString()
+  MAIL_USER: string;
+
+  @IsString()
+  MAIL_PASSWORD: string;
+
+  @IsString()
+  MAIL_FROM: string;
 }
 
 export function validate(
-  config: Record<string, number | string | Environment>,
+  config: Record<string, number | string>,
 ): EnvironmentModel {
   const validatedVariables = plainToInstance(EnvironmentModel, config, {
     enableImplicitConversion: true,

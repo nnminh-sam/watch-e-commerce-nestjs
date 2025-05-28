@@ -4,7 +4,6 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
-  LoggerService,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -25,6 +24,9 @@ import { CartEvent } from '@root/models/enums/cart-events.enum';
 import { CreateDeliveryInformationDto } from '@root/modules/user/dto/create-delivery-information.dto';
 import { DeliveryInformation } from '@root/models/delivery-information.model';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { CloudinaryService } from '@root/modules/cloudinary/cloudinary.service';
+import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
+import { EventEnum } from '@root/modules/cloudinary/enums/event.enum';
 
 @Injectable()
 export class UserService {
@@ -33,6 +35,7 @@ export class UserService {
     private readonly userModel: Model<UserDocument>,
     private readonly eventEmitter: EventEmitter2,
     private readonly eventEmitterReadinessWatcher: EventEmitterReadinessWatcher,
+    private readonly cloudinaryService: CloudinaryService,
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: Logger,
   ) {}
@@ -270,6 +273,40 @@ export class UserService {
       await user.save();
     } catch (error: any) {
       throw new BadRequestException('Cannot add new delivery information');
+    }
+  }
+
+  async uploadAvatar(id: string, file: Express.Multer.File) {
+    await this.cloudinaryService.uploadFile(
+      file,
+      ResourceTypeEnum.USER_AVATAR,
+      id,
+    );
+
+    return 'User avatar uploaded';
+  }
+
+  @OnEvent(EventEnum.UPLOAD_AVATAR_COMPLETED)
+  private async persitUserAvatar(payload: any) {
+    const { resourceType, objectId, publicId, url } = payload;
+    if (resourceType !== ResourceTypeEnum.USER_AVATAR) {
+      return;
+    }
+
+    const user = await this.userModel.findOne({ _id: objectId });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    user.avatar = url;
+    try {
+      await user.save();
+    } catch (error: any) {
+      this.logger.fatal(error.message, UserService.name);
+      throw new InternalServerErrorException(
+        'Cannot update user avatar',
+        error.message,
+      );
     }
   }
 }

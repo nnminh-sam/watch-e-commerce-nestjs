@@ -1,7 +1,10 @@
+import { CloudinaryService } from '@root/modules/cloudinary/cloudinary.service';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { array } from 'joi';
 import { FindProductDto } from './dto/find-product.dto';
 import {
   BadRequestException,
+  Inject,
   Injectable,
   InternalServerErrorException,
   Logger,
@@ -20,16 +23,20 @@ import { Category } from '@root/models/category.model';
 import { SpecOptionDto } from '@root/modules/product/dto/spec-option.dto';
 import { PaginationResponseDto } from '@root/commons/dtos/pagination-response.dto';
 import { GenericApiResponseDto } from '@root/commons/dtos/generic-api-response.dto';
+import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
+import { OnEvent } from '@nestjs/event-emitter';
+import { EventEnum } from '@root/modules/cloudinary/enums/event.enum';
 
 @Injectable()
 export class ProductService {
-  private logger: Logger = new Logger(ProductService.name);
-
   constructor(
     @InjectModel(Product.name)
     private readonly productModel: Model<ProductDocument>,
     private readonly brandService: BrandService,
     private readonly categoryService: CategoryService,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: Logger,
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
 
   private getTextSearchFilter(name?: string) {
@@ -337,5 +344,43 @@ export class ProductService {
       throw new NotFoundException('Product not found');
     }
     return true;
+  }
+
+  @OnEvent(EventEnum.UPLOAD_PRODUCT_ASSET_COMPLETED)
+  private async persisAssets(payload: any) {
+    const { resourceType, objectId, publicId, url } = payload;
+    if (resourceType !== ResourceTypeEnum.PRODUCT_ASSET) {
+      return;
+    }
+
+    const product = await this.productModel.findOne({ _id: objectId });
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+
+    product.assets.push(url);
+    try {
+      await product.save();
+    } catch (error: any) {
+      this.logger.fatal(error.message, ProductService.name);
+      throw new InternalServerErrorException(
+        'Cannot update product assets',
+        error.message,
+      );
+    }
+  }
+
+  async updateAssets(id: string, images: Express.Multer.File[]) {
+    await Promise.all([
+      images.forEach((image: Express.Multer.File) => {
+        this.cloudinaryService.uploadFile(
+          image,
+          ResourceTypeEnum.PRODUCT_ASSET,
+          id,
+        );
+      }),
+    ]);
+
+    return { message: 'Product assets uploaded successfully' };
   }
 }

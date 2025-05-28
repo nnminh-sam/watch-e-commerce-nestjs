@@ -2,9 +2,11 @@ import {
   BadRequestException,
   Inject,
   Injectable,
+  InternalServerErrorException,
   Logger,
   NotFoundException,
 } from '@nestjs/common';
+import { OnEvent } from '@nestjs/event-emitter';
 import { InjectModel } from '@nestjs/mongoose';
 import { GenericApiResponseDto } from '@root/commons/dtos/generic-api-response.dto';
 import { PaginationResponseDto } from '@root/commons/dtos/pagination-response.dto';
@@ -12,6 +14,9 @@ import { Brand, BrandDocument } from '@root/models/brand.model';
 import { CreateBrandDto } from '@root/modules/brand/dto/create-brand.dto';
 import { FindBrandDto } from '@root/modules/brand/dto/find-brand.dto';
 import { UpdateBrandDto } from '@root/modules/brand/dto/update-brand.dto';
+import { CloudinaryService } from '@root/modules/cloudinary/cloudinary.service';
+import { EventEnum } from '@root/modules/cloudinary/enums/event.enum';
+import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
 import { generateSlug } from '@root/utils';
 import { Model } from 'mongoose';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
@@ -21,6 +26,7 @@ export class BrandService {
   constructor(
     @InjectModel(Brand.name)
     private readonly brandModel: Model<BrandDocument>,
+    private readonly cloudinaryService: CloudinaryService,
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: Logger,
   ) {}
@@ -110,6 +116,40 @@ export class BrandService {
       this.logger.error(error.message);
       throw new BadRequestException('Cannot update brand');
     }
+  }
+
+  @OnEvent(EventEnum.UPLOAD_BRAND_ASSET_COMPLETED)
+  private async presistAsset(payload: any) {
+    const { resourceType, objectId, publicId, url } = payload;
+    if (resourceType !== ResourceTypeEnum.BRAND_ASSET) {
+      return;
+    }
+
+    const brand = await this.brandModel.findOne({ _id: objectId });
+    if (!brand) {
+      throw new NotFoundException('Brand not found');
+    }
+
+    brand.assets = url;
+    try {
+      await brand.save();
+    } catch (error: any) {
+      this.logger.fatal(error.message, BrandService.name);
+      throw new InternalServerErrorException(
+        'Cannot update brand asset',
+        error.message,
+      );
+    }
+  }
+
+  async updateAsset(id: string, image: Express.Multer.File) {
+    await this.cloudinaryService.uploadFile(
+      image,
+      ResourceTypeEnum.BRAND_ASSET,
+      id,
+    );
+
+    return { message: 'Brand asset uploaded successfully' };
   }
 
   async delete(id: string): Promise<string> {

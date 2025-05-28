@@ -7,8 +7,10 @@ import {
   Param,
   Query,
   UseGuards,
+  UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { SuccessApiResponse } from '@root/commons/decorators/success-response.decorator';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -20,11 +22,14 @@ import { Role } from '@root/models/enums/role.enum';
 import { FindProductDto } from '@root/modules/product/dto/find-product.dto';
 import { Product } from '@root/models/product.model';
 import { ClientErrorApiResponse } from '@root/commons/decorators/client-error-api-response.decorator';
-import { IsMongoId } from 'class-validator';
 import { MongoIdValidationPipe } from '@root/commons/pipes/mongo-id-validation.pipe';
 import { ProtectedApi } from '@root/commons/decorators/protected-api.decorator';
-import { Spec } from '@root/models/spec.model';
 import { SpecOptionDto } from '@root/modules/product/dto/spec-option.dto';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { v4 as uuid } from 'uuid';
+import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
 
 @ApiTags('Products')
 @Controller('products')
@@ -121,5 +126,63 @@ export class ProductController {
     @Body() updateProductDto: UpdateProductDto,
   ) {
     return await this.productService.update(id, updateProductDto);
+  }
+
+  @Patch('/assets/:id')
+  @ProtectedApi({
+    summary: 'Update product assets',
+    roles: [Role.ADMIN, Role.EMPLOYEE],
+  })
+  @SuccessApiResponse({
+    description: 'Product assets successfully updated',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Multiple image files (maximum 3 files allowed)',
+    schema: {
+      type: 'object',
+      properties: {
+        images: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'binary',
+          },
+          maxItems: 3,
+        },
+      },
+    },
+  })
+  @UseGuards(RoleGuard)
+  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  @UseGuards(JwtGuard)
+  @UseInterceptors(
+    FilesInterceptor('images', 3, {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (_, file, cb) => {
+          const uniqueSuffix = `${uuid()}${extname(file.originalname)}`;
+          cb(null, uniqueSuffix);
+        },
+      }),
+      limits: {
+        files: 3,
+      },
+      fileFilter: (req, _, callback) => {
+        const fileCount = req.files
+          ? (req.files as Express.Multer.File[]).length
+          : 0;
+        if (fileCount > 3) {
+          return callback(new Error('Maximum of 3 files are allowed'), false);
+        }
+        callback(null, true);
+      },
+    }),
+  )
+  async uploadFile(
+    @Param('id') id: string,
+    @UploadedFiles() images: Express.Multer.File[],
+  ) {
+    return await this.productService.updateAssets(id, images);
   }
 }

@@ -9,20 +9,20 @@ services:
   #   volumes:
   #     - ./docker-volumes/mongodb:/data/db
 
-  app:
-    container_name: watch-e-commerce-app
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: production
-    ports:
-      - '${PORT}:3000'
-    env_file:
-      - .env
-    depends_on:
-      - redis
-    networks:
-      - watch-network
+  # app:
+  #   container_name: watch-e-commerce-app
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     target: production
+  #   ports:
+  #     - '${PORT}:3000'
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - redis
+  #   networks:
+  #     - watch-network
 
   redis:
     container_name: watch-e-commerce-redis
