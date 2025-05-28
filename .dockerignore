@@ -1,1 +1,4 @@
 node_modules/
+docker-volumes/
+uploads/
+logs/
