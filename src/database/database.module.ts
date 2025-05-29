@@ -22,14 +22,9 @@ import mongoose from 'mongoose';
 
         if (environmentService?.databaseUrl) {
           logger.log('Connected to database using provided URL');
-          logger.log(`Database name: ${environmentService.databaseName}`);
-
           return {
             uri: environmentService.databaseUrl,
-            dbName: environmentService.databaseName,
             authSource: 'admin',
-            user: environmentService.databaseUsername,
-            pass: environmentService.databasePassword,
           };
         }
 
