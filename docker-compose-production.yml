@@ -10,6 +10,8 @@ services:
       - MONGO_INITDB_DATABASE=${DATABASE_NAME}
     volumes:
       - ./docker-volumes/mongodb:/data/db
+    networks:
+      - watch-network
 
   redis:
     container_name: watch-e-commerce-redis
