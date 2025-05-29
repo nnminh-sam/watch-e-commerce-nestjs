@@ -28,6 +28,8 @@ import mongoose from 'mongoose';
             uri: environmentService.databaseUrl,
             dbName: environmentService.databaseName,
             authSource: 'admin',
+            user: environmentService.databaseUsername,
+            pass: environmentService.databasePassword,
           };
         }
 
