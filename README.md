@@ -2,14 +2,66 @@
 
 ---
 
-## Database
+## Backend System Architecture
 
-### Mongo replica set
+```mermaid
+graph LR
+    subgraph Frontend
+        Client[Client Applications]
+    end
 
-- A Three nodes of MongoDB connected for data deplication.
-- Usage: `docker-compose.yml` file.
+    subgraph Backend
+        API[API Gateway]
+        
+        subgraph Core_Modules
+            Auth[Auth Module]
+            User[User Module]
+            Product[Product Module]
+            Category[Category Module]
+            Brand[Brand Module]
+            Cart[Cart Module]
+            Order[Order Module]
+            Transaction[Transaction Module]
+        end
 
-### Single MongoDB database
+        subgraph Infrastructure
+            DB[(Database)]
+            Redis[(Redis)]
+            Cloudinary[Cloudinary Service]
+            Queue[Queue Service]
+            Mail[Mailing Service]
+            Logger[Logger Service]
+            JWT[JWT Manager]
+        end
 
-- Traditional single instance of MongoDB database.
-- Usage: `docker-compose-single-mongo.yml` file.
+        subgraph External_Services
+            Payment[Payment Gateway]
+            Email[Email Service]
+            Storage[Cloud Storage]
+        end
+    end
+
+    Client --> API
+    API --> Core_Modules
+    
+    Auth --> JWT
+    Auth --> User
+    
+    Product --> Category
+    Product --> Brand
+    Product --> Cloudinary
+    
+    Cart --> Product
+    Cart --> User
+    
+    Order --> Cart
+    Order --> Transaction
+    Order --> Queue
+    Order --> Mail
+    
+    Queue --> Redis
+    Mail --> Email
+    
+    Core_Modules --> DB
+    Core_Modules --> Logger
+```
