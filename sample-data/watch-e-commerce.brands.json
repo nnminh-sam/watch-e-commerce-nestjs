@@ -1,482 +1,126 @@
-[
-  {
-    "_id": {
-      "$oid": "67e9609ff1ffee2557b95d05"
-    },
-    "name": "Rolex",
-    "slug": "rolex",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:17:51.735Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:17:51.735Z"
-    },
-    "__v": 0
+[{
+  "_id": {
+    "$oid": "6839b18b46d6bd9f4bd374a0"
   },
-  {
-    "_id": {
-      "$oid": "67e9618ef1ffee2557b95d07"
-    },
-    "name": "Patek Philippe",
-    "slug": "patek-philippe",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:21:50.493Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:21:50.493Z"
-    },
-    "__v": 0
+  "name": "Casio",
+  "slug": "casio",
+  "assets": [
+    "https://res.cloudinary.com/doxznambg/image/upload/v1748611685/t6v7hmtypoeq64eoby42.png"
+  ],
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-30T13:24:27.537Z"
   },
-  {
-    "_id": {
-      "$oid": "67e96198f1ffee2557b95d09"
-    },
-    "name": "Audemars Piguet",
-    "slug": "audemars-piguet",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:22:00.683Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:22:00.683Z"
-    },
-    "__v": 0
+  "updatedAt": {
+    "$date": "2025-05-30T13:28:05.493Z"
   },
-  {
-    "_id": {
-      "$oid": "67e961a1f1ffee2557b95d0b"
-    },
-    "name": "Vacheron Constantin",
-    "slug": "vacheron-constantin",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:22:09.580Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:22:09.580Z"
-    },
-    "__v": 0
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6839b19146d6bd9f4bd374a2"
   },
-  {
-    "_id": {
-      "$oid": "67e961a9f1ffee2557b95d0d"
-    },
-    "name": "Richard Mille",
-    "slug": "richard-mille",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:22:17.363Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:22:17.363Z"
-    },
-    "__v": 0
+  "name": "Citizen",
+  "slug": "citizen",
+  "assets": [
+    "https://res.cloudinary.com/doxznambg/image/upload/v1748611705/o3mrqjaq8czbjhuxcbkj.png"
+  ],
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-30T13:24:33.253Z"
   },
-  {
-    "_id": {
-      "$oid": "67e961c7f1ffee2557b95d0f"
-    },
-    "name": "Omega",
-    "slug": "omega",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:22:47.332Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:22:47.332Z"
-    },
-    "__v": 0
+  "updatedAt": {
+    "$date": "2025-05-30T13:28:26.224Z"
   },
-  {
-    "_id": {
-      "$oid": "67e961d1f1ffee2557b95d11"
-    },
-    "name": "Jaeger-LeCoultre",
-    "slug": "jaeger-lecoultre",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:22:57.233Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:22:57.233Z"
-    },
-    "__v": 0
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6839b19646d6bd9f4bd374a4"
   },
-  {
-    "_id": {
-      "$oid": "67e961d8f1ffee2557b95d13"
-    },
-    "name": "Cartier",
-    "slug": "cartier",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:23:04.759Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:23:04.759Z"
-    },
-    "__v": 0
+  "name": "G-Shock",
+  "slug": "g-shock",
+  "assets": [
+    "https://res.cloudinary.com/doxznambg/image/upload/v1748611645/ufmbc1khogidodtvp0jv.png"
+  ],
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-30T13:24:38.863Z"
   },
-  {
-    "_id": {
-      "$oid": "67e961def1ffee2557b95d15"
-    },
-    "name": "IWC Schaffhausen",
-    "slug": "iwc-schaffhausen",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:23:10.820Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:23:10.820Z"
-    },
-    "__v": 0
+  "updatedAt": {
+    "$date": "2025-05-30T13:27:26.433Z"
   },
-  {
-    "_id": {
-      "$oid": "67e961e5f1ffee2557b95d17"
-    },
-    "name": "Blancpain",
-    "slug": "blancpain",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:23:17.489Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:23:17.489Z"
-    },
-    "__v": 0
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6839b19c46d6bd9f4bd374a6"
   },
-  {
-    "_id": {
-      "$oid": "67e96215f1ffee2557b95d19"
-    },
-    "name": "TAG Heuer",
-    "slug": "tag-heuer",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:24:05.992Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:24:05.992Z"
-    },
-    "__v": 0
+  "name": "Hublot",
+  "slug": "hublot",
+  "assets": [
+    "https://res.cloudinary.com/doxznambg/image/upload/v1748611735/wj3yjgtl49cvxum7zd81.png"
+  ],
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-30T13:24:44.308Z"
   },
-  {
-    "_id": {
-      "$oid": "67e9621cf1ffee2557b95d1b"
-    },
-    "name": "Breitling",
-    "slug": "breitling",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:24:12.417Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:24:12.417Z"
-    },
-    "__v": 0
+  "updatedAt": {
+    "$date": "2025-05-30T13:28:56.076Z"
   },
-  {
-    "_id": {
-      "$oid": "67e96220f1ffee2557b95d1d"
-    },
-    "name": "Panerai",
-    "slug": "panerai",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:24:16.896Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:24:16.896Z"
-    },
-    "__v": 0
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6839b1a246d6bd9f4bd374a8"
   },
-  {
-    "_id": {
-      "$oid": "67e96226f1ffee2557b95d1f"
-    },
-    "name": "Hublot",
-    "slug": "hublot",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:24:22.032Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:24:22.032Z"
-    },
-    "__v": 0
+  "name": "Omega",
+  "slug": "omega",
+  "assets": [
+    "https://res.cloudinary.com/doxznambg/image/upload/v1748611763/stfq68ns9som0lcxkttl.png"
+  ],
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-30T13:24:50.954Z"
   },
-  {
-    "_id": {
-      "$oid": "67e9622af1ffee2557b95d21"
-    },
-    "name": "Tudor",
-    "slug": "tudor",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:24:26.520Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:24:26.520Z"
-    },
-    "__v": 0
+  "updatedAt": {
+    "$date": "2025-05-30T13:29:24.126Z"
   },
-  {
-    "_id": {
-      "$oid": "67e96230f1ffee2557b95d23"
-    },
-    "name": "Longines",
-    "slug": "longines",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:24:32.156Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:24:32.156Z"
-    },
-    "__v": 0
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6839b1a746d6bd9f4bd374aa"
   },
-  {
-    "_id": {
-      "$oid": "67e96238f1ffee2557b95d25"
-    },
-    "name": "Grand Seiko",
-    "slug": "grand-seiko",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:24:40.050Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:24:40.050Z"
-    },
-    "__v": 0
+  "name": "Orient",
+  "slug": "orient",
+  "assets": [
+    "https://res.cloudinary.com/doxznambg/image/upload/v1748611788/ekrqqgh3pjpdtr6zrbkk.png"
+  ],
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-30T13:24:55.923Z"
   },
-  {
-    "_id": {
-      "$oid": "67e9623ff1ffee2557b95d27"
-    },
-    "name": "Zenith",
-    "slug": "zenith",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:24:47.007Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:24:47.007Z"
-    },
-    "__v": 0
+  "updatedAt": {
+    "$date": "2025-05-30T13:29:48.668Z"
   },
-  {
-    "_id": {
-      "$oid": "67e96243f1ffee2557b95d29"
-    },
-    "name": "Oris",
-    "slug": "oris",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:24:51.902Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:24:51.902Z"
-    },
-    "__v": 0
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6839b1ad46d6bd9f4bd374ac"
   },
-  {
-    "_id": {
-      "$oid": "67e96248f1ffee2557b95d2b"
-    },
-    "name": "Montblanc",
-    "slug": "montblanc",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:24:56.116Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:24:56.116Z"
-    },
-    "__v": 0
+  "name": "Seiko",
+  "slug": "seiko",
+  "assets": [
+    "https://res.cloudinary.com/doxznambg/image/upload/v1748611814/eosirwykt7rba2bx9fwo.png"
+  ],
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-05-30T13:25:01.625Z"
   },
-  {
-    "_id": {
-      "$oid": "67e9624df1ffee2557b95d2d"
-    },
-    "name": "Seiko",
-    "slug": "seiko",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:25:01.061Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:25:01.061Z"
-    },
-    "__v": 0
+  "updatedAt": {
+    "$date": "2025-05-30T13:30:14.621Z"
   },
-  {
-    "_id": {
-      "$oid": "67e96251f1ffee2557b95d2f"
-    },
-    "name": "Citizen",
-    "slug": "citizen",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:25:05.659Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:25:05.659Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96256f1ffee2557b95d31"
-    },
-    "name": "Casio",
-    "slug": "casio",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:25:10.408Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:25:10.408Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e9625bf1ffee2557b95d33"
-    },
-    "name": "Tissot",
-    "slug": "tissot",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:25:15.152Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:25:15.152Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e9625ff1ffee2557b95d35"
-    },
-    "name": "Hamilton",
-    "slug": "hamilton",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:25:19.576Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:25:19.576Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96264f1ffee2557b95d37"
-    },
-    "name": "Bulova",
-    "slug": "bulova",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:25:24.392Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:25:24.392Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96269f1ffee2557b95d39"
-    },
-    "name": "Fossil",
-    "slug": "fossil",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:25:29.375Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:25:29.375Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e9626ef1ffee2557b95d3b"
-    },
-    "name": "Swatch",
-    "slug": "swatch",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:25:34.259Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:25:34.259Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96272f1ffee2557b95d3d"
-    },
-    "name": "Timex",
-    "slug": "timex",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:25:38.550Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:25:38.550Z"
-    },
-    "__v": 0
-  },
-  {
-    "_id": {
-      "$oid": "67e96278f1ffee2557b95d3f"
-    },
-    "name": "Orient",
-    "slug": "orient",
-    "assets": [],
-    "deletedAt": null,
-    "createdAt": {
-      "$date": "2025-03-30T15:25:44.440Z"
-    },
-    "updatedAt": {
-      "$date": "2025-03-30T15:25:44.440Z"
-    },
-    "__v": 0
-  }
-]
+  "__v": 1
+}]

@@ -70,9 +70,9 @@ export class ProductService {
   private getCategoryFilter(category?: string, categoryId?: string) {
     const categoryFilters: any[] = [
       ...(category
-        ? [{ 'category.name': { $regex: category, $options: 'i' } }]
+        ? [{ 'categories.name': { $regex: category, $options: 'i' } }]
         : []),
-      ...(categoryId ? [{ 'category._id': categoryId }] : []),
+      ...(categoryId ? [{ 'categories._id': categoryId }] : []),
     ];
     return categoryFilters.length > 0 ? { $or: categoryFilters } : {};
   }
@@ -225,9 +225,10 @@ export class ProductService {
       'id',
       createProductDto.brandId,
     );
-    const category = await this.categoryService.findOneBy(
-      'id',
-      createProductDto.categoryId,
+    const categories = await Promise.all(
+      createProductDto.categoryIds.map((categoryId) =>
+        this.categoryService.findOneBy('id', categoryId),
+      ),
     );
 
     const specs: Spec[] = createProductDto?.specs
@@ -248,7 +249,7 @@ export class ProductService {
         ...createProductDto,
         specs,
         brand,
-        category,
+        categories,
         customerVisible: true,
       });
       const savedProductDocument = await productModel.save();
@@ -305,14 +306,13 @@ export class ProductService {
         product.brand = brand;
       }
     }
-    if (updateProductDto.categoryId) {
-      const category: Category = await this.categoryService.findOneBy(
-        'id',
-        updateProductDto.categoryId,
+    if (updateProductDto.categoryIds) {
+      const categories: Category[] = await Promise.all(
+        updateProductDto.categoryIds.map((categoryId) =>
+          this.categoryService.findOneBy('id', categoryId),
+        ),
       );
-      if (category.id !== product.category.id) {
-        product.category = category;
-      }
+      product.categories = categories;
     }
 
     try {

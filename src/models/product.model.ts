@@ -4,7 +4,6 @@ import { Category } from '@root/models/category.model';
 import { CommentSchema } from '@root/models/comment.model';
 import { ProductStatus } from '@root/models/enums/product-status.enum';
 import { Spec, SpecSchema } from '@root/models/spec.model';
-import { Schema as MongooseSchema } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Comment } from '@root/models/comment.model';
 import { BaseModel } from '@root/models';
@@ -56,9 +55,9 @@ export class Product extends BaseModel {
   @Prop({ type: Brand, required: true })
   brand: Brand;
 
-  @ApiProperty({ description: 'Category', type: Category })
-  @Prop({ type: Category, required: true })
-  category: Category;
+  @ApiProperty({ description: 'Categories', type: [Category] })
+  @Prop({ type: [Category], required: true })
+  categories: Category[];
 
   @ApiProperty({ example: 100, description: 'Available stock quantity' })
   @Prop({ default: 0 })
@@ -123,8 +122,10 @@ export class Product extends BaseModel {
       doc.brand = Brand.transform(doc.brand);
     }
 
-    if (doc.category) {
-      doc.category = Category.transform(doc.category);
+    if (doc.categories) {
+      doc.categories = doc.categories.map((category: any) =>
+        Category.transform(category),
+      );
     }
 
     if (doc.comments) {
@@ -143,7 +144,7 @@ export class Product extends BaseModel {
 const ProductSchema = SchemaFactory.createForClass(Product);
 
 // TODO: [Low] Test performance with and without specs compound index
-ProductSchema.index({ 'specs.key': 1, 'specs.value': 1 }, { unique: true  });
+ProductSchema.index({ 'specs.key': 1, 'specs.value': 1 }, { unique: true });
 ProductSchema.index({ name: 'text' }, { unique: true });
 ProductSchema.set('toJSON', {
   virtuals: true,

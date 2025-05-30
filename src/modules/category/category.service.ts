@@ -139,7 +139,7 @@ export class CategoryService {
       throw new NotFoundException('Category not found');
     }
 
-    category.assets = url;
+    category.assets.push(url);
     try {
       await category.save();
     } catch (error: any) {

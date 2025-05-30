@@ -1,57 +1,233 @@
 [{
   "_id": {
-    "$oid": "67e96c5cf1ffee2557b95d60"
+    "$oid": "6839cf482863f9173ffed956"
   },
-  "name": "Rolex Submariner Date",
-  "spu": "SUB-001",
-  "sku": "SUB-001-BLK",
-  "description": "Iconic diving watch with date function, water resistant to 300 meters",
-  "price": 14999.99,
+  "name": "Đồng hồ Casio MTP-1374L-1AVDF 6 Kim",
+  "spu": "Casio MTP",
+  "sku": "casio-mtp-1374l-1avdf-p806",
+  "description": "Sở hữu bộ khung được chế tác từ thép không rỉ 316L cùng bộ máy quartz Nhật Bản chất lượng chỉ sai số ±20 giây/tháng, Casio MTP-1374L-1AVDF ắt hẳn là item tuyệt vời dành cho những anh em đang muốn tìm kiếm 1 chiếc đồng hồ vừa bền vừa chất lượng. Chưa kể, đồng hồ còn được trang bị SR927SW với tuổi đời lên tới 3 năm.",
+  "price": 1702000,
   "brand": {
+    "name": "Casio",
+    "slug": "casio",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611685/t6v7hmtypoeq64eoby42.png"
+    ],
+    "deletedAt": null,
     "_id": {
-      "$oid": "67e9609ff1ffee2557b95d05"
+      "$oid": "6839cf482863f9173ffed957"
     },
-    "name": "Rolex",
-    "slug": "rolex",
-    "assets": []
-  },
-  "category": {
-    "_id": {
-      "$oid": "67e9673b5dc8286dcc52d626"
+    "createdAt": {
+      "$date": "2025-05-30T13:24:27.537Z"
     },
-    "name": "Diving Watches",
-    "slug": "diving-watches"
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:27.537Z"
+    }
   },
-  "stock": 50,
-  "sold": 40,
-  "assets": [
-    "submariner-1.jpg",
-    "submariner-2.jpg",
-    "submariner-3.jpg"
+  "categories": [
+    {
+      "name": "Classic",
+      "slug": "classic",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839cf482863f9173ffed958"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839cf482863f9173ffed959"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
   ],
+  "stock": 10000,
+  "sold": 0,
+  "assets": [],
   "specs": [
     {
-      "key": "Case Material",
-      "value": "904L Stainless Steel",
+      "key": "Kháng nước",
+      "value": "5 atm",
       "type": "NORMAL",
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d61"
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
       }
     },
     {
-      "key": "Movement",
-      "value": "Automatic",
+      "key": "Thương hiệu",
+      "value": "Casio",
       "type": "NORMAL",
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d62"
+        "$oid": "6839cf482863f9173ffed95b"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
       }
     },
     {
-      "key": "Water Resistance",
-      "value": "300m",
+      "key": "Đối tượng",
+      "value": "Nam",
       "type": "NORMAL",
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d63"
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "43.5mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95d"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      }
+    },
+    {
+      "key": "Series",
+      "value": "Casio MTP 1374",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95e"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Casio MTP",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed960"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Pin/Quartz",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed961"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Da",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed962"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "10.4mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed963"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Dạ quang, Lịch thứ, Lịch ngày, Giờ, phút, giây, Lịch 24 giờ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed964"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính khoáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed965"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
       }
     }
   ],
@@ -60,58 +236,257 @@
   "totalComments": 0,
   "comments": [],
   "createdAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T15:31:20.180Z"
   },
   "updatedAt": {
-    "$date": "2025-04-12T04:31:13.102Z"
+    "$date": "2025-05-30T15:31:20.180Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "67e96c5cf1ffee2557b95d64"
+    "$oid": "6839d3f52863f9173ffed981"
   },
-  "name": "Patek Philippe Nautilus",
-  "spu": "NAU-001",
-  "sku": "NAU-001-BLUE",
-  "description": "Luxury sports watch with iconic porthole design",
-  "price": 34995,
+  "name": "Đồng Hồ Casio Mtp Nam MTP-V005D-2B5UDF",
+  "spu": "Casio MTP",
+  "sku": "Casio Mtp Nam MTP-V005D-2B5UDF",
+  "description": "Đồng hồ Casio MTP Nam MTP-V005D-2B5UDF là mẫu đồng hồ được thiết kế thanh lịch với mặt đồng hồ phủ một lớp dạ quang tỉ mỉ kết hợp với dây thép không gỉ, mức độ kháng nước lên đến 3ATM giúp an tâm rửa tay, đi mưa nhẹ nhàng - đồng hành cùng bạn trong mọi hoạt động.",
+  "price": 666000,
   "brand": {
+    "name": "Casio",
+    "slug": "casio",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611685/t6v7hmtypoeq64eoby42.png"
+    ],
+    "deletedAt": null,
     "_id": {
-      "$oid": "67e9618ef1ffee2557b95d07"
+      "$oid": "6839d3f52863f9173ffed982"
     },
-    "name": "Patek Philippe",
-    "slug": "patek-philippe",
-    "assets": []
-  },
-  "category": {
-    "_id": {
-      "$oid": "67e9673b5dc8286dcc52d624"
+    "createdAt": {
+      "$date": "2025-05-30T13:24:27.537Z"
     },
-    "name": "Luxury Watches",
-    "slug": "luxury-watches"
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:27.537Z"
+    }
   },
-  "stock": 15,
-  "sold": 0,
-  "assets": [
-    "nautilus-1.jpg",
-    "nautilus-2.jpg"
-  ],
-  "specs": [
+  "categories": [
     {
-      "key": "Case Material",
-      "value": "Stainless Steel",
-      "type": "NORMAL",
+      "name": "Classic",
+      "slug": "classic",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d65"
+        "$oid": "6839d3f52863f9173ffed983"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
       }
     },
     {
-      "key": "Dial",
-      "value": "Blue",
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed984"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 10000,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "3 atm",
       "type": "NORMAL",
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d66"
+        "$oid": "6839d3f52863f9173ffed985"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.193Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.193Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Casio",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95b"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.193Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.193Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "40mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed988"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      }
+    },
+    {
+      "key": "Series",
+      "value": "MTP V005",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed989"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Casio MTP",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed960"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Pin/Quartz",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed961"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Thép không gỉ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed98d"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "8.1mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed98e"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Dạ quang, Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed98f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      }
+    },
+    {
+      "key": "Kiểu mặt",
+      "value": "Guilloche",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed990"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính khoáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed965"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
       }
     }
   ],
@@ -120,58 +495,2301 @@
   "totalComments": 0,
   "comments": [],
   "createdAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T15:51:17.194Z"
   },
   "updatedAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T15:51:17.194Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "67e96c5cf1ffee2557b95d67"
+    "$oid": "6839d55c2863f9173ffed9a7"
   },
-  "name": "Apple Watch Series 9",
-  "spu": "AWS9",
-  "sku": "AWS9-45MM",
-  "description": "Latest smartwatch with health monitoring and fitness tracking",
-  "price": 499.99,
+  "name": "Đồng Hồ Casio Baby-G Nữ BGA-250-7A2DR",
+  "spu": "Casio Baby-G",
+  "sku": "Casio Baby-G Nữ BGA-250-7A2DR",
+  "description": "Đồng hồ Casio MTP Nam MTP-V005D-2B5UDF là mẫu đồng hồ được thiết kế thanh lịch với mặt đồng hồ phủ một lớp dạ quang tỉ mỉ kết hợp với dây thép không gỉ, mức độ kháng nước lên đến 3ATM giúp an tâm rửa tay, đi mưa nhẹ nhàng - đồng hành cùng bạn trong mọi hoạt động.",
+  "price": 2343000,
   "brand": {
+    "name": "Casio",
+    "slug": "casio",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611685/t6v7hmtypoeq64eoby42.png"
+    ],
+    "deletedAt": null,
     "_id": {
-      "$oid": "67e96269f1ffee2557b95d39"
+      "$oid": "6839d55c2863f9173ffed9a8"
     },
-    "name": "Apple",
-    "slug": "apple",
-    "assets": []
-  },
-  "category": {
-    "_id": {
-      "$oid": "67e9673b5dc8286dcc52d625"
+    "createdAt": {
+      "$date": "2025-05-30T13:24:27.537Z"
     },
-    "name": "Smart Watches",
-    "slug": "smart-watches"
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:27.537Z"
+    }
   },
-  "stock": 200,
-  "sold": 0,
-  "assets": [
-    "apple-watch-1.jpg",
-    "apple-watch-2.jpg"
-  ],
-  "specs": [
+  "categories": [
     {
-      "key": "Display",
-      "value": "Retina LTPO OLED",
-      "type": "NORMAL",
+      "name": "Classic",
+      "slug": "classic",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d68"
+        "$oid": "6839d55c2863f9173ffed9a9"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
       }
     },
     {
-      "key": "Size",
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9aa"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    }
+  ],
+  "stock": 10000,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "10 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ab"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Casio",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95b"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nữ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ad"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "41mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ae"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Casio Baby-G",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9b0"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Pin/Quartz",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed961"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Nhựa",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9b2"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "13.2mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9b3"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "World Time, Báo thức, Đồng hồ bấm giờ, Dạ quang, Lịch thứ, Lịch ngày, Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9b4"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính khoáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed965"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T15:57:16.142Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T15:57:16.142Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839d7312863f9173ffed9cd"
+  },
+  "name": "Đồng Hồ Casio Nữ LQ-139L-4B2DF",
+  "spu": "Casio Nữ",
+  "sku": "Casio Nữ LQ-139L-4B2DF",
+  "description": "This is auto generated description",
+  "price": 564000,
+  "brand": {
+    "name": "Casio",
+    "slug": "casio",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611685/t6v7hmtypoeq64eoby42.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839d7312863f9173ffed9ce"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:27.537Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:27.537Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Classic",
+      "slug": "classic",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9cf"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      }
+    },
+    {
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9d0"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    }
+  ],
+  "stock": 10000,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "3 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed985"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.193Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Casio",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95b"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nữ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ad"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "25.2mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9d4"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Casio Nữ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9d6"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Pin/Quartz",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed961"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Da",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed962"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "7.5mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9d9"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9da"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính nhựa",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9db"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T16:05:05.445Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T16:05:05.445Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839d8a32863f9173ffed9f3"
+  },
+  "name": "Đồng Hồ Casio Edifice Nam EFR-S108D-1AVUDF",
+  "spu": "Casio Edifice",
+  "sku": "Casio Edifice Nam EFR-S108D-1AVUDF",
+  "description": "Chiếc đồng hồ EFR-S108D-1AVUDF được sản xuất bởi Casio - Nhật Bản nổi tiếng về độ bền và rẻ và thuộc hãng Casio Edifice đặc trưng đồng hồ thể thao đua xe tân tiến. EFR-S108D-1AVUDF ra đời với mục tiêu đem đến đồng hồ hiện đại, không rườm rà, giá rẻ, sang trọng và trẻ trung, tiên tiến. Chức năng của mẫu đồng hồ này tập trung chính vào xem giờ (qua 3 kim giờ phút giây) và xem ngày, không có chức năng phức tạp khác.",
+  "price": 3442000,
+  "brand": {
+    "name": "Casio",
+    "slug": "casio",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611685/t6v7hmtypoeq64eoby42.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839d8a32863f9173ffed9f4"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:27.537Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:27.537Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839d8a32863f9173ffed9f5"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839d8a32863f9173ffed9f6"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 10000,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "10 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ab"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Casio",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95b"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "40mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed988"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Casio Edifice",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffed9fc"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Pin/Quartz",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed961"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Kim loại",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffed9fe"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "7.8mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffed9ff"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Dạ quang, Lịch ngày, Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda00"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T16:11:15.387Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T16:11:15.387Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839dbc22863f9173ffeda1b"
+  },
+  "name": "Đồng Hồ Citizen Nam NJ0151-53W",
+  "spu": "Citizen Nam",
+  "sku": "Citizen Nam NJ0151-53W",
+  "description": "This is auto generated",
+  "price": 8008000,
+  "brand": {
+    "name": "Tissot",
+    "slug": "tissot",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611839/hzudbitbsag05zsehloe.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839dbc22863f9173ffeda1c"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:25:05.990Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:25:05.990Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda1d"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda1e"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 10000,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.978Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Citizen",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda20"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "40mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed988"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Kim loại",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffed9fe"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "11.7mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda26"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Dạ quang, Lịch ngày, Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda00"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "40 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda28"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T16:24:34.980Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T16:24:34.980Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839dc2b2863f9173ffeda46"
+  },
+  "name": "Đồng Hồ Citizen Nam NJ0151-53E",
+  "spu": "Citizen Nam",
+  "sku": "Citizen Nam NJ0151-53E",
+  "description": "This is auto generated",
+  "price": 6800000,
+  "brand": {
+    "name": "Tissot",
+    "slug": "tissot",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611839/hzudbitbsag05zsehloe.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839dc2b2863f9173ffeda47"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:25:05.990Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:25:05.990Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839dc2b2863f9173ffeda48"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839dc2b2863f9173ffeda49"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 10000,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Citizen",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda20"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "40mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed988"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Kim loại",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffed9fe"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "11.7mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda26"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Dạ quang, Lịch ngày, Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda00"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "40 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda28"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:26:19.671Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T16:26:19.671Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T16:26:19.671Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839dd822863f9173ffeda6c"
+  },
+  "name": "Đồng Hồ Citizen Nam AR5014-04E",
+  "spu": "Citizen Nam",
+  "sku": "Citizen Nam AR5014-04E",
+  "description": "This is auto generated",
+  "price": 119504000,
+  "brand": {
+    "name": "Tissot",
+    "slug": "tissot",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611839/hzudbitbsag05zsehloe.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839dd822863f9173ffeda6d"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:25:05.990Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:25:05.990Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda6e"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda6f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 10000,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "3 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed985"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.193Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Citizen",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda20"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "39.8mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda73"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Năng lượng ánh sáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda75"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Da",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed962"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "3mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda77"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Giờ, phút",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda78"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    },
+    {
+      "key": "Bộ máy",
+      "value": "Eco Drive",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda79"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T16:32:02.402Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T16:32:02.402Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839de992863f9173ffeda95"
+  },
+  "name": "Đồng Hồ Citizen Nữ EG7000-01A",
+  "spu": "Citizen Nữ",
+  "sku": "Citizen Nữ EG7000-01A",
+  "description": "This is auto generated",
+  "price": 42064000,
+  "brand": {
+    "name": "Tissot",
+    "slug": "tissot",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611839/hzudbitbsag05zsehloe.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839de992863f9173ffeda96"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:25:05.990Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:25:05.990Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839de992863f9173ffeda97"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839de992863f9173ffeda98"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    }
+  ],
+  "stock": 10000,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Citizen",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda20"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nữ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ad"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "38mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839de992863f9173ffeda9c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Năng lượng ánh sáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda75"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Da",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed962"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "7mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839de992863f9173ffedaa0"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Giờ, phút",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda78"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    },
+    {
+      "key": "Bộ máy",
+      "value": "Eco Drive",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda79"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:36:41.079Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T16:36:41.079Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T16:36:41.079Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839df3e2863f9173ffedabd"
+  },
+  "name": "Đồng Hồ Citizen Nữ EM1092-64D",
+  "spu": "Citizen Nữ",
+  "sku": "Citizen Nữ EM1092-64D",
+  "description": "This is auto generated",
+  "price": 15488000,
+  "brand": {
+    "name": "Tissot",
+    "slug": "tissot",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611839/hzudbitbsag05zsehloe.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839df3e2863f9173ffedabe"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:25:05.990Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:25:05.990Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Classic",
+      "slug": "classic",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839df3e2863f9173ffedabf"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      }
+    },
+    {
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839df3e2863f9173ffedac0"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    }
+  ],
+  "stock": 10000,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Citizen",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda20"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nữ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ad"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "31.2mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839df3e2863f9173ffedac4"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Năng lượng ánh sáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda75"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây Thép Không Gỉ Mạ Vàng PVD",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839df3e2863f9173ffedac7"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "7.8mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffed9ff"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.385Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9da"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      }
+    },
+    {
+      "key": "Kiểu mặt",
+      "value": "Đính đá",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839df3e2863f9173ffedaca"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.450Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:39:26.451Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T16:39:26.451Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T16:39:26.451Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839e0762863f9173ffedae0"
+  },
+  "name": "Đồng Hồ Hublot Big Bang Nam 465.SX.9900.LR.0999",
+  "spu": "Hublot Big Bang Nam",
+  "sku": "Hublot Big Bang Nam 465.SX.9900.LR.0999",
+  "description": "This is auto generated",
+  "price": 1870000000,
+  "brand": {
+    "name": "Hublot",
+    "slug": "hublot",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611735/wj3yjgtl49cvxum7zd81.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839e0762863f9173ffedae1"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:44.308Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:44.308Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae2"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae3"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 1,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Hublot",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae5"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "39mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae7"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Hublot Big Bang",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae9"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Da",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed962"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T16:44:38.343Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T16:44:38.343Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839e18c2863f9173ffedb05"
+  },
+  "name": "Đồng Hồ Hublot Big Bang Nam 418.NX.2001.RX.1604.MXM20",
+  "spu": "Hublot Big Bang Nam",
+  "sku": "Hublot Big Bang Nam 418.NX.2001.RX.1604.MXM20",
+  "description": "This is auto generated",
+  "price": 892500000,
+  "brand": {
+    "name": "Hublot",
+    "slug": "hublot",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611735/wj3yjgtl49cvxum7zd81.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839e18c2863f9173ffedb06"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:44.308Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:44.308Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839e18c2863f9173ffedb07"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839e18c2863f9173ffedb08"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 1,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "10 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ab"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.310Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Hublot",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae5"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.310Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.310Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
       "value": "45mm",
       "type": "NORMAL",
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d69"
+        "$oid": "6839e18c2863f9173ffedb0c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:49:16.310Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.310Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.310Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Hublot Big Bang",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae9"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.310Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.311Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Cao su",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e18c2863f9173ffedb10"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:49:16.311Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.311Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Chronograph, Dạ quang",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e18c2863f9173ffedb11"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:49:16.311Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.311Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "72 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e18c2863f9173ffedb12"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:49:16.311Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.311Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T16:49:16.311Z"
       }
     }
   ],
@@ -180,58 +2798,632 @@
   "totalComments": 0,
   "comments": [],
   "createdAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T16:49:16.311Z"
   },
   "updatedAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T16:49:16.311Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "67e96c5cf1ffee2557b95d73"
+    "$oid": "6839e6c82863f9173ffedb2e"
   },
-  "name": "Omega Speedmaster Professional",
-  "spu": "SPM-001",
-  "sku": "SPM-001-BLK",
-  "description": "The first watch worn on the moon, featuring chronograph functionality",
-  "price": 6799.99,
+  "name": "Đồng Hồ Hublot Classic Fusion Unisex 550.OS.1800.RX.1604.ORL19",
+  "spu": "Hublot Classic Fusion Unisex",
+  "sku": "Hublot Classic Fusion Unisex 550.OS.1800.RX.1604.ORL19",
+  "description": "This is auto generated",
+  "price": 645150000,
   "brand": {
+    "name": "Hublot",
+    "slug": "hublot",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611735/wj3yjgtl49cvxum7zd81.png"
+    ],
+    "deletedAt": null,
     "_id": {
-      "$oid": "67e961c7f1ffee2557b95d0f"
+      "$oid": "6839e6c82863f9173ffedb2f"
     },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:44.308Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:44.308Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839e6c82863f9173ffedb30"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839e6c82863f9173ffedb31"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839e6c82863f9173ffedb32"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 1,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Hublot",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae5"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Unisex",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e6c82863f9173ffedb35"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "40mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed988"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Hublot Classic Fusion",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e6c82863f9173ffedb38"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Cao su",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e18c2863f9173ffedb10"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:49:16.311Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9da"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "42 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e6c82863f9173ffedb3c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T17:11:36.049Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T17:11:36.049Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839e7422863f9173ffedb54"
+  },
+  "name": "Đồng Hồ Hublot Nữ 485.SE.9000.RW.1604",
+  "spu": "Hublot Nữ",
+  "sku": "Hublot Nữ 485.SE.9000.RW.1604",
+  "description": "This is auto generated",
+  "price": 635800000,
+  "brand": {
+    "name": "Hublot",
+    "slug": "hublot",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611735/wj3yjgtl49cvxum7zd81.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839e7422863f9173ffedb55"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:44.308Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:44.308Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839e7422863f9173ffedb56"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839e7422863f9173ffedb57"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    }
+  ],
+  "stock": 1,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "10 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ab"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:13:38.440Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Hublot",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae5"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:13:38.440Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nữ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ad"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:13:38.440Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "33mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e7422863f9173ffedb5b"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:13:38.440Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:13:38.440Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:13:38.440Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:13:38.440Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Cao su",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e18c2863f9173ffedb10"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:49:16.311Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:13:38.440Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:13:38.440Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T17:13:38.440Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T17:13:38.440Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839e97e2863f9173ffedb73"
+  },
+  "name": "Đồng Hồ Omega Constellation Nữ 123.55.24.60.55.009",
+  "spu": "Omega Constellation Nữ",
+  "sku": "Omega Constellation Nữ 123.55.24.60.55.009",
+  "description": "This is auto generated",
+  "price": 2240000000,
+  "brand": {
     "name": "Omega",
     "slug": "omega",
-    "assets": []
-  },
-  "category": {
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611763/stfq68ns9som0lcxkttl.png"
+    ],
+    "deletedAt": null,
     "_id": {
-      "$oid": "67e9673b5dc8286dcc52d62c"
+      "$oid": "6839e97e2863f9173ffedb74"
     },
-    "name": "Pilot Watches",
-    "slug": "pilot-watches"
+    "createdAt": {
+      "$date": "2025-05-30T13:24:50.954Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:50.954Z"
+    }
   },
-  "stock": 75,
-  "sold": 0,
-  "assets": [
-    "speedmaster-1.jpg",
-    "speedmaster-2.jpg"
-  ],
-  "specs": [
+  "categories": [
     {
-      "key": "Movement",
-      "value": "Manual-winding chronograph",
-      "type": "NORMAL",
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d74"
+        "$oid": "6839e97e2863f9173ffedb75"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
       }
     },
     {
-      "key": "Crystal",
-      "value": "Hesalite",
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839e97e2863f9173ffedb76"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    }
+  ],
+  "stock": 5,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "10 atm",
       "type": "NORMAL",
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d75"
+        "$oid": "6839d55c2863f9173ffed9ab"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:23:10.513Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Omega",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e97e2863f9173ffedb78"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nữ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ad"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "24mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e97e2863f9173ffedb7a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Omega Constellation",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e97e2863f9173ffedb7c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Pin/Quartz",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed961"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
       }
     }
   ],
@@ -240,58 +3432,176 @@
   "totalComments": 0,
   "comments": [],
   "createdAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T17:23:10.514Z"
   },
   "updatedAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T17:23:10.514Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "67e96c5cf1ffee2557b95d76"
+    "$oid": "6839ea332863f9173ffedb92"
   },
-  "name": "TAG Heuer Carrera Chronograph",
-  "spu": "CAR-001",
-  "sku": "CAR-001-BLK",
-  "description": "Classic chronograph watch with racing heritage",
-  "price": 5999.99,
+  "name": "Đồng Hồ Omega Constellation Nữ 123.55.31.20.55.007",
+  "spu": "Omega Constellation Nữ",
+  "sku": "Omega Constellation Nữ 123.55.31.20.55.007",
+  "description": "This is auto generated",
+  "price": 1402614000,
   "brand": {
+    "name": "Omega",
+    "slug": "omega",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611763/stfq68ns9som0lcxkttl.png"
+    ],
+    "deletedAt": null,
     "_id": {
-      "$oid": "67e96215f1ffee2557b95d19"
+      "$oid": "6839ea332863f9173ffedb93"
     },
-    "name": "TAG Heuer",
-    "slug": "tag-heuer",
-    "assets": []
-  },
-  "category": {
-    "_id": {
-      "$oid": "67e9673b5dc8286dcc52d629"
+    "createdAt": {
+      "$date": "2025-05-30T13:24:50.954Z"
     },
-    "name": "Sports Watches",
-    "slug": "sports-watches"
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:50.954Z"
+    }
   },
-  "stock": 85,
-  "sold": 0,
-  "assets": [
-    "carrera-1.jpg",
-    "carrera-2.jpg"
-  ],
-  "specs": [
+  "categories": [
     {
-      "key": "Movement",
-      "value": "Automatic Chronograph",
-      "type": "NORMAL",
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d77"
+        "$oid": "6839ea332863f9173ffedb94"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
       }
     },
     {
-      "key": "Case Size",
-      "value": "44mm",
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839ea332863f9173ffedb95"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    }
+  ],
+  "stock": 5,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "10 atm",
       "type": "NORMAL",
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d78"
+        "$oid": "6839d55c2863f9173ffed9ab"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:26:11.359Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Omega",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e97e2863f9173ffedb78"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:26:11.359Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nữ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ad"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:26:11.359Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "31mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839ea332863f9173ffedb99"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:26:11.359Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:26:11.359Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:26:11.359Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Omega Constellation",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e97e2863f9173ffedb7c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:26:11.359Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:26:11.359Z"
       }
     }
   ],
@@ -300,58 +3610,1505 @@
   "totalComments": 0,
   "comments": [],
   "createdAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T17:26:11.359Z"
   },
   "updatedAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T17:26:11.359Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "67e96c5cf1ffee2557b95d7c"
+    "$oid": "6839eb2a2863f9173ffedbb5"
   },
-  "name": "Seiko Prospex Diver",
-  "spu": "PRO-001",
-  "sku": "PRO-001-BLU",
-  "description": "Professional diving watch with automatic movement",
-  "price": 899.99,
+  "name": "Đồng Hồ Omega Speedmaster Nam 310.63.42.50.10.001",
+  "spu": "Omega Speedmaster Nam",
+  "sku": "Omega Speedmaster Nam 310.63.42.50.10.001",
+  "description": "This is auto generated",
+  "price": 1402614000,
   "brand": {
+    "name": "Omega",
+    "slug": "omega",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611763/stfq68ns9som0lcxkttl.png"
+    ],
+    "deletedAt": null,
     "_id": {
-      "$oid": "67e9624df1ffee2557b95d2d"
+      "$oid": "6839eb2a2863f9173ffedbb6"
     },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:50.954Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:50.954Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839eb2a2863f9173ffedbb7"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839eb2a2863f9173ffedbb8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 5,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    },
+    {
+      "key": "Thương hiệu",
+      "value": "Omega",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e97e2863f9173ffedb78"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:23:10.514Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "42mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839eb2a2863f9173ffedbbc"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Omega Speedmaster",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839eb2a2863f9173ffedbbe"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Da",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed962"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Chronograph, Dạ quang, Giờ, phút, giây, Tachymeter",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839eb2a2863f9173ffedbc1"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "50 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839eb2a2863f9173ffedbc2"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T17:30:18.498Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T17:30:18.498Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839f41a2863f9173ffedbdd"
+  },
+  "name": "Đồng Hồ Orient Star Nam RE-AZ0101N00B",
+  "spu": "Orient Star Nam",
+  "sku": "Orient Star Nam RE-AZ0101N00B",
+  "description": "This is auto generated",
+  "price": 77707000,
+  "brand": {
+    "name": "Orient",
+    "slug": "orient",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611788/ekrqqgh3pjpdtr6zrbkk.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839f41a2863f9173ffedbde"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:55.923Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:55.923Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbdf"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe0"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 5,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Orient",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe1"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "39mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae7"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Orient Star",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe6"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây kim loại",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "10.8mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe9"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Kim xăng, Giờ, phút, Small Second",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbea"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "70 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbeb"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Kiểu mặt",
+      "value": "Skeleton, Số La Mã",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbec"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:08:26.061Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:08:26.061Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839f4b22863f9173ffedc09"
+  },
+  "name": "Đồng Hồ Orient Star Nam RE-HH0002L00B",
+  "spu": "Orient Star Nam",
+  "sku": "Orient Star Nam RE-HH0002L00B",
+  "description": "This is auto generated",
+  "price": 27582000,
+  "brand": {
+    "name": "Orient",
+    "slug": "orient",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611788/ekrqqgh3pjpdtr6zrbkk.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839f4b22863f9173ffedc0a"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:55.923Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:55.923Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "assets": [
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612843/ergn8kboi49jt8zpriik.webp",
+        "https://res.cloudinary.com/doxznambg/image/upload/v1748612971/zz1x8bq8rqlbqrt6t1tv.webp"
+      ],
+      "isFeatured": true,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f4b22863f9173ffedc0b"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:13.402Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f4b22863f9173ffedc0c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 5,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Orient",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe1"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "40mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed988"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.194Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Orient Star",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe6"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây da",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f4b22863f9173ffedc14"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "12.3mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f4b22863f9173ffedc15"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Kim xăng, Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f4b22863f9173ffedc16"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "40 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda28"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Sapphire",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d8a32863f9173ffeda01"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:11:15.387Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:10:58.022Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:10:58.022Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839f54c2863f9173ffedc34"
+  },
+  "name": "Đồng Hồ Orient Sun & Moon Nam RA-AS0105S30B",
+  "spu": "Orient Sun & Moon Nam",
+  "sku": "Orient Sun & Moon Nam RA-AS0105S30B",
+  "description": "This is auto generated",
+  "price": 15120000,
+  "brand": {
+    "name": "Orient",
+    "slug": "orient",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611788/ekrqqgh3pjpdtr6zrbkk.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839f54c2863f9173ffedc35"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:55.923Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:55.923Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Classic",
+      "slug": "classic",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f54c2863f9173ffedc36"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f54c2863f9173ffedc37"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 5,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Orient",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe1"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.571Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.571Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "3 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed985"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.193Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.571Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "41.5mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f54c2863f9173ffedc3b"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:13:32.571Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.571Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.571Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Orient Sun & Moon",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f54c2863f9173ffedc3d"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:13:32.571Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.571Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.571Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây da",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f4b22863f9173ffedc14"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.571Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "13.8mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f54c2863f9173ffedc40"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:13:32.572Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.572Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9da"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.572Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "40 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda28"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.572Z"
+      }
+    },
+    {
+      "key": "Kiểu mặt",
+      "value": "Open Heart",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f54c2863f9173ffedc43"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:13:32.572Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.572Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Khoáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f54c2863f9173ffedc44"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:13:32.572Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:13:32.572Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:13:32.572Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:13:32.572Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839f6132863f9173ffedc62"
+  },
+  "name": "Đồng Hồ Orient Star Nữ RE-ND0017L00B",
+  "spu": "Orient Star Nữ",
+  "sku": "Orient Star Nữ RE-ND0017L00B",
+  "description": "This is auto generated",
+  "price": 15011000,
+  "brand": {
+    "name": "Orient",
+    "slug": "orient",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611788/ekrqqgh3pjpdtr6zrbkk.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839f6132863f9173ffedc63"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:55.923Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:55.923Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Classic",
+      "slug": "classic",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f6132863f9173ffedc64"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      }
+    },
+    {
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f6132863f9173ffedc65"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    }
+  ],
+  "stock": 5,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Orient",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe1"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nữ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ad"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "30.5mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f6132863f9173ffedc69"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Thụy Sỹ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e0762863f9173ffedae8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:44:38.343Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Orient Star",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe6"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây thép không gỉ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f6132863f9173ffedc6d"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "11mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f6132863f9173ffedc6e"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Giờ, phút",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda78"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "40 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda28"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Kiểu mặt",
+      "value": "Open Heart, Số La Mã",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f6132863f9173ffedc71"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính Khoáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f54c2863f9173ffedc44"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:13:32.572Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:16:51.482Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:16:51.482Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:16:51.482Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839f7222863f9173ffedc8b"
+  },
+  "name": "Đồng Hồ Seiko 5 Sport Nam SNZG09K1",
+  "spu": "Seiko 5 Sport Nam",
+  "sku": "Seiko 5 Sport Nam SNZG09K1",
+  "description": "This is auto generated",
+  "price": 5260000,
+  "brand": {
     "name": "Seiko",
     "slug": "seiko",
-    "assets": []
-  },
-  "category": {
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611814/eosirwykt7rba2bx9fwo.png"
+    ],
+    "deletedAt": null,
     "_id": {
-      "$oid": "67e9673b5dc8286dcc52d626"
+      "$oid": "6839f7222863f9173ffedc8c"
     },
-    "name": "Diving Watches",
-    "slug": "diving-watches"
+    "createdAt": {
+      "$date": "2025-05-30T13:25:01.625Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:25:01.625Z"
+    }
   },
-  "stock": 150,
-  "sold": 0,
-  "assets": [
-    "prospex-1.jpg",
-    "prospex-2.jpg"
-  ],
-  "specs": [
+  "categories": [
     {
-      "key": "Water Resistance",
-      "value": "200m",
-      "type": "NORMAL",
+      "name": "Sport",
+      "slug": "sport",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d7d"
+        "$oid": "6839f7222863f9173ffedc8d"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
       }
     },
     {
-      "key": "Bezel",
-      "value": "Unidirectional",
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc8e"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 5,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Seiko",
       "type": "NORMAL",
       "_id": {
-        "$oid": "67e96c5cf1ffee2557b95d7e"
+        "$oid": "6839f7222863f9173ffedc8f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "10 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ab"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "42mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839eb2a2863f9173ffedbbc"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:30:18.497Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Seiko 5 Sport",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc94"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây dù/vải",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc96"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "12mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc97"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Dạ quang, Lịch thứ, Lịch ngày, Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc98"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "40 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda28"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Hardlex Crystal",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc9a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
       }
     }
   ],
@@ -360,10 +5117,1904 @@
   "totalComments": 0,
   "comments": [],
   "createdAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T18:21:22.252Z"
   },
   "updatedAt": {
-    "$date": "2024-03-30T16:07:56.061Z"
+    "$date": "2025-05-30T18:21:22.252Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839f7d22863f9173ffedcb9"
+  },
+  "name": "Đồng Hồ Seiko 5 Sport Nam SRPG33K1",
+  "spu": "Seiko 5 Sport Nam",
+  "sku": "Seiko 5 Sport Nam SRPG33K1",
+  "description": "This is auto generated",
+  "price": 7440000,
+  "brand": {
+    "name": "Seiko",
+    "slug": "seiko",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611814/eosirwykt7rba2bx9fwo.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839f7d22863f9173ffedcba"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:25:01.625Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:25:01.625Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Sport",
+      "slug": "sport",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f7d22863f9173ffedcbb"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f7d22863f9173ffedcbc"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 100,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Seiko",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc8f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "10 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ab"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "41mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ae"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Seiko 5 Sport",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc94"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây dù/vải",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc96"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "13.2mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9b3"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.142Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Dạ quang, Lịch thứ, Lịch ngày, Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc98"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Bộ máy",
+      "value": "4R36A",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7d22863f9173ffedcc7"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "41 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7d22863f9173ffedcc8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Hardlex Crystal",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc9a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:24:18.553Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:24:18.553Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:24:18.553Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839f8812863f9173ffedce4"
+  },
+  "name": "Đồng Hồ Seiko Presage Nam SRPD36J1",
+  "spu": "Seiko Presage Nam",
+  "sku": "Seiko Presage Nam SRPD36J1",
+  "description": "This is auto generated",
+  "price": 13200000,
+  "brand": {
+    "name": "Seiko",
+    "slug": "seiko",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611814/eosirwykt7rba2bx9fwo.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839f8812863f9173ffedce5"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:25:01.625Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:25:01.625Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Classic",
+      "slug": "classic",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f8812863f9173ffedce6"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f8812863f9173ffedce7"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 150,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Seiko",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc8f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "40.5mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f8812863f9173ffedceb"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Seiko Presage",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f8812863f9173ffedced"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Cơ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda24"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.979Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây da",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f4b22863f9173ffedc14"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "11.5mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f8812863f9173ffedcf0"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.658Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Lịch ngày",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f8812863f9173ffedcf1"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:27:13.659Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.659Z"
+      }
+    },
+    {
+      "key": "Khoảng trữ cót",
+      "value": "40 tiếng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dbc22863f9173ffeda28"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:24:34.980Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.659Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Hardlex Crystal",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc9a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:27:13.659Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:27:13.659Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:27:13.659Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839f8e92863f9173ffedd0c"
+  },
+  "name": "Đồng Hồ Seiko Nữ SUR638P1",
+  "spu": "Seiko Nữ",
+  "sku": "Seiko Nữ SUR638P1",
+  "description": "This is auto generated",
+  "price": 3787000,
+  "brand": {
+    "name": "Seiko",
+    "slug": "seiko",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611814/eosirwykt7rba2bx9fwo.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839f8e92863f9173ffedd0d"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:25:01.625Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:25:01.625Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Classic",
+      "slug": "classic",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f8e92863f9173ffedd0e"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      }
+    },
+    {
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839f8e92863f9173ffedd0f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    }
+  ],
+  "stock": 150,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Seiko",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc8f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nữ",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d55c2863f9173ffed9ad"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:57:16.141Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "5 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "29mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f8e92863f9173ffedd13"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Pin/Quartz",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed961"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây da",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f4b22863f9173ffedc14"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:10:58.022Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "8mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f8e92863f9173ffedd17"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Giờ, phút, giây",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9da"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Hardlex Crystal",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc9a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:28:57.460Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:28:57.460Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:28:57.460Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839fb9d2863f9173ffedd30"
+  },
+  "name": "Đồng Hồ Casio G-Shock Nam GMW-B5000SS-2DR",
+  "spu": "Casio G-Shock Nam",
+  "sku": "Casio G-Shock Nam GMW-B5000SS-2DR",
+  "description": "This is auto generated",
+  "price": 16516000,
+  "brand": {
+    "name": "G-Shock",
+    "slug": "g-shock",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611645/ufmbc1khogidodtvp0jv.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839fb9d2863f9173ffedd31"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:38.863Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:38.863Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Classic",
+      "slug": "classic",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd32"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:55:30.397Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd33"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 150,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Casi G-Shock",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd34"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "20 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd36"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "43.2mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd37"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Casio G-Shock",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd39"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Năng lượng ánh sáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda75"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây kim loại",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "13mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd3c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Kết nối bluetooth",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd3d"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính khoáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed965"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:40:29.072Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:40:29.072Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839fc462863f9173ffedd55"
+  },
+  "name": "Đồng Hồ Casio Nam GF-1000-1DR",
+  "spu": "Casio G-Shock Nam",
+  "sku": "Casio G-Shock Nam GF-1000-1DR",
+  "description": "This is auto generated",
+  "price": 15786000,
+  "brand": {
+    "name": "G-Shock",
+    "slug": "g-shock",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611645/ufmbc1khogidodtvp0jv.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839fc462863f9173ffedd56"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:38.863Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:38.863Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Sport",
+      "slug": "sport",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fc462863f9173ffedd57"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fc462863f9173ffedd58"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 150,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Casi G-Shock",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd34"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:43:18.932Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:43:18.932Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "20 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd36"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:43:18.932Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "58.3 x 52.8mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fc462863f9173ffedd5c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:43:18.933Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:43:18.933Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:43:18.933Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Casio G-Shock",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd39"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:43:18.933Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Năng lượng ánh sáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda75"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:43:18.933Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây nhựa",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fc462863f9173ffedd60"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:43:18.933Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:43:18.933Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính khoáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed965"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:43:18.933Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:43:18.933Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:43:18.933Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839fd0e2863f9173ffedd7c"
+  },
+  "name": "Đồng Hồ Casio G-Shock Nam DW-H5600MB-8A9DR",
+  "spu": "Casio G-Shock Nam",
+  "sku": "Casio G-Shock Nam DW-H5600MB-8A9DR",
+  "description": "This is auto generated",
+  "price": 12954000,
+  "brand": {
+    "name": "G-Shock",
+    "slug": "g-shock",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611645/ufmbc1khogidodtvp0jv.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839fd0e2863f9173ffedd7d"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:38.863Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:38.863Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Sport",
+      "slug": "sport",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fd0e2863f9173ffedd7e"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fd0e2863f9173ffedd7f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 150,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Casi G-Shock",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd34"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Nam",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95c"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "20 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd36"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "51.1 × 44.5mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fd0e2863f9173ffedd83"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Series",
+      "value": "G-SQUAD DW-H5600",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fd0e2863f9173ffedd84"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Casio G-Shock",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd39"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Năng lượng ánh sáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839dd822863f9173ffeda75"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:32:02.401Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây nhựa",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fc462863f9173ffedd60"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:43:18.933Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "16.6mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fd0e2863f9173ffedd89"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Kết nối Bluetooth, Báo thức, Đồng hồ bấm giờ, Đèn Led",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fd0e2863f9173ffedd8a"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính khoáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed965"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:46:38.397Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:46:38.398Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:46:38.398Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839fe212863f9173ffedda7"
+  },
+  "name": "Đồng Hồ Casio G-Shock Unisex GMD-B300SC-4D",
+  "spu": "Casio G-Shock Unisex",
+  "sku": "Casio G-Shock Unisex GMD-B300SC-4D",
+  "description": "This is auto generated",
+  "price": 3408000,
+  "brand": {
+    "name": "G-Shock",
+    "slug": "g-shock",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611645/ufmbc1khogidodtvp0jv.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839fe212863f9173ffedda8"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:38.863Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:38.863Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Sport",
+      "slug": "sport",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fe212863f9173ffedda9"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      }
+    },
+    {
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fe212863f9173ffeddaa"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fe212863f9173ffeddab"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 150,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Casi G-Shock",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd34"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.450Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Unisex",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e6c82863f9173ffedb35"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.450Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "20 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd36"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.450Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "43.8mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fe212863f9173ffeddaf"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:51:13.450Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.450Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.450Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Casio G-Shock",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd39"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.451Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Pin/Quartz",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed961"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.451Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây nhựa",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fc462863f9173ffedd60"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:43:18.933Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.451Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "12mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f7222863f9173ffedc97"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:21:22.252Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.451Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Báo thức, Lịch thứ, Lịch ngày, Lịch Năm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fe212863f9173ffeddb5"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:51:13.451Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.451Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính khoáng",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed965"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.179Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:51:13.451Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:51:13.451Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:51:13.451Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839fe742863f9173ffeddd2"
+  },
+  "name": "Đồng Hồ Casio Vintage Unisex A100WEPC-1BDR",
+  "spu": "Casio G-Shock Unisex",
+  "sku": "Casio G-Shock Unisex A100WEPC-1BDR",
+  "description": "This is auto generated",
+  "price": 2590000,
+  "brand": {
+    "name": "G-Shock",
+    "slug": "g-shock",
+    "assets": [
+      "https://res.cloudinary.com/doxznambg/image/upload/v1748611645/ufmbc1khogidodtvp0jv.png"
+    ],
+    "deletedAt": null,
+    "_id": {
+      "$oid": "6839fe742863f9173ffeddd3"
+    },
+    "createdAt": {
+      "$date": "2025-05-30T13:24:38.863Z"
+    },
+    "updatedAt": {
+      "$date": "2025-05-30T13:24:38.863Z"
+    }
+  },
+  "categories": [
+    {
+      "name": "Sport",
+      "slug": "sport",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fe742863f9173ffeddd4"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:25.515Z"
+      }
+    },
+    {
+      "name": "Women",
+      "slug": "women",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fe742863f9173ffeddd5"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:42:08.178Z"
+      }
+    },
+    {
+      "name": "Men",
+      "slug": "men",
+      "assets": [],
+      "isFeatured": false,
+      "deletedAt": null,
+      "_id": {
+        "$oid": "6839fe742863f9173ffeddd6"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T13:41:56.507Z"
+      }
+    }
+  ],
+  "stock": 150,
+  "sold": 0,
+  "assets": [],
+  "specs": [
+    {
+      "key": "Thương hiệu",
+      "value": "Casi G-Shock",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd34"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    },
+    {
+      "key": "Đối tượng",
+      "value": "Unisex",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839e6c82863f9173ffedb35"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T17:11:36.049Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    },
+    {
+      "key": "Kháng nước",
+      "value": "3 atm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d3f52863f9173ffed985"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:51:17.193Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    },
+    {
+      "key": "Size mặt kính",
+      "value": "40.7 × 32.7mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fe742863f9173ffeddda"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    },
+    {
+      "key": "Xuất xứ",
+      "value": "Nhật",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed95f"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    },
+    {
+      "key": "Dòng sản phẩm",
+      "value": "Casio G-Shock",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fb9d2863f9173ffedd39"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:40:29.072Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    },
+    {
+      "key": "Loại máy",
+      "value": "Pin/Quartz",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839cf482863f9173ffed961"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T15:31:20.178Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    },
+    {
+      "key": "Chất liệu dây",
+      "value": "Dây kim loại",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839f41a2863f9173ffedbe8"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:08:26.061Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    },
+    {
+      "key": "Độ dày",
+      "value": "9mm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fe742863f9173ffedddf"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    },
+    {
+      "key": "Tiện ích",
+      "value": "Báo thức, Lịch thứ, Lịch ngày, Lịch Năm",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839fe212863f9173ffeddb5"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T18:51:13.451Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    },
+    {
+      "key": "Chất liệu kính",
+      "value": "Kính nhựa",
+      "type": "NORMAL",
+      "_id": {
+        "$oid": "6839d7312863f9173ffed9db"
+      },
+      "createdAt": {
+        "$date": "2025-05-30T16:05:05.445Z"
+      },
+      "updatedAt": {
+        "$date": "2025-05-30T18:52:36.633Z"
+      }
+    }
+  ],
+  "status": "available",
+  "customerVisible": true,
+  "totalComments": 0,
+  "comments": [],
+  "createdAt": {
+    "$date": "2025-05-30T18:52:36.633Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:52:36.633Z"
   },
   "__v": 0
 }]

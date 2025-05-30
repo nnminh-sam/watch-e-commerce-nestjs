@@ -15,6 +15,7 @@ export class CreateCategoryDto {
     example: 'High-end luxury watches',
     description: 'Category description',
     name: 'description',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -24,6 +25,7 @@ export class CreateCategoryDto {
     example: 'luxury-watches',
     description: 'Category slug',
     name: 'slug',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -33,6 +35,7 @@ export class CreateCategoryDto {
     example: ['image1.jpg', 'image2.jpg'],
     description: 'List of asset URLs',
     name: 'assets',
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -42,6 +45,7 @@ export class CreateCategoryDto {
     example: true,
     description: 'Indicates if the category is featured',
     name: 'is_featured',
+    required: false,
   })
   @IsOptional()
   @IsBoolean()
