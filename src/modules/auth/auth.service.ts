@@ -174,4 +174,33 @@ export class AuthService {
 
     return 'Change password success';
   }
+
+  async forgotPassword(email: string) {
+    const user = await this.userService.findOne({ email });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    // Generate a strong random password
+    const newPassword =
+      Math.random().toString(36).slice(-8) +
+      Math.random().toString(36).toUpperCase().slice(-8) +
+      Math.random().toString(36).slice(-8);
+
+    // Update user's password
+    await this.userService.updatePassword(user.id, newPassword);
+
+    // Send email with new password
+    await this.mailingService.sendMail({
+      to: email,
+      subject: 'Password Reset',
+      template: 'password-reset',
+      context: {
+        name: `${user.firstName} ${user.lastName}`,
+        newPassword,
+      },
+    });
+
+    return 'Password reset email sent successfully';
+  }
 }
