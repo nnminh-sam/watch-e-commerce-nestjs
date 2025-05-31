@@ -138,7 +138,7 @@ export class ProductController {
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
-    description: 'Multiple image files (maximum 3 files allowed)',
+    description: 'Multiple image files (maximum 10 files allowed)',
     schema: {
       type: 'object',
       properties: {
@@ -148,7 +148,7 @@ export class ProductController {
             type: 'string',
             format: 'binary',
           },
-          maxItems: 3,
+          maxItems: 10,
         },
       },
     },
@@ -157,7 +157,7 @@ export class ProductController {
   @HasRoles([Role.ADMIN, Role.EMPLOYEE])
   @UseGuards(JwtGuard)
   @UseInterceptors(
-    FilesInterceptor('images', 3, {
+    FilesInterceptor('images', 10, {
       storage: diskStorage({
         destination: './uploads',
         filename: (_, file, cb) => {
@@ -166,14 +166,14 @@ export class ProductController {
         },
       }),
       limits: {
-        files: 3,
+        files: 10,
       },
       fileFilter: (req, _, callback) => {
         const fileCount = req.files
           ? (req.files as Express.Multer.File[]).length
           : 0;
-        if (fileCount > 3) {
-          return callback(new Error('Maximum of 3 files are allowed'), false);
+        if (fileCount > 10) {
+          return callback(new Error('Maximum of 10 files are allowed'), false);
         }
         callback(null, true);
       },
