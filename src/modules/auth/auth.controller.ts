@@ -115,4 +115,20 @@ export class AuthController {
   ) {
     return await this.authService.changePassword(claims.sub, updatePasswordDto);
   }
+
+  @Post('forgot-password')
+  @SuccessApiResponse({
+    model: String,
+    key: 'message',
+    description: 'Password reset email sent successfully',
+  })
+  @ClientErrorApiResponse({
+    status: 400,
+    description: 'User not found',
+  })
+  @HttpCode(200)
+  @Post('forgot-password')
+  async forgotPassword(@Body() email: string) {
+    return await this.authService.forgotPassword(email);
+  }
 }

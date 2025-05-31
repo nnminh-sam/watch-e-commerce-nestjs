@@ -63,6 +63,14 @@ export class UserService {
     return await bcrypt.hash(password, 10);
   }
 
+  async findOne(query: any): Promise<User> {
+    const user = await this.userModel.findOne(query).lean<User>();
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
+
   private async validatePassword(
     password: string,
     hashedPassword: string,
