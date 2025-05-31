@@ -145,7 +145,8 @@ const ProductSchema = SchemaFactory.createForClass(Product);
 
 // TODO: [Low] Test performance with and without specs compound index
 ProductSchema.index({ 'specs.key': 1, 'specs.value': 1 }, { unique: true });
-ProductSchema.index({ name: 'text' }, { unique: true });
+ProductSchema.index({ name: 1 }, { unique: true });
+ProductSchema.index({ name: 'text' });
 ProductSchema.set('toJSON', {
   virtuals: true,
   transform: (_, ret) => Product.transform(ret),
