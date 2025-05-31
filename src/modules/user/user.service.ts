@@ -50,7 +50,7 @@ export class UserService {
       .findOne({
         [field]: value,
         ...(userId && {
-          _id: { $neq: userId },
+          _id: { $ne: userId },
         }),
       })
       .lean();
