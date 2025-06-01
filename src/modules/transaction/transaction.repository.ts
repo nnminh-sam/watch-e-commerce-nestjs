@@ -18,6 +18,7 @@ import {
 } from 'mongoose';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
+// * Repository for Transaction model [Repository Pattern]
 @Injectable()
 export class TransactionRepository
   implements IGenericMongoRepository<Transaction, TransactionDocument>

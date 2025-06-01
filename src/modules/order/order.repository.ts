@@ -5,6 +5,7 @@ import { IGenericMongoRepository } from '@root/database/interfaces/generic-mongo
 import { Order, OrderDocument } from '@root/models/order.model';
 import { FilterQuery, Model, ProjectionType, QueryOptions } from 'mongoose';
 
+// * Repository for Order model [Repository Pattern]
 @Injectable()
 export class OrderRepository
   implements IGenericMongoRepository<Order, OrderDocument>

@@ -5,6 +5,7 @@ import { IGenericMongoRepository } from '@root/database/interfaces/generic-mongo
 import { Cart, CartDocument } from '@root/models/cart.model';
 import { FilterQuery, Model, ProjectionType, QueryOptions } from 'mongoose';
 
+// * Repository for Cart model [Repository Pattern]
 @Injectable()
 export class CartRepository
   implements IGenericMongoRepository<Cart, CartDocument>
