@@ -1,0 +1,43 @@
+<svg width="500" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Title -->
+  <text x="250" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Admin User Management Use Cases</text>
+  
+  <!-- System Boundary -->
+  <rect x="150" y="60" width="300" height="280" fill="none" stroke="#000" stroke-width="2" rx="10"/>
+  <text x="300" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Watch E-commerce System</text>
+  
+  <!-- Admin Actor -->
+  <g id="admin">
+    <!-- Head -->
+    <circle cx="80" cy="160" r="15" fill="none" stroke="#000" stroke-width="2"/>
+    <!-- Body -->
+    <line x1="80" y1="175" x2="80" y2="220" stroke="#000" stroke-width="2"/>
+    <!-- Arms -->
+    <line x1="60" y1="190" x2="100" y2="190" stroke="#000" stroke-width="2"/>
+    <!-- Legs -->
+    <line x1="80" y1="220" x2="65" y2="250" stroke="#000" stroke-width="2"/>
+    <line x1="80" y1="220" x2="95" y2="250" stroke="#000" stroke-width="2"/>
+    <!-- Hat (Admin indicator) -->
+    <rect x="70" y="140" width="20" height="5" fill="#000"/>
+    <!-- Label -->
+    <text x="80" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="12">Admin</text>
+  </g>
+  
+  <!-- Use Cases -->
+  <!-- View Users -->
+  <ellipse cx="270" cy="140" rx="60" ry="25" fill="#ffe4e1" stroke="#000" stroke-width="1.5"/>
+  <text x="270" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">View Users</text>
+  
+  <!-- Manage Users -->
+  <ellipse cx="330" cy="190" rx="70" ry="25" fill="#ffe4e1" stroke="#000" stroke-width="1.5"/>
+  <text x="330" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">Manage Users</text>
+  
+  <!-- View User Details -->
+  <ellipse cx="300" cy="240" rx="85" ry="25" fill="#ffe4e1" stroke="#000" stroke-width="1.5"/>
+  <text x="300" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">View User Details</text>
+  
+  <!-- Associations -->
+  <line x1="100" y1="180" x2="210" y2="140" stroke="#000" stroke-width="1.5"/>
+  <line x1="100" y1="190" x2="260" y2="190" stroke="#000" stroke-width="1.5"/>
+  <line x1="100" y1="200" x2="215" y2="240" stroke="#000" stroke-width="1.5"/>
+</svg>
