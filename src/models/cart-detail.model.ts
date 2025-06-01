@@ -24,13 +24,13 @@ export class CartDetail extends BaseModel {
   @ApiProperty({ example: 2, description: 'Quantity in cart' })
   @Prop({ default: 1 })
   quantity: number;
-
   @ApiProperty({
     description: 'Product specifications',
     type: [Spec],
+    required: false,
   })
-  @Prop({ type: [SpecSchema], default: [] })
-  specs: Spec[];
+  @Prop({ type: [SpecSchema], default: [], required: false })
+  specs?: Spec[];
 
   @ApiProperty({
     example: 'image-url.jpg',

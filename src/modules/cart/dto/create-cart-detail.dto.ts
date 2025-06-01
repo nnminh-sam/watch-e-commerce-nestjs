@@ -37,5 +37,5 @@ export class CreateCartDetailDto {
   })
   @IsOptional()
   @IsArray()
-  specIds: string[];
+  specIds?: string[];
 }
