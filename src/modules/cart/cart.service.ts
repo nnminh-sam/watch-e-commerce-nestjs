@@ -53,7 +53,7 @@ export class CartService {
   }
 
   async findOneByUserId(userId: string): Promise<Cart> {
-    let cart = await this.cartRepository.findOne(
+    const cart = await this.cartRepository.findOne(
       { userId },
       { userId: 0 },
       { lean: true },
@@ -84,7 +84,10 @@ export class CartService {
     if (product.stock < quantity) {
       throw new BadRequestException('Invalid quantity');
     }
-    const specs: Spec[] = this.findProductSpec(product, specIds);
+
+    const specs: Spec[] = specIds?.length
+      ? this.findProductSpec(product, specIds)
+      : [];
 
     const existingDetail = cart.details.find(
       (detail: CartDetail) => detail.productId === productId,
@@ -127,7 +130,9 @@ export class CartService {
       throw new BadRequestException('Invalid quantity');
     }
 
-    const specs: Spec[] = this.findProductSpec(product, specIds);
+    const specs: Spec[] = specIds?.length
+      ? this.findProductSpec(product, specIds)
+      : [];
 
     existingDetail.quantity = quantity;
     existingDetail.specs = specs;
