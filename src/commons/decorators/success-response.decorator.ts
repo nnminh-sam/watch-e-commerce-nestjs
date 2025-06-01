@@ -25,6 +25,7 @@ export class SuccessApiResponsePayload<TModel extends Type<any>> {
   messageKeyExample?: string;
 }
 
+// * Decorator for defining a standardized successful API response [Decorator Pattern]
 /**
  * Decorator for defining a standardized successful API response.
  * @template TModel The model type for the response.

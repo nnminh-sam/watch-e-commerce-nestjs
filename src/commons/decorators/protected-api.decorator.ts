@@ -8,6 +8,7 @@ export class ProtectedApiPayload {
   roles?: Role[];
 }
 
+// * Decorator for protecting API endpoints [Decorator Pattern]
 export const ProtectedApi = ({
   summary,
   description,
