@@ -34,6 +34,7 @@ import { QueueModule } from '@root/modules/queue/queue.module';
     BullModule.forRootAsync({
       imports: [EnvironmentModule],
       inject: [EnvironmentService],
+      // * Factory method for creating Redis connection [Factory Pattern]
       useFactory: (environmentService: EnvironmentService) => ({
         connection: {
           host: environmentService.redisHost,

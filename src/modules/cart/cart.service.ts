@@ -40,6 +40,7 @@ export class CartService {
     });
   }
 
+  // * Factory method for creating cart detail [Factory Pattern]
   private cartDetailFactory(product: Product, quantity: number, specs: Spec[]) {
     return {
       productId: product.id,

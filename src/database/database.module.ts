@@ -12,6 +12,7 @@ import mongoose from 'mongoose';
     MongooseModule.forRootAsync({
       imports: [EnvironmentModule],
       inject: [EnvironmentService],
+      // * Factory method for creating MongoDB connection [Factory Pattern]
       useFactory: (environmentService: EnvironmentService) => {
         const logger: Logger = new Logger(
           `${DatabaseModule.name}.FactoryFunction`,
