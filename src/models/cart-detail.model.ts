@@ -37,8 +37,8 @@ export class CartDetail extends BaseModel {
     description: 'Product asset URL',
     type: String,
   })
-  @Prop({ required: true })
-  asset: string;
+  @Prop({ required: false })
+  asset?: string;
 
   @ApiProperty({
     example: true,

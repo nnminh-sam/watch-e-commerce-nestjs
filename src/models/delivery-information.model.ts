@@ -8,13 +8,6 @@ export type DeliveryInformationDocument = DeliveryInformation & Document;
 @Schema({ timestamps: true })
 export class DeliveryInformation extends BaseModel {
   @ApiProperty({
-    example: '60d21b4667d0d8992e610c85',
-    description: 'Delivery information ID',
-    name: 'id',
-  })
-  id: string;
-
-  @ApiProperty({
     example: 'John Doe',
     description: 'Full name of the recipient',
     name: 'full_name',

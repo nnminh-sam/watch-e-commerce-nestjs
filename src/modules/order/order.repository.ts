@@ -44,6 +44,7 @@ export class OrderRepository
   }
 
   createDocument(order: Order) {
+    console.log('🚀 ~ createDocument ~ order:', order);
     return new this.orderModel({
       ...order,
     }) as OrderDocument;

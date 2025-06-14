@@ -347,6 +347,26 @@ export class UserService {
     return deliveryAddress;
   }
 
+  async findDeliveryAddressById(
+    userId: string,
+    addressId: string,
+  ): Promise<DeliveryInformation> {
+    const user = await this.userModel.findOne({ _id: userId });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const deliveryAddress = user.deliveryAddress.find(
+      (addr: any) => addr._id.toString() === addressId,
+    );
+
+    if (!deliveryAddress) {
+      throw new NotFoundException('Delivery address not found');
+    }
+
+    return deliveryAddress;
+  }
+
   async findDeliveryAddresses(
     userId: string,
     findDeliveryAddressDto: FindDeliveryAddressDto,

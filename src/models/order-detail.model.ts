@@ -55,8 +55,8 @@ export class OrderDetail extends BaseModel {
     description: 'Asset (image URL) of the product',
     example: 'https://example.com/watch.jpg',
   })
-  @Prop({ required: true })
-  asset: string;
+  @Prop({ required: false })
+  asset?: string;
 
   static transform(doc: any) {
     doc = BaseModel.transform(doc);

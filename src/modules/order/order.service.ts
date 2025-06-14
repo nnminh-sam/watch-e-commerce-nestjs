@@ -173,15 +173,39 @@ export class OrderService {
   }
 
   async create(userId: string, createOrderDto: CreateOrderDto) {
-    const { cartDetailIds, paymentMethod, ...rest } = createOrderDto;
+    const { cartDetailIds, paymentMethod, deliveryAddress, deliveryAddressId } =
+      createOrderDto;
     const cart = await this.cartService.findOneByUserId(userId);
     const orderDetails: OrderDetail[] = this.createOrderDetails(
       cart,
       createOrderDto.cartDetailIds,
     );
 
+    const buffer: any = deliveryAddress;
+    let deliveryInformation: DeliveryInformation;
+    if (deliveryAddressId) {
+      deliveryInformation = await this.userService.findDeliveryAddressById(
+        userId,
+        deliveryAddressId,
+      );
+      if (!deliveryInformation) {
+        throw new BadRequestException('Invalid delivery address ID');
+      }
+    } else if (deliveryAddress) {
+      deliveryInformation = {
+        fullName: buffer.full_name,
+        phoneNumber: buffer.phone_number,
+        city: buffer.city,
+        district: buffer.district,
+        street: buffer.street,
+        specificAddress: buffer.specific_address,
+        isDefault: buffer.is_default || false,
+      } as DeliveryInformation;
+    } else {
+      throw new BadRequestException('Cannot create delivery address for order');
+    }
+
     const orderNumber: string = `${Date.now()}`;
-    const deliveryInformation = { ...rest } as DeliveryInformation;
     const orderDocument: OrderDocument = this.orderRepository.createDocument({
       userId,
       orderNumber,
@@ -211,9 +235,9 @@ export class OrderService {
 
     await this.increaseProductsSold(orderDetails);
 
-    await this.addDeliveryInformation(userId, {
-      ...rest,
-    } as CreateDeliveryAddressDto);
+    if (!deliveryAddressId) {
+      await this.addDeliveryInformation(userId, deliveryInformation);
+    }
 
     // TODO: Trigger VNPay payment if choosing VNPay options
     return result as Order;
