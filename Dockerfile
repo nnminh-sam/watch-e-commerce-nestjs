@@ -27,4 +27,4 @@ RUN mkdir -p logs uploads && \
 
 USER node
 
-CMD ["npm", "start"]
+CMD ["yarn", "start:prod"] 

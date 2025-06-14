@@ -93,7 +93,7 @@ export class CartController {
     description: 'Invalid quantity, specification ID',
   })
   @ApiParam({
-    name: 'detail-id',
+    name: 'id',
     type: 'string',
     description: 'ID of the updating cart detail',
   })

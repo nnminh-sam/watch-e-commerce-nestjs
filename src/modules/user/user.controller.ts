@@ -6,10 +6,12 @@ import {
   MaxFileSizeValidator,
   ParseFilePipe,
   Patch,
+  Post,
   Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
+  Param,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -34,6 +36,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { v4 as uuid } from 'uuid';
+import { CreateDeliveryAddressDto } from '@root/modules/user/dto/create-delivery-address.dto';
+import { DeliveryInformation } from '@root/models/delivery-information.model';
+import { FindDeliveryAddressDto } from '@root/modules/user/dto/find-delivery-address.dto';
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -140,5 +145,40 @@ export class UserController {
   ) {
     const { sub } = claims;
     return await this.userService.uploadAvatar(sub, file);
+  }
+
+  @ApiOperation({ summary: 'Create new delivery address' })
+  @SuccessApiResponse({
+    model: DeliveryInformation,
+    key: 'deliveryAddress',
+    description: 'Delivery address created successfully',
+  })
+  @Post(':id/delivery-addresses')
+  async createDeliveryAddress(
+    @Param('id') userId: string,
+    @Body() createDeliveryAddressDto: CreateDeliveryAddressDto,
+  ) {
+    return this.userService.createDeliveryAddress(
+      userId,
+      createDeliveryAddressDto,
+    );
+  }
+
+  @ApiOperation({ summary: 'Find all delivery addresses' })
+  @SuccessApiResponse({
+    model: DeliveryInformation,
+    key: 'deliveryAddresses',
+    description: 'List of delivery addresses retrieved successfully',
+    isArray: true,
+  })
+  @Get(':id/delivery-addresses')
+  async findDeliveryAddresses(
+    @Param('id') userId: string,
+    @Query() findDeliveryAddressDto: FindDeliveryAddressDto,
+  ) {
+    return this.userService.findDeliveryAddresses(
+      userId,
+      findDeliveryAddressDto,
+    );
   }
 }

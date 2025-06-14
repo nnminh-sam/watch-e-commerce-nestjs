@@ -21,7 +21,7 @@ import { OrderRepository } from '@root/modules/order/order.repository';
 import { ProductService } from '@root/modules/product/product.service';
 import { UpdateTransactionDto } from '@root/modules/transaction/dto/update-transaction.dto';
 import { TransactionService } from '@root/modules/transaction/transaction.service';
-import { CreateDeliveryInformationDto } from '@root/modules/user/dto/create-delivery-information.dto';
+import { CreateDeliveryAddressDto } from '@root/modules/user/dto/create-delivery-address.dto';
 import { UserService } from '@root/modules/user/user.service';
 
 @Injectable()
@@ -97,16 +97,16 @@ export class OrderService {
    * ! Currently, this will insert a delivery information straight into the user schema without checking existed delivery information
    *
    * @param userId
-   * @param createDeliveryInformationDto
+   * @param CreateDeliveryAddressDto
    * @returns
    */
   private async addDeliveryInformation(
     userId: string,
-    createDeliveryInformationDto: CreateDeliveryInformationDto,
+    CreateDeliveryAddressDto: CreateDeliveryAddressDto,
   ) {
     await this.userService.createDeliveryInformation(
       userId,
-      createDeliveryInformationDto,
+      CreateDeliveryAddressDto,
     );
     return true;
   }
@@ -213,7 +213,7 @@ export class OrderService {
 
     await this.addDeliveryInformation(userId, {
       ...rest,
-    } as CreateDeliveryInformationDto);
+    } as CreateDeliveryAddressDto);
 
     // TODO: Trigger VNPay payment if choosing VNPay options
     return result as Order;

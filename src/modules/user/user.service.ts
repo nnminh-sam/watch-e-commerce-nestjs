@@ -21,12 +21,17 @@ import {
 
 import { UserEventsEnum } from '@root/models/enums/user-events.enum';
 import { CartEvent } from '@root/models/enums/cart-events.enum';
-import { CreateDeliveryInformationDto } from '@root/modules/user/dto/create-delivery-information.dto';
 import { DeliveryInformation } from '@root/models/delivery-information.model';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { CloudinaryService } from '@root/modules/cloudinary/cloudinary.service';
 import { ResourceTypeEnum } from '@root/modules/cloudinary/enums/resource-type.enum';
 import { EventEnum } from '@root/modules/cloudinary/enums/event.enum';
+import { CreateDeliveryAddressDto } from '@root/modules/user/dto/create-delivery-address.dto';
+import { FindDeliveryAddressDto } from '@root/modules/user/dto/find-delivery-address.dto';
+import { GenericApiResponseDto } from '@root/commons/dtos/generic-api-response.dto';
+import { PaginationResponseDto } from '@root/commons/dtos/pagination-response.dto';
+import { BaseModel } from '@root/models';
+import { add } from 'lodash';
 
 @Injectable()
 export class UserService {
@@ -267,10 +272,10 @@ export class UserService {
 
   async createDeliveryInformation(
     id: string,
-    createDeliveryInformationDto: CreateDeliveryInformationDto,
+    CreateDeliveryAddressDto: CreateDeliveryAddressDto,
   ) {
     const deliveryInformation = {
-      ...createDeliveryInformationDto,
+      ...CreateDeliveryAddressDto,
     } as DeliveryInformation;
     const user = await this.userModel.findOne({ _id: id });
     if (!user) {
@@ -316,5 +321,101 @@ export class UserService {
         error.message,
       );
     }
+  }
+
+  async createDeliveryAddress(
+    userId: string,
+    createDeliveryAddressDto: CreateDeliveryAddressDto,
+  ): Promise<DeliveryInformation> {
+    const user = await this.userModel.findOne({ _id: userId });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    // If this is set as default, unset other default addresses
+    if (createDeliveryAddressDto.isDefault) {
+      user.deliveryAddress.forEach((addr) => (addr.isDefault = false));
+    }
+
+    const deliveryAddress = {
+      ...createDeliveryAddressDto,
+    } as DeliveryInformation;
+
+    user.deliveryAddress.push(deliveryAddress);
+    await user.save();
+
+    return deliveryAddress;
+  }
+
+  async findDeliveryAddresses(
+    userId: string,
+    findDeliveryAddressDto: FindDeliveryAddressDto,
+  ): Promise<GenericApiResponseDto<DeliveryInformation[]>> {
+    const { page, size, sortBy, orderBy, fullName, phoneNumber, city } =
+      findDeliveryAddressDto;
+    const skip: number = (page - 1) * size;
+
+    const user = await this.userModel.findOne({ _id: userId });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Filter delivery addresses
+    let addresses: any[] = user.deliveryAddress;
+
+    if (fullName) {
+      addresses = addresses.filter((addr) =>
+        addr.fullName.toLowerCase().includes(fullName.toLowerCase()),
+      );
+    }
+    if (phoneNumber) {
+      addresses = addresses.filter((addr) =>
+        addr.phoneNumber.includes(phoneNumber),
+      );
+    }
+    if (city) {
+      addresses = addresses.filter((addr) =>
+        addr.city.toLowerCase().includes(city.toLowerCase()),
+      );
+    }
+
+    // Sort addresses
+    addresses.sort((a, b) => {
+      const aValue = (a as any)[sortBy];
+      const bValue = (b as any)[sortBy];
+      return orderBy === 'asc'
+        ? aValue > bValue
+          ? 1
+          : -1
+        : aValue < bValue
+          ? 1
+          : -1;
+    });
+
+    // Transform addresses to convert _id to id
+    addresses = addresses.map((address) => {
+      const addressObj = { ...address._doc };
+      if (addressObj._id) {
+        addressObj.id = addressObj._id.toString();
+        delete addressObj._id;
+      }
+      return addressObj;
+    });
+
+    // Apply pagination
+    const total = addresses.length;
+    const paginatedAddresses = addresses.slice(skip, skip + size);
+
+    const pagination: PaginationResponseDto = {
+      total,
+      page,
+      perPage: size,
+      totalPages: Math.ceil(total / size),
+    };
+
+    return new GenericApiResponseDto<DeliveryInformation[]>(
+      paginatedAddresses,
+      pagination,
+    );
   }
 }

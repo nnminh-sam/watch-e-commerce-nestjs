@@ -1,11 +1,10 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsBoolean, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateDeliveryInformationDto {
+export class CreateDeliveryAddressDto {
   @ApiProperty({
     description: 'Full name of the recipient',
     example: 'John Doe',
-    name: 'full_name',
   })
   @IsNotEmpty()
   @IsString()
@@ -14,14 +13,13 @@ export class CreateDeliveryInformationDto {
   @ApiProperty({
     description: 'Phone number of the recipient',
     example: '+84123456789',
-    name: 'phone_number',
   })
   @IsNotEmpty()
   @IsString()
   phoneNumber: string;
 
   @ApiProperty({
-    description: 'City of the recipient',
+    description: 'City name',
     example: 'Ho Chi Minh City',
   })
   @IsNotEmpty()
@@ -29,7 +27,7 @@ export class CreateDeliveryInformationDto {
   city: string;
 
   @ApiProperty({
-    description: 'District of the recipient',
+    description: 'District name',
     example: 'District 1',
   })
   @IsNotEmpty()
@@ -37,7 +35,7 @@ export class CreateDeliveryInformationDto {
   district: string;
 
   @ApiProperty({
-    description: 'Street of the recipient',
+    description: 'Street name',
     example: 'Nguyen Hue Street',
   })
   @IsNotEmpty()
@@ -45,12 +43,19 @@ export class CreateDeliveryInformationDto {
   street: string;
 
   @ApiProperty({
-    description:
-      'Specific address details such as house number, floor, apartment',
+    description: 'Specific address details',
     example: '123A, Floor 3, Sunrise City Apartment',
-    name: 'specific_address',
   })
   @IsNotEmpty()
   @IsString()
   specificAddress: string;
+
+  @ApiProperty({
+    description: 'Set as default address',
+    example: false,
+    required: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  isDefault?: boolean;
 }
