@@ -153,13 +153,13 @@ export class UserController {
     key: 'deliveryAddress',
     description: 'Delivery address created successfully',
   })
-  @Post(':id/delivery-addresses')
+  @Post('/delivery-addresses')
   async createDeliveryAddress(
-    @Param('id') userId: string,
+    @RequestedUser() claims: TokenPayloadDto,
     @Body() createDeliveryAddressDto: CreateDeliveryAddressDto,
   ) {
     return this.userService.createDeliveryAddress(
-      userId,
+      claims.sub,
       createDeliveryAddressDto,
     );
   }
@@ -171,13 +171,13 @@ export class UserController {
     description: 'List of delivery addresses retrieved successfully',
     isArray: true,
   })
-  @Get(':id/delivery-addresses')
+  @Get('/delivery-addresses')
   async findDeliveryAddresses(
-    @Param('id') userId: string,
+    @RequestedUser() claims: TokenPayloadDto,
     @Query() findDeliveryAddressDto: FindDeliveryAddressDto,
   ) {
     return this.userService.findDeliveryAddresses(
-      userId,
+      claims.sub,
       findDeliveryAddressDto,
     );
   }
