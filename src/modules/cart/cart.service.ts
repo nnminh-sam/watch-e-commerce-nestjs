@@ -164,4 +164,15 @@ export class CartService {
 
     return this.cartRepository.save(cart);
   }
+
+  async updateCart(userId: string, cart: Cart): Promise<Cart> {
+    const existingCart = await this.cartRepository.findOne({ userId });
+    if (!existingCart) {
+      throw new NotFoundException('Cart not found');
+    }
+
+    // Update the cart document
+    Object.assign(existingCart, cart);
+    return await this.cartRepository.save(existingCart);
+  }
 }

@@ -84,20 +84,27 @@ export class OrderService {
 
   private async removeCartDetails(userId: string, cartDetailIds: string[]) {
     try {
-      await Promise.all([
-        cartDetailIds.forEach(async (detailId: string) => {
-          const result = await this.cartService.deleteCartDetail(
-            userId,
-            detailId,
-          );
-          if (!result) {
-            throw new BadRequestException('Cannot remove product out of cart');
-          }
-        }),
-      ]);
+      const cart = await this.cartService.findOneByUserId(userId);
+      if (!cart) {
+        throw new NotFoundException('Cart not found');
+      }
+
+      // Remove all specified details at once
+      cart.details = cart.details.filter(
+        (detail) => !cartDetailIds.includes(detail.id),
+      );
+
+      // Recalculate total
+      cart.total = cart.details.reduce(
+        (total, detail) => total + detail.price * detail.quantity,
+        0,
+      );
+
+      // Save the cart with all changes at once
+      return await this.cartService.updateCart(userId, cart);
     } catch (error: any) {
-      console.log('🚀 ~ OrderService ~ removeCartDetails ~ (error:', error);
-      this.logger.error('Cannot remove cart detail');
+      this.logger.error('Cannot remove cart details', error);
+      throw new InternalServerErrorException('Failed to update cart');
     }
   }
 
