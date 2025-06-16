@@ -80,7 +80,7 @@ export class OrderService {
   }
 
   private async removeCartDetails(userId: string, cartDetailIds: string[]) {
-    Promise.all([
+    await Promise.all([
       cartDetailIds.forEach(async (detailId: string) => {
         const result = await this.cartService.deleteCartDetail(
           userId,
