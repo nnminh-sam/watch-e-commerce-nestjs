@@ -26,15 +26,22 @@ export class CartRepository
     projection?: ProjectionType<Cart>,
     options?: QueryOptions<Cart>,
   ): Promise<CartDocument | null> {
-    return executeWithErrorHandling({
-      fn: async () =>
-        await this.cartModel.findOne<CartDocument>(
-          { userId },
-          projection,
-          options,
-        ),
-      logSystem: this.logger,
-    });
+    try {
+      return await this.cartModel.findOne<CartDocument>(
+        { userId },
+        projection,
+        options,
+      );
+    } catch (error: any) {
+      console.log('🚀 ~ Cart Repo Find one error:', error);
+      this.logger.error('Cart not found');
+      return null;
+    }
+    // return executeWithErrorHandling({
+    //   fn: async () =>
+
+    //   logSystem: this.logger,
+    // });
   }
 
   async create(userId: string) {
