@@ -180,10 +180,19 @@ export class OrderService {
       ...dateFilter,
     };
     const skip: number = (page - 1) * size;
+
+    let realSortBy = sortBy || 'createdAt';
+    let realOrderBy = orderBy || 'desc';
+
     return await this.orderRepository.find(
       filters,
       {},
-      { lean: true, skip: skip, limit: size, sort: { [sortBy]: orderBy } },
+      {
+        lean: true,
+        skip: skip,
+        limit: size,
+        sort: { [realSortBy]: realOrderBy === 'asc' ? 1 : -1 },
+      },
     );
   }
 
