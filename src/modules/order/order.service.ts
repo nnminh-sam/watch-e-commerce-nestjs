@@ -3,6 +3,7 @@ import {
   ForbiddenException,
   Injectable,
   InternalServerErrorException,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { CartDetail } from '@root/models/cart-detail.model';
@@ -26,6 +27,8 @@ import { UserService } from '@root/modules/user/user.service';
 
 @Injectable()
 export class OrderService {
+  private readonly logger: Logger = new Logger(OrderService.name);
+
   constructor(
     private readonly orderRepository: OrderRepository,
     private readonly cartService: CartService,
@@ -80,17 +83,22 @@ export class OrderService {
   }
 
   private async removeCartDetails(userId: string, cartDetailIds: string[]) {
-    await Promise.all([
-      cartDetailIds.forEach(async (detailId: string) => {
-        const result = await this.cartService.deleteCartDetail(
-          userId,
-          detailId,
-        );
-        if (!result) {
-          throw new BadRequestException('Cannot remove product out of cart');
-        }
-      }),
-    ]);
+    try {
+      await Promise.all([
+        cartDetailIds.forEach(async (detailId: string) => {
+          const result = await this.cartService.deleteCartDetail(
+            userId,
+            detailId,
+          );
+          if (!result) {
+            throw new BadRequestException('Cannot remove product out of cart');
+          }
+        }),
+      ]);
+    } catch (error: any) {
+      console.log('🚀 ~ OrderService ~ removeCartDetails ~ (error:', error);
+      this.logger.error('Cannot remove cart detail');
+    }
   }
 
   /**
