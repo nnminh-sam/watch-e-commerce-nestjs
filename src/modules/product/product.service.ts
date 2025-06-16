@@ -40,7 +40,7 @@ export class ProductService {
   ) {}
 
   private getTextSearchFilter(name?: string) {
-    return name ? { $text: { $search: name } } : {};
+    return name ? { name: { $regex: name, $options: 'i' } } : {};
   }
 
   private getIncludeSearchFilter(sku?: string) {
