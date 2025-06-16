@@ -110,8 +110,8 @@ export class OrderController {
     status: 404,
     description: 'Order not found.',
   })
-  @HasRoles([Role.ADMIN, Role.EMPLOYEE])
-  @UseGuards(RoleGuard)
+  // @HasRoles([Role.ADMIN, Role.EMPLOYEE])
+  // @UseGuards(RoleGuard)
   @Patch(':id')
   async updateStatus(
     @RequestedUser() claims: TokenPayloadDto,
