@@ -280,7 +280,7 @@ export class OrderService {
       OrderStatusEnum.PENDING,
       OrderStatusEnum.PROCESSING,
     ];
-    if (cancelableOrderStatus.findIndex((s) => s === order.status) !== -1) {
+    if (cancelableOrderStatus.findIndex((s) => s === order.status) === -1) {
       throw new BadRequestException('Order cannot be canceled');
     }
 
